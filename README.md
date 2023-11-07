@@ -6,9 +6,21 @@ _Developed by:_ [Sydney Hilton](https://github.com/Sydnyepie), [Youssef Adam](ht
  > **_Maneuver your way through the chaos of ad-Dæra, an Egyptian space station left in disarray after an unidentified organism breaches containment._**
 
 The developers all share the desire to develop a compelling and immersive narrative where _you_ choose your story.  
-The player will interact with several non-playable characters (NPCs)—including the AI that controls the station—through various dialogue options. Input will also be required in order for the combat system to provide an output. The player will also be able to save the game at any point that they want and come back whenever they please. 
+The player will interact with several non-playable characters (NPCs)—including the AI that controls the station—through various dialogue options.
 This project provides a science-fiction horror experience in the form of a text-based roleplaying video game.  
 It is being developed via the language C++.
+
+| Input                                                                        | Output                                                                                      |
+| :--------------------------------------------------------------------------: |    :-----------------------------------------------------------------------------------:    |
+| Player chooses character class                                               | Player receives information regarding chosen class                                          |
+| Player saves game to preserve progress                                       | Player receives text file containing save info                                              |
+| Player loads save file from local files                                      | Player is loaded back to where they saved from                                              |
+| Player makes choice based on options given                                   | Terminal outputs pre-determined text for the given choice                                   |
+| Player inputs text to battle enemies                                         | Terminal prints either a victory or defeat screen depending on the situation                |
+| Player chooses to drop item from inventory                                   | Item is removed from player inventory and the result is outputted in the terminal           |
+| Player interacts with **Basar** to receive instructions through the terminal | **Basar** returns a message in the terminal                                                 |
+| Player equips items found during the game                                    | Player stats are changed and shown to the player in the terminal                            |
+| Player looks inside journal item                                             | Terminal outputs hints on what needs to be done next, and expands on the lore of the story  |
 
 A [project board](https://github.com/orgs/cs100/projects/314/views/1) has been set up to streamline the development process.
  > ## Phase II
@@ -23,6 +35,7 @@ A [project board](https://github.com/orgs/cs100/projects/314/views/1) has been s
  >     * The tasks you are planning for the first sprint
  >     * How work will be divided between the team members
 ## User Interface Specification
+
 ### Navigation Diagram
 ![Picture of Navigation Diagram](https://github.com/cs100/final-project-jlee1667-yadam003-shilt003-mmira069/blob/master/img/Navigation_Diagram.jpg)
 Our navigation diagram shows all the options the players have once in the game. All users will start at the home screen, from which they will have the option to load up a save file or start a new game. At that point, the user will have options to open an inventory menu or open a menu to interact with Basar. The user will also randomly encounter enemies, from which they can either win or lose the battle.
