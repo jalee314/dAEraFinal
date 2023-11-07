@@ -8,7 +8,7 @@ _Developed by:_ [Sydney Hilton](https://github.com/Sydnyepie), [Youssef Adam](ht
 The developers all share the desire to develop a compelling and immersive narrative where _you_ choose your story.  
 The player will interact with several non-playable characters (NPCs)—including the AI that controls the station—through various dialogue options. Input will also be required in order for the combat system to provide an output. The player will also be able to save the game at any point that they want and come back whenever they please. 
 This project provides a science-fiction horror experience in the form of a text-based roleplaying video game.  
-It will be developed using the language C++ and the use of ASCII art is under consideration.  
+It is being developed via the language C++.
 
 A [project board](https://github.com/orgs/cs100/projects/314/views/1) has been set up to streamline the development process.
  > ## Phase II
@@ -23,17 +23,16 @@ A [project board](https://github.com/orgs/cs100/projects/314/views/1) has been s
  >     * The tasks you are planning for the first sprint
  >     * How work will be divided between the team members
 ## User Interface Specification
- > Include a navigation diagram for your screens and the layout of each of those screens as desribed below. For all the layouts/diagrams, you can use any tool such as PowerPoint or a drawing program. (Specification requirement is adapted from [this template](https://redirect.cs.umbc.edu/~mgrass2/cmsc345/Template_UI.doc))
-
 ### Navigation Diagram
 ![Picture of Navigation Diagram](https://github.com/cs100/final-project-jlee1667-yadam003-shilt003-mmira069/blob/master/img/Navigation_Diagram.jpg)
 Our navigation diagram shows all the options the players have once in the game. All users will start at the home screen, from which they will have the option to load up a save file or start a new game. At that point, the user will have options to open an inventory menu or open a menu to interact with Basar. The user will also randomly encounter enemies, from which they can either win or lose the battle.
 
 ### Screen Layouts
-> Include the layout of each of your screens. The layout should describe the screen’s major components such as menus and prompts for user inputs, expected output, and buttons (if applicable). Explain what is on the layout, and the purpose of each menu item, button, etc. If many screens share the same layout, start by describing the general layout and then list the screens that will be using that layout and the differences between each of them.
+![Picture of Screen Layouts](https://github.com/cs100/final-project-jlee1667-yadam003-shilt003-mmira069/blob/master/img/Screen_Layout.png)
+This chart detailing expected user interface layouts is present above. Users can expect to see a main menu upon executable launch and, when starting a new game, a description of the in-universe lore before prompted to create their character. After this, the game begins and the program will provide the user with information regarding what they can do to progress.
 
 ## Class Diagram
- > Include a **class diagram(s)** for your project and a **description** of the diagram(s). Your class diagram(s) should include all the main classes you plan for the project. This should be in sufficient detail that another group could pick up the project this point and successfully complete it. Use proper UML notation (as discussed in the course slides).
+![Picture of Class Diagram](https://github.com/cs100/final-project-jlee1667-yadam003-shilt003-mmira069/blob/master/img/Class_Diagram.png)
  
  > ## Phase III
  > You will need to schedule a check-in for the second scrum meeting with the same reader you had your first scrum meeting with (using Calendly). Your entire team must be present. This meeting will occur on Zoom and should be conducted by Wednesday of week 8.
