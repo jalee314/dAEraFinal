@@ -6,9 +6,20 @@ _Developed by:_ [Sydney Hilton](https://github.com/Sydnyepie), [Youssef Adam](ht
  > **_Maneuver your way through the chaos of ad-Dæra, an Egyptian space station left in disarray after an unidentified organism breaches containment._**
 
 The developers all share the desire to develop a compelling and immersive narrative where _you_ choose your story.  
-The player will interact with several non-playable characters (NPCs)—including the AI that controls the station—through various dialogue options. Input will also be required in order for the combat system to provide an output. The player will also be able to save the game at any point that they want and come back whenever they please. 
+The player will interact with several non-playable characters (NPCs)—including the AI that controls the station—through various dialogue options.
 This project provides a science-fiction horror experience in the form of a text-based roleplaying video game.  
-It will be developed using the language C++ and the use of ASCII art is under consideration.  
+It will be developed using the language C++ and the use of ASCII art is under consideration. <br/> 
+
+**INPUT:** Player chooses character class | **OUTPUT:** Player receives information regarding chosen class <br/>
+**INPUT:** Player saves game to preserve progress | **OUTPUT:** Player receives text file containing save info <br/>
+**INPUT:** Player loads save file from local files | **OUTPUT:** Player is loaded back to where they saved from <br/>
+**INPUT:** Player makes choice based on options given | **OUTPUT:** Terminal outputs pre-determined text for the given choice <br/>
+**INPUT:** Player inputs text to battle enemies | **OUTPUT:** Terminal prints either a victory or defeat screen depending on the situation. <br/>
+**INPUT:** Player chooses to drop item from inventory | **OUTPUT:** Item is removed from player inventory and the result is outputted in the terminal <br/>
+**INPUT:** Player interacts with "Basar" to receive instructions through the terminal | **OUTPUT** Basar returns a message in the terminal <br/>
+**INPUT:** Player equips items found during the game | **OUTPUT:** Player stats are changed and shown to the player in the terminal <br/>
+**INPUT:** Player looks inside journal item | **OUTPUT:** Terminal outputs hints on what needs to be done next, and expands on the lore of the story <br/>
+
 
 A [project board](https://github.com/orgs/cs100/projects/314/views/1) has been set up to streamline the development process.
  > ## Phase II
@@ -23,7 +34,7 @@ A [project board](https://github.com/orgs/cs100/projects/314/views/1) has been s
  >     * The tasks you are planning for the first sprint
  >     * How work will be divided between the team members
 ## User Interface Specification
- > Include a navigation diagram for your screens and the layout of each of those screens as desribed below. For all the layouts/diagrams, you can use any tool such as PowerPoint or a drawing program. (Specification requirement is adapted from [this template](https://redirect.cs.umbc.edu/~mgrass2/cmsc345/Template_UI.doc))
+ > Include a navigation diagram for your screens and the layout of each of those screens as described below. For all the layouts/diagrams, you can use any tool such as PowerPoint or a drawing program. (Specification requirement is adapted from [this template](https://redirect.cs.umbc.edu/~mgrass2/cmsc345/Template_UI.doc))
 
 ### Navigation Diagram
 ![Picture of Navigation Diagram](https://github.com/cs100/final-project-jlee1667-yadam003-shilt003-mmira069/blob/master/img/Navigation_Diagram.jpg)
