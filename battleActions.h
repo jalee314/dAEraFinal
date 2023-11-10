@@ -1,8 +1,13 @@
-class battleActions{ //friend to playerCharacter class
+class EnemyStub{
+    private:
+        int attack;
+        int evasion; 
+
     public:
-        virtual int attack(EnemyStub);
-        //virtual int defend();
-        //void useItem();
+        EnemyStub(int num, int num2): attack(num), evasion(num2){};
+
+        int getEvasion() {return evasion;}
+        int dealDamage();
 };
 
 
@@ -13,17 +18,15 @@ class PlayerCharacterStub{
         int weaponDmg;
 
     public:
+        PlayerCharacterStub(int num, int num2, int num3): attack(num), defense(num2), weaponDmg(num3){};
     
     friend class battleActions;
 };
 
 
-class EnemyStub{
-    private:
-        int attack;
-        int evasion; 
-
+class battleActions{ //friend to playerCharacter class
     public:
-        int getEvasion() {return evasion;}
-        int dealDamage();
+        virtual int attack(EnemyStub, PlayerCharacterStub);
+        //virtual int defend();
+        //void useItem();
 };

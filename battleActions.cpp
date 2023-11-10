@@ -2,11 +2,11 @@
 #include <stdlib.h>
 #include <time.h>
 
-int battleActions::attack(EnemyStub attackedEnemy){ 
-    srand(time);
+int battleActions::attack(EnemyStub attackedEnemy, PlayerCharacterStub attacker){ 
+    srand(time(NULL));
     if((rand() % 25) <= attackedEnemy.getEvasion()){
-        int addedWeaponDmg = (rand() % this->weaponDmg);
-        int totalDamage = addedWeaponDmg + this->attack;
+        int addedWeaponDmg = (rand() % attacker.weaponDmg);
+        int totalDamage = addedWeaponDmg + attacker.attack;
 
         if((rand() %  100) + 1 <= 7){
             totalDamage *= 2;
