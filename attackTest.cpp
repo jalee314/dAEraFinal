@@ -7,6 +7,50 @@ int main(int argc, char **argv) {
   return RUN_ALL_TESTS();
 }
 
+
+//THESE TESTS TEST THE RAND PORTION OF DMG
+TEST(battleActionsAttackTest, testRandNoWeapon){
+    EnemyStub victor(5, 5);
+    battleActions item;
+    PlayerCharacterStub charles(100, 1, 0); //attack, defense, weapon
+
+    EXPECT_NO_THROW(item.attack(victor, charles));
+}
+
+TEST(battleActionsAttackTest, testRandNoAttack){
+    EnemyStub victor(5, 5);
+    battleActions item;
+    PlayerCharacterStub charles(0, 1, 0); //attack, defense, weapon
+
+    EXPECT_EQ(item.attack(victor, charles), 1);
+}
+
+
+
+
+/*
+THIS VER. WAS TESTED FOR THE BELOW CODE TO MAKE SURE IT WORKED AS IT SHOULD HAVE
+
+    if(attacker.defense <= attackedEnemy.getEvasion()){
+        int addedWeaponDmg = attacker.weaponDmg;
+        int totalDamage = addedWeaponDmg + attacker.attack;
+
+        if(totalDamage <= 0){
+            totalDamage = 1;
+        }
+
+        if(attacker.attack == 100){
+            totalDamage *= 2;
+        }
+
+        return totalDamage;
+    }
+    else{
+        return 0;
+    }
+
+
+
 //---TESTING ATTACK FUNCTION---
 TEST(battleActionsAttackTest, testMiss){
     battleActions item;
@@ -114,3 +158,4 @@ TEST(battleActionsAttackTest, testTotalDamageNegWEAPON){
 
     EXPECT_EQ(item.attack(victor, charles), 1);
 }
+*/

@@ -1,14 +1,30 @@
 #include "battleActions.h"
 #include <stdlib.h>
 #include <time.h>
+#include <iostream>
 
-int battleActions::attack(EnemyStub attackedEnemy, PlayerCharacterStub attacker){ 
+using namespace std;
+
+const int battleActions::attack(EnemyStub attackedEnemy, PlayerCharacterStub attacker){ 
     srand(time(NULL));
-    if((rand() % 25) <= attackedEnemy.getEvasion()){
-        int addedWeaponDmg = (rand() % attacker.weaponDmg);
-        int totalDamage = addedWeaponDmg + attacker.attack;
 
-        if((rand() %  100) + 1 <= 7){
+    if((rand() % 25) <= attackedEnemy.getEvasion()){ //chance of hitting
+        int totalDamage = 0;
+
+        if(attacker.weaponDmg == 0){
+            totalDamage = attacker.attack;
+        }
+        else{
+            int addedWeaponDmg = (rand() % attacker.weaponDmg) + 1;
+            totalDamage = addedWeaponDmg + attacker.attack;
+        }
+
+
+        if(totalDamage <= 0){
+            totalDamage = 1;
+        }
+
+        if((rand() %  100) + 1 <= 7){ //crit chance
             totalDamage *= 2;
         }
 
@@ -19,15 +35,22 @@ int battleActions::attack(EnemyStub attackedEnemy, PlayerCharacterStub attacker)
     }
 }
 
-    // int battleActions::defend(){
 
-    // }
+void battleActions::useItem(HelpItemStub item, PlayerCharacterStub character){ //for now does perma buffs
+    if(item.type() == "health"){
+        character.health = character.health + item.getAssistance();
+    }
+    else if(item.type() == "defense"){
+        character.defense = character.defense + item.getAssistance();
+    }
+    else{
+        character.attack = character.attack + item.getAssistance();
+    }
+}
 
-    // void battleActions::useItem(){
 
-
-    // }
 /*
+
 Damage to player character is done by doing srand % (baseAttack/#) and adding the highest modifier 
 to the baseAttack which is the damage, the players defenses are then subtracted from the attack to 
 see how much health is lost; bigger monsters have more chances to do big damage but the lil rats for 
@@ -37,6 +60,7 @@ example only have one shot at it (the # is the bit from the base Attack to modul
 /*
 class PlayerCharacterStub{
     private:
+        int health;
         int attack;
         int defense;
         int weaponDmg;

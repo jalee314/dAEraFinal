@@ -1,3 +1,7 @@
+#include <iostream>
+
+using namespace std;
+
 class EnemyStub{
     private:
         int attack;
@@ -7,26 +11,42 @@ class EnemyStub{
         EnemyStub(int num, int num2): attack(num), evasion(num2){};
 
         int getEvasion() {return evasion;}
-        int dealDamage();
 };
 
 
 class PlayerCharacterStub{
     private:
+        int health = 5;
         int attack;
         int defense;
         int weaponDmg;
 
     public:
         PlayerCharacterStub(int num, int num2, int num3): attack(num), defense(num2), weaponDmg(num3){};
+        int getHealth() { return health; }
+        int getAttack() { return attack; }
+        int getDefense() { return defense; }
     
     friend class battleActions;
 };
 
 
+class HelpItemStub{
+    private:
+        int assistance;
+        string give;
+
+    public:
+        HelpItemStub(int assist, string part) : assistance(assist), give(part) {};
+        int getAssistance() { return assistance; }
+        string type() { return give; }
+};
+
+
 class battleActions{ //friend to playerCharacter class
     public:
-        virtual int attack(EnemyStub, PlayerCharacterStub);
+        virtual const int attack(EnemyStub, PlayerCharacterStub);
         //virtual int defend();
-        //void useItem();
+        void useItem(HelpItemStub, PlayerCharacterStub);
 };
+
