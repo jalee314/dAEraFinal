@@ -46,7 +46,7 @@ class HelpItemStub{
 class battleActions{ //friend to playerCharacter class
     public:
         virtual const int attack(EnemyStub, PlayerCharacterStub);
-        //virtual int defend();
-        void useItem(HelpItemStub, PlayerCharacterStub&);
+        virtual void defend(PlayerCharacterStub&, int damage);
+        virtual void useItem(HelpItemStub, PlayerCharacterStub&);
 };
 

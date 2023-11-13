@@ -5,7 +5,7 @@
 
 using namespace std;
 
-const int battleActions::attack(EnemyStub attackedEnemy, PlayerCharacterStub attacker){ 
+const int battleActions::attack(EnemyStub attackedEnemy, PlayerCharacterStub attacker){//returns damage to be done
     srand(time(NULL));
 
     if((rand() % 25) <= attackedEnemy.getEvasion()){ //chance of hitting
@@ -37,7 +37,7 @@ const int battleActions::attack(EnemyStub attackedEnemy, PlayerCharacterStub att
 
 
 void battleActions::useItem(HelpItemStub item, PlayerCharacterStub& character){ //for now does perma buffs
-    if(item.type() == "health"){
+    if(item.type() == "health"){ //checks what type of buff to give
         character.health = character.health + item.getAssistance();
     }
     else if(item.type() == "defense"){
@@ -48,10 +48,12 @@ void battleActions::useItem(HelpItemStub item, PlayerCharacterStub& character){ 
     }
 }
 
+void battleActions::defend(PlayerCharacterStub& character, int damage){ //deals damage to characters
 
-/*
-Damage to player character is done by doing srand % (baseAttack/#) and adding the highest modifier 
-to the baseAttack which is the damage, the players defenses are then subtracted from the attack to 
-see how much health is lost; bigger monsters have more chances to do big damage but the lil rats for 
-example only have one shot at it (the # is the bit from the base Attack to modulo to (S)
-*/
+    if(damage < 0){ //if damage is negative then it switches the sign (dmg cannot be negative)
+        character.health = character.health + (character.defense + damage);
+    }
+    else if(damage > 0){
+        character.health = character.health + (character.defense - damage);
+    }
+}
