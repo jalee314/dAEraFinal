@@ -1,27 +1,29 @@
 #ifndef ENEMY_H
 #define ENEMY_H
-#include <random>
 //Interface for all enemy modules
 
-class Enemy {
+class IEnemyDealDamage {
+    virtual int dealDamage() = 0;
+};
+
+class IEnemyTakeDamage {
+    virtual void takeDamage(int damage) = 0;
+};
+
+class IEnemyStatus {
+    virtual void printStatus() = 0;
+};
+
+class Enemy: public IEnemyDealDamage, public IEnemyTakeDamage, public IEnemyStatus {
 public:
     Enemy(int h, int a, int e):health(h), attack(a), evasion(e) {}
-    virtual int dealDamage() = 0;
-    virtual void takeDamage(int damage) = 0;
-    virtual void printStatus() = 0;
     int getHealth(){return health;}
-    int getAttack(){return health;}
+    int getAttack(){return attack;}
     void setHealth(int newHealth){this->health = newHealth;} 
     bool isAlive(int getHealth()){
-        if(this-> health <= 0) return false;
+        if(this->health <= 0) return false;
         else return true;
     }
-    int rng() {
-        static std::mt19937 gen(std::random_device rd());
-        std::uniform_int_distribution<int> distribution(1, 100);
-        return distribution(gen);    
-    }
-
 
 private:
     int health;
@@ -69,5 +71,8 @@ public:
     void takeDamage(int damage) override;
     void printStatus() override;
 };
+
+//IMPORTANT, current Health, Attack, and Evasion values are just temporary stats chosen at my liking, will  
+//figure out actual stats in a bit
 
 #endif //ENEMY_H

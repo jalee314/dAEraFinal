@@ -1,8 +1,9 @@
 #include "../header/Enemy.h"
 #include <iostream>
+#include "RNG.cpp"
 
 int Rat::dealDamage() {
-    if(this->rng() <= 10) {
+    if(rng() <= 10) {
         std::cout << "Squeak! (The rat tries sinking its teeth into your arm, but it misses). \n";
         return 0;
     }
@@ -30,7 +31,7 @@ void Rat::printStatus() {
 }
 
 int Terrorist::dealDamage() {
-    if(this->rng() <= 10) {
+    if(rng() <= 10) {
         std::cout << "Take this! (The terrorist swipes his blade, but narrowly misses you).\n";
         return 0;
     }
@@ -58,7 +59,7 @@ void Terrorist::printStatus() {
 }
 
 int Crewmate::dealDamage() {
-    if(this->rng() <= 10) {
+    if(rng() <= 10) {
         std::cout << "Braughhhhgh..... (Your former crewmate tries biting you, but they miss).\n";
         return 0;
     }
@@ -86,7 +87,7 @@ void Crewmate::printStatus() {
 }
 
 int Alien::dealDamage() {
-    if(this->rng() <= 10) {
+    if(rng() <= 10) {
         std::cout << "𒁲𒅎𒊑! (The alien tries probing your mind, but your willpower disallows it and the atempt fails).\n";
         return 0;
     }
