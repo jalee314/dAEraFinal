@@ -13,7 +13,7 @@ void NPC::printName() {
     std::cout << this->name << "\n";
 }
 
-void NPC::printResponse(int index) {xw
+void NPC::printResponse(int index) {
     if(index >= 0 && index < responses.size()) {
         std::cout << responses[questionIndex] << "\n";
     }
