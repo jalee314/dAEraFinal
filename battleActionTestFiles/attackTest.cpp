@@ -1,4 +1,4 @@
-#include "battleActions.h"
+#include "../battleActions.h"
 #include "gtest/gtest.h"
 
 
@@ -10,17 +10,17 @@ int main(int argc, char **argv) {
 
 //THESE TESTS TEST THE RAND PORTION OF DMG
 TEST(battleActionsAttackTest, testRandNoWeapon){
-    EnemyStub victor(5, 5);
+    EnemyStub* victor = new EnemyStub(5, 5);
     battleActions item;
-    PlayerCharacterStub charles(100, 1, 0); //attack, defense, weapon
+    PlayerCharacterStub* charles = new PlayerCharacterStub(100, 1, 0); //attack, defense, weapon
 
     EXPECT_NO_THROW(item.attack(victor, charles));
 }
 
 TEST(battleActionsAttackTest, testRandNoAttack){
-    EnemyStub victor(5, 5);
+    EnemyStub* victor = new EnemyStub(5, 5);
     battleActions item;
-    PlayerCharacterStub charles(0, 1, 0); //attack, defense, weapon
+    PlayerCharacterStub* charles = new PlayerCharacterStub(0, 1, 0); //attack, defense, weapon
 
     EXPECT_EQ(item.attack(victor, charles), 1);
 }
