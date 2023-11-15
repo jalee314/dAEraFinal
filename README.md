@@ -44,7 +44,7 @@ This chart detailing expected user interface layouts is present above. Users can
 }%%
 
 classDiagram
-
+direction RL
 class mainMenu {
     +output()void
     +saveGame()void
