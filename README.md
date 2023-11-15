@@ -151,11 +151,10 @@ class PlayerCharacter {
 <<abstract>> PlayerCharacter
 
 class Enemy {
-    -evasion : int*
-    -equippedWeapon : Weapon
+    -evasion : int
     +dealDamage()int
-    +takeDamage(int)void*
-    +printStatus()void*
+    +takeDamage(int)void
+    +printStatus()void
 }
 <<abstract>> Enemy
 
