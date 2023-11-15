@@ -54,9 +54,9 @@ class mainMenu {
 }
 
 class Entity {
-    -health : int 
-    -attack : int 
-    -defense : int 
+    #health : int 
+    #attack : int 
+    #defense : int 
 }
 <<abstract>> Entity
 
