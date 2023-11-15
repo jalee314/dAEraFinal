@@ -56,7 +56,8 @@ class mainMenu {
 class Entity {
     #health : int 
     #attack : int 
-    #defense : int 
+    #defense : int
+    +printStatus()void
 }
 <<abstract>> Entity
 
@@ -146,7 +147,6 @@ class PlayerCharacter {
     -difficulty : string 
     -basar : Basar 
     -userInventory : Inventory 
-    +printStatus()void
 }
 <<abstract>> PlayerCharacter
 
@@ -154,7 +154,6 @@ class Enemy {
     -evasion : int
     +dealDamage()int
     +takeDamage(int)void
-    +printStatus()void
 }
 <<abstract>> Enemy
 
