@@ -1,4 +1,4 @@
-# DÆRA
+# dÆRA
  
 _Developed by:_ [Sydney Hilton](https://github.com/Sydnyepie), [Youssef Adam](https://github.com/atxm), [Jason Lee](https://github.com/jalee314), [Mario Koa Miranda](https://github.com/KoaMiranda)  
 
@@ -24,7 +24,6 @@ It is being developed via the language C++.
 
 A [project board](https://github.com/orgs/cs100/projects/314/views/1) has been set up to streamline the development process.
 ## User Interface Specification
-
 ### Navigation Diagram
 ![Picture of Navigation Diagram](https://github.com/cs100/final-project-jlee1667-yadam003-shilt003-mmira069/blob/master/img/Navigation_Diagram.jpg)
 Our navigation diagram shows all the options the players have once in the game. All users will start at the home screen, from which they will have the option to load up a save file or start a new game. At that point, the user will have options to open an inventory menu or open a menu to interact with Basar. The user will also randomly encounter enemies, from which they can either win or lose the battle.
@@ -34,7 +33,161 @@ Our navigation diagram shows all the options the players have once in the game. 
 This chart detailing expected user interface layouts is present above. Users can expect to see a main menu upon executable launch and, when starting a new game, a description of the in-universe lore before prompted to create their character. After this, the game begins and the program will provide the user with information regarding what they can do to progress.
 
 ## Class Diagram
-![Picture of Class Diagram](https://github.com/cs100/final-project-jlee1667-yadam003-shilt003-mmira069/blob/master/img/Class_Diagram.png)
+```mermaid
+%%{
+  init: {
+    "fontFamily": "monospace",
+    "classDiagram": {
+      "curve": "linear"
+    }
+  }
+}%%
+
+classDiagram
+
+class mainMenu {
+    +output()void
+    +saveGame()void
+    +getSave()void
+    +exit()void
+    +selectCharacter()void
+}
+
+class Entity {
+    -health : int 
+    -attack : int 
+    -defense : int 
+}
+<<abstract>> Entity
+
+class Soldier {
+    +buffAttack()void
+}
+
+class Engineer {
+    +buffDefense()void
+}
+
+class Biologist {
+    +buffHealth()void
+}
+class PlayerActions {
+    +walkForward()void
+	+walkBackwards()void
+	+walkRight()void
+	+walkLeft()void
+	+heal()void
+	+openJournal()void
+	+talktoBasar()void
+}
+<<friend>> PlayerActions
+
+PlayerActions<..Room
+class Room {
+    -hasItem : bool
+    -clearance : unsigned int
+    -lightLevel : int
+    +getItem()Item
+}
+
+class BattleActions {
+	+attack()int*
+	+defend()int*
+	+useItem()void
+}
+<<friend>> BattleActions
+
+class Basar {
+    -playerAffinity : int
+    -userJournal : Journal
+    +basarOutput()void
+}
+Journal --* Basar
+
+class Journal {
+    -pages : vector~Page~ 
+    +printPages(int)void
+}
+
+class Page {
+    -pageWords : string
+    +printPage()void
+}
+Page --* Journal
+
+PlayerActions..>PlayerCharacter
+BattleActions..>PlayerCharacter
+Basar --* PlayerCharacter
+Soldier--|>PlayerCharacter
+Engineer--|>PlayerCharacter
+Biologist--|>PlayerCharacter
+Inventory --* PlayerCharacter
+class Inventory { 
+    - vector~Item~ backpack
+    - int carryCap
+    - int currSize
+    + displayInventory()void
+    + addWeapon(Weapon)void
+    + addHelpItem(HelpItem)void
+    + removeItem(Item)void
+}
+
+class NPC {
+    -responses : vector~string~ 
+	-askableQuestions : vector~string~ 
+	-name : string 
+	+printResponse(int)void
+	+printName()void
+	+addQuestion(string)void
+	+addResponse(string)void
+}
+
+class PlayerCharacter {
+    -difficulty : string 
+    -basar : Basar 
+    -userInventory : Inventory 
+    +printStatus()void
+}
+<<abstract>> PlayerCharacter
+
+class Enemy {
+    -evasion : int*
+    -equippedWeapon : Weapon
+    +dealDamage()int
+    +takeDamage(int)void*
+    +printStatus()void*
+}
+<<abstract>> Enemy
+
+Rat--|>Enemy
+Terrorist--|>Enemy
+Crewmate--|>Enemy
+Alien--|>Enemy
+
+class Item {
+    -assistance : int
+    -name : string
+    +getAssistance()int
+    +useItem()int
+    +printItem()void*
+}
+
+class HelpItem {
+    +useHelpItem()void
+    +printItem()void
+}
+
+class Weapon { 
+    -damage : int
+}
+
+Item --o Inventory
+PlayerCharacter--|>Entity
+Enemy--|>Entity
+
+Weapon--|>Item
+HelpItem--|>Item
+```
  
  > ## Phase III
  > You will need to schedule a check-in for the second scrum meeting with the same reader you had your first scrum meeting with (using Calendly). Your entire team must be present. This meeting will occur on Zoom and should be conducted by Wednesday of week 8.
