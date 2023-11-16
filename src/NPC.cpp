@@ -15,7 +15,7 @@ void NPC::printName() {
 
 void NPC::printResponse(int index) {
     if(index >= 0 && index < responses.size()) {
-        std::cout << responses[questionIndex] << "\n";
+        std::cout << responses[index] << "\n";
     }
     else std:: cout << "I am unable to answer your question." << "\n";
 }
