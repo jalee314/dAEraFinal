@@ -92,9 +92,9 @@ class Room {
 }
 
 class BattleActions {
-	+attack()int*
-	+defend()int*
-	+useItem()void
+	+attack(Enemy*, PlayerCharacter*) : const int
+	+defend(PlayerCharacter*, int) : void
+	+useItem(HelpItem, PlayerCharacter*) : void
 }
 <<friend>> BattleActions
 
