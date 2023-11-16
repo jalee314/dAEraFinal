@@ -1,9 +1,8 @@
 #include "../header/Enemy.h"
 #include <iostream>
-#include "RNG.cpp"
 
 int Rat::dealDamage() {
-    if(rng() <= 10) {
+    if(!attackHits()) {
         std::cout << "Squeak! (The rat tries sinking its teeth into your arm, but it misses). \n";
         return 0;
     }
@@ -13,9 +12,14 @@ int Rat::dealDamage() {
 }
 
 void Rat::takeDamage(int damage) {
-    std::cout << "Squeak... (The rat looks visibly shaken up).\n";
+    if(evadeAttack()) {
+        std::cout << "Squeak! (The rat does a flip, and you miss your attack).\n";
+        return;
+    }   
     int newHealth = this->health - damage;
     setHealth(newHealth);
+    if(!isAlive()) std::cout << "Squeak... (The rat falls on its back as the life in its eyes fades away).\n";
+    else std::cout << "Squeak... (The rat looks visibly shaken up).\n";
 }
 
 void Rat::printStatus() {
@@ -31,7 +35,7 @@ void Rat::printStatus() {
 }
 
 int Terrorist::dealDamage() {
-    if(rng() <= 10) {
+    if(!attackHits()) {
         std::cout << "Take this! (The terrorist swipes his blade, but narrowly misses you).\n";
         return 0;
     }
@@ -41,9 +45,14 @@ int Terrorist::dealDamage() {
 }
 
 void Terrorist::takeDamage(int damage) {
-    std::cout << "Ahh! (The terrorist keels over in pain).\n";
+    if(evadeAttack()) {
+        std::cout << "Too slow! (The terrorist sidesteps, and you miss your attack).\n";
+        return;
+    }
     int newHealth = this->health - damage;
     setHealth(newHealth);
+    if(!isAlive()) std::cout << "My mission...This can't be! (The terrorist kneels as the life fades from his eyes).\n";
+    else std::cout << "Ahh! (The terrorist keels over in pain).\n";
 }
 
 void Terrorist::printStatus() {
@@ -59,7 +68,7 @@ void Terrorist::printStatus() {
 }
 
 int Crewmate::dealDamage() {
-    if(rng() <= 10) {
+    if(!attackHits()) {
         std::cout << "Braughhhhgh..... (Your former crewmate tries biting you, but they miss).\n";
         return 0;
     }
@@ -69,9 +78,14 @@ int Crewmate::dealDamage() {
 }
 
 void Crewmate::takeDamage(int damage) {
-    std::cout << "Mrrghhhhhh... (Your crewmate has no reaction, their nerve endings are toast).\n";
+    if(evadeAttack()) {
+        std::cout << "Grghhhhh... (The terrorist sidesteps, and you miss your attack).\n";
+        return;
+    }
     int newHealth = this->health - damage;
     setHealth(newHealth);
+    if(!isAlive()) std::cout << "Brghhhhhh... (Your crewmate collapses, thankful to be free from the virus' pain).\n";
+    else std::cout << "Mrrghhhhhh... (Your crewmate has no reaction, their nerve endings are toast).\n";
 }
 
 void Crewmate::printStatus() {
@@ -87,7 +101,7 @@ void Crewmate::printStatus() {
 }
 
 int Alien::dealDamage() {
-    if(rng() <= 10) {
+    if(!attackHits()) {
         std::cout << "𒁲𒅎𒊑! (The alien tries probing your mind, but your willpower disallows it and the atempt fails).\n";
         return 0;
     }
@@ -97,9 +111,14 @@ int Alien::dealDamage() {
 }
 
 void Alien::takeDamage(int damage) {
-    std::cout << "𒍢𒄷𒉌! (The alien looks at you with its buggy eyes in contempt).\n";
+    if(evadeAttack()) {
+        std::cout << "𒆤𒄯𒊩! (The alien levitates, and you miss your attack).\n";
+        return;
+    }
     int newHealth = this->health - damage;
     setHealth(newHealth);
+    if(!isAlive()) std::cout << "𒋻𒀭𒈾! (The alien's body starts disengrating into dust. That was weird).\n";
+    else std::cout << "𒍢𒄷𒉌! (The alien looks at you with its buggy eyes in contempt).\n";
 }
 
 void Alien::printStatus() {
