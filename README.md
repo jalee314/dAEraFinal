@@ -152,6 +152,7 @@ class PlayerCharacter {
 
 class Enemy {
     -evasion : int
+    -accuracy : int
     +dealDamage()int
     +takeDamage(int)void
 }
