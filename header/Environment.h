@@ -26,16 +26,16 @@ class PlayerStub{
     private:
         std::vector<ItemStub> inventory;
     public:
-        void PlayerStub::addItemToInventory(const ItemStub& item){
+        void PlayerStub::addItemToInventory(ItemStub* item) const{
             inventory.push_back(item);
             std::cout << "You got ";
-            item.getItemName();
+            item->getItemName();
         }
         void PlayerStub::displayInventory() const{
             if (!inventory.empty()) {
                 std::cout << "Your Inventory: ";
                 for (const auto& item : inventory) {
-                    item.getItemName();
+                    item->getItemName();
                 }
                 std::cout << std::endl;
             } else {
@@ -59,7 +59,7 @@ public:
 
 protected:
     std::string description;
-    std::vector<ItemStub> items;
+    std::vector<ItemStub*> items;
 };
 
 #endif // ENVIRONMENT_H
