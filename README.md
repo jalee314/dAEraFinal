@@ -155,6 +155,15 @@ class Enemy {
     -accuracy : int
     +dealDamage()int
     +takeDamage(int)void
+    +getHealth()int
+    +getAttack()int
+    +setHealth(int)void
+    +setEvasion(int)void
+    +setAccuracy(int)void
+    +evadeAttack()bool
+    +attackHits()bool
+    +isAlive()bool
+	
 }
 <<abstract>> Enemy
 
