@@ -1,5 +1,6 @@
 // Environment.cpp
-#include "Environment.h"
+#include "../header/Environment.h"
+#include <algorithm>
 
 Environment::Environment(const std::string& description) : description(description) {}
 
@@ -9,7 +10,7 @@ void Environment::displayDescription() const {
     std::cout << description << std::endl;
 }
 
-void Environment::addItem(const ItemStub& item) {
+void Environment::addItem(ItemStub* item) {
     items.push_back(item);
 }
 
@@ -17,7 +18,7 @@ void Environment::displayItems() const {
     if (!items.empty()) {
         std::cout << "You see ";
         for (const auto& item : items) {
-            item.getItemName();
+            item->getItemName();
             std::cout << " ";
         }
         std::cout << std::endl;
@@ -26,17 +27,17 @@ void Environment::displayItems() const {
     }
 }
 
-bool Environment::takeItem(const ItemStub& item, PlayerStub& player) {
-    auto it = std::find(items.begin(), items.end(), item);
+bool Environment::takeItem(ItemStub* item, PlayerStub& player) {
+   auto it = std::find_if(items.begin(), items.end(), [&](ItemStub* i){ return *i == *item; });
 
-    if (it != items.end()) {
-        // Item found in the environment
-        player.addItemToInventory(item);
-        items.erase(it);
-        return true;
-    } else {
-        // Item not found in the environment
-        std::cout << "Item not found in this environment." << std::endl;
-        return false;
-    }
+   if (it != items.end()) {
+       // Item found in the environment
+       player.addItemToInventory(*it);
+       items.erase(it);
+       return true;
+   } else {
+       // Item not found in the environment
+       std::cout << "Item not found in this environment." << std::endl;
+       return false;
+   }
 }

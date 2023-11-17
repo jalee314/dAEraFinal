@@ -24,14 +24,14 @@ class ItemStub{
 
 class PlayerStub{
     private:
-        std::vector<ItemStub> inventory;
+        std::vector<ItemStub*> inventory;
     public:
-        void PlayerStub::addItemToInventory(ItemStub* item) const{
+        void addItemToInventory(ItemStub* item) {
             inventory.push_back(item);
             std::cout << "You got ";
             item->getItemName();
         }
-        void PlayerStub::displayInventory() const{
+        void displayInventory() const{
             if (!inventory.empty()) {
                 std::cout << "Your Inventory: ";
                 for (const auto& item : inventory) {
@@ -41,6 +41,9 @@ class PlayerStub{
             } else {
                 std::cout << "Your inventory is empty." <<std::endl;
             }
+        }
+        size_t getInventorySize() const {
+            return inventory.size();
         }
 };
 
@@ -53,8 +56,8 @@ public:
     void displayDescription() const;
 
     // Add methods to manage items or interactable things
-    void addItem(const ItemStub& item);
-    bool takeItem(const ItemStub& item, PlayerStub& player);
+    void addItem(ItemStub* item);
+    bool takeItem(ItemStub* item, PlayerStub& player);
     void displayItems() const;
 
 protected:
