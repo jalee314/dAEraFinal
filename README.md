@@ -128,8 +128,7 @@ class Inventory {
     - int carryCap
     - int currSize
     + displayInventory()void
-    + addWeapon(Weapon)void
-    + addHelpItem(HelpItem)void
+    + addItem(Item)void
     + removeItem(Item)void
 }
 
