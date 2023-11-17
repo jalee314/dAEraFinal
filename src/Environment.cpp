@@ -19,9 +19,7 @@ void Environment::displayItems() const {
         std::cout << "You see ";
         for (const auto& item : items) {
             item->getItemName();
-            std::cout << " ";
         }
-        std::cout << std::endl;
     } else {
         std::cout << "Nothing useful here." << std::endl;
     }
@@ -40,4 +38,8 @@ bool Environment::takeItem(ItemStub* item, PlayerStub& player) {
        std::cout << "Item not found in this environment." << std::endl;
        return false;
    }
+}
+
+size_t Environment::getNumberItems() const {
+    return items.size();
 }

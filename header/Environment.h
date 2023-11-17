@@ -33,11 +33,10 @@ class PlayerStub{
         }
         void displayInventory() const{
             if (!inventory.empty()) {
-                std::cout << "Your Inventory: ";
+                std::cout << "Your inventory: ";
                 for (const auto& item : inventory) {
                     item->getItemName();
                 }
-                std::cout << std::endl;
             } else {
                 std::cout << "Your inventory is empty." <<std::endl;
             }
@@ -52,13 +51,13 @@ public:
     Environment(const std::string& description);
     virtual ~Environment();
 
-    virtual void performAction() const = 0;
     void displayDescription() const;
 
     // Add methods to manage items or interactable things
     void addItem(ItemStub* item);
     bool takeItem(ItemStub* item, PlayerStub& player);
     void displayItems() const;
+    size_t getNumberItems() const;
 
 protected:
     std::string description;
