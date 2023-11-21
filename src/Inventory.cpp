@@ -1,5 +1,4 @@
 #include "../header/Inventory.h"
-#include <iostream>
 #include <algorithm>
 //Shoutout Mario for making an inventoryStub for his environment class, lot of inspiration taken from him
 
@@ -19,9 +18,10 @@ void InventoryManagement::removeItem(ItemStub &itemRemove) {
         return itemRemove.getName() == itemToRemove.getName();
     });
     if(item !=backpack.end()) {
-        backpack.erase(item);
         itemRemove.useItem();
         std::cout << item->getName() << " has been removed from the inventory.\n";
+        backpack.erase(item);
+        
     }
     else std::cout << itemRemove.getName() << " was not found in the inventory.\n"
 }
@@ -29,7 +29,7 @@ void InventoryManagement::removeItem(ItemStub &itemRemove) {
 void InventoryDisplay::displayInventory() {
     std::vector<ItemStub>::iterator item;
     const std::vector<ItemStub>& backpack = inventory.getBackpack();
-    if(!inventory.empty()){
+    if(!backpack.empty()){
         std::cout << "Inventory: "
         for(item = backpack.begin(); item != backpack.end(); ++item) {
             std::cout << item->getName();

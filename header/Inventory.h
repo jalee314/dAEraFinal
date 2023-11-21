@@ -2,12 +2,13 @@
 #define INVENTORY_H
 #include <vector>
 #include <string>
+#include <iostream>
 
 class ItemStub {
 public:
     int getAssistance(){return assistance;}
-    void useItem() {std::cout << getName() << " has been used!"; }
-    std::string getName(){return name};
+    void useItem() {std::cout << getName() << " has been used!\n"; }
+    const std::string getName const(){return name};
 private:
     int assistance;
     std::string name;
@@ -27,13 +28,14 @@ class IDisplayInventory {
 
 class InventoryManagement: public IAdjustInventory{
 public:
+    InventoryManagement(int cap): carryCap(cap){}
     virtual void addItem(ItemStub &item);
     virtual void removeItem(ItemStub &itemRemove);
     const std::vector<ItemStub>& getBackpack() const {return backpack;}
 private:
     std::vector<ItemStub> backpack; 
     int carryCap;
-}
+};
 
 class InventoryDisplay: public IDisplayInventory {
 public: 
@@ -42,4 +44,4 @@ public:
     virtual std::size_t getNumItems();
 private:
     InventoryManagement& inventory;
-}
+};
