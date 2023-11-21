@@ -1,4 +1,3 @@
-// Environment.cpp
 #include "../header/Environment.h"
 #include <algorithm>
 
@@ -25,6 +24,7 @@ void Environment::displayItems() const {
     }
 }
 
+//Takes item from the environment and adds it to players inv
 bool Environment::takeItem(ItemStub* item, PlayerStub& player) {
    auto it = std::find_if(items.begin(), items.end(), [&](ItemStub* i){ return *i == *item; });
 

@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
 #include "header/Environment.h"
 #include "header/Hallway.h"
-#include <sstream>
+#include <sstream> //Allows to change cout into readable/comparable string.
 
 TEST(ItemStubTest, GetItemName) {
   ItemStub item("schmingus");
