@@ -6,24 +6,24 @@
 
 class ItemStub {
 public:
-    int getAssistance(){return assistance;}
-    void useItem() {std::cout << getName() << " has been used!\n"; }
-    const std::string getName const(){return name};
+    ItemStub(std::string itemName): name(itemName){}
+    std::string getName() const {return name;}
 private:
-    int assistance;
     std::string name;
 };
 
 class IAdjustInventory {
+public:
     virtual void addItem(ItemStub &item) = 0;
     virtual void removeItem(ItemStub &item) = 0;
-    virtual ~IAdjustInventory();
+    virtual ~IAdjustInventory(){}
 };
 
 class IDisplayInventory {
+public:
     virtual void displayInventory() = 0;
     virtual std::size_t getNumItems() = 0;
-    virtual ~IDisplayInventory();
+    virtual ~IDisplayInventory(){}
 };
 
 class InventoryManagement: public IAdjustInventory{
@@ -45,3 +45,5 @@ public:
 private:
     InventoryManagement& inventory;
 };
+
+#endif //INVENTORY_H

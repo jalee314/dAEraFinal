@@ -18,19 +18,18 @@ void InventoryManagement::removeItem(ItemStub &itemRemove) {
         return itemRemove.getName() == itemToRemove.getName();
     });
     if(item !=backpack.end()) {
-        itemRemove.useItem();
         std::cout << item->getName() << " has been removed from the inventory.\n";
         backpack.erase(item);
         
     }
-    else std::cout << itemRemove.getName() << " was not found in the inventory.\n"
+    else std::cout << itemRemove.getName() << " was not found in the inventory.\n";
 }
 
 void InventoryDisplay::displayInventory() {
-    std::vector<ItemStub>::iterator item;
+    std::vector<ItemStub>::const_iterator item;
     const std::vector<ItemStub>& backpack = inventory.getBackpack();
     if(!backpack.empty()){
-        std::cout << "Inventory: "
+        std::cout << "Inventory: ";
         for(item = backpack.begin(); item != backpack.end(); ++item) {
             std::cout << item->getName();
             if(std::next(item) != backpack.end()) {
