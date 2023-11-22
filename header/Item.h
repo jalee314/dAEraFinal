@@ -20,6 +20,7 @@ public:
     Item(const std::string& itemName): name(itemName){}
     virtual int useItem() = 0;
     virtual void printItem() = 0;
+    std::string getName() const{return name;}
 protected:
     std::string name;
 };

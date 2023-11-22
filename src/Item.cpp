@@ -2,7 +2,7 @@
 #include <iostream>
 
 int HelpItem::useItem() {
-    std::cout << "You use the " << name << ".\n"; //This might be violated kinda badly based on the item
+    std::cout << "You use the " << name << ".\n";
     return assistance;
 }
 

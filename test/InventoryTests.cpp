@@ -2,6 +2,18 @@
 #include "../header/Inventory.h"
 #include <sstream>
 
+//now including official item class!!!
+
+TEST(InventoryTests, GetNumberofInventoryItems) {
+    Weapon Gun("Gun", 10);
+    InventoryManagement management(10);
+    InventoryDisplay display(management);
+    for(int i = 0; i < 5; i++) {
+        management.addItem(&Gun);
+    }
+    EXPECT_EQ(display.getNumItems(), 5);
+}
+
 TEST(InventoryTests, TestEmptyInventoryOutput) {
     InventoryManagement management(10);
     InventoryDisplay display(management);
@@ -12,10 +24,10 @@ TEST(InventoryTests, TestEmptyInventoryOutput) {
 }
 
 TEST(InventoryTests, TestOneItemInventoryOutput) {
-    ItemStub weapon("Gun");
+    Weapon Gun("Gun", 10);
     InventoryManagement management(10);
     InventoryDisplay display(management);
-    management.addItem(weapon);
+    management.addItem(&Gun);
     std::stringstream buffer;
     std::cout.rdbuf(buffer.rdbuf());
     display.displayInventory();
@@ -23,14 +35,14 @@ TEST(InventoryTests, TestOneItemInventoryOutput) {
 }
 
 TEST(InventoryTests, TestMultipleItemInventoryOutput) {
-    ItemStub weapon("Gun");
-    ItemStub health("Medpack");
-    ItemStub misc("Keycard");
+    Weapon Gun("Gun", 10);
+    HelpItem Medpack("Medpack", 20);
+    HelpItem Keycard("Keycard", 0);
     InventoryManagement management(10);
     InventoryDisplay display(management);
-    management.addItem(weapon);
-    management.addItem(health);
-    management.addItem(misc);
+    management.addItem(&Gun);
+    management.addItem(&Medpack);
+    management.addItem(&Keycard);
     std::stringstream buffer;
     std::cout.rdbuf(buffer.rdbuf());
     display.displayInventory();
@@ -38,46 +50,35 @@ TEST(InventoryTests, TestMultipleItemInventoryOutput) {
 }
     
 TEST(InventoryTests, TestFullInventoryOutput) {
-    ItemStub weapon("Gun");
+    Weapon Gun("Gun", 10);
     InventoryManagement management(10);
     InventoryDisplay display(management);
     for(int i = 0; i < 10; i++) {
-        management.addItem(weapon);
+        management.addItem(&Gun);
     }
     std::stringstream buffer;
     std::cout.rdbuf(buffer.rdbuf());
-    management.addItem(weapon);
+    management.addItem(&Gun);
     EXPECT_EQ(buffer.str(), "Your backpack is full. Throw something out and try again.\n");
 }
 
 TEST(InventoryTests, DeleteItemsFromInventory) {
-    ItemStub weapon("Gun");
+    HelpItem Medpack("Medpack", 20);
     InventoryManagement management(10);
     InventoryDisplay display(management);
-    management.addItem(weapon);
+    management.addItem(&Medpack);
     std::stringstream buffer;
     std::cout.rdbuf(buffer.rdbuf());
-    management.removeItem(weapon);
-    EXPECT_EQ(buffer.str(), "Gun has been removed from the inventory.\n");
+    management.removeItem(&Medpack);
+    EXPECT_EQ(buffer.str(), "Medpack has been removed from the inventory.\n");
 }
 
 TEST(InventoryTests, DeleteItemFromInventoryFail) {
-    ItemStub weapon("Gun");
+    HelpItem Medpack("Medpack", 20);
     InventoryManagement management(10);
     InventoryDisplay display(management);
     std::stringstream buffer;
     std::cout.rdbuf(buffer.rdbuf());
-    management.removeItem(weapon);
-    EXPECT_EQ(buffer.str(), "Gun was not found in the inventory.\n");
-}
-
-TEST(InventoryTests, GetNumberofInventoryItems) {
-    ItemStub weapon("Gun");
-    InventoryManagement management(10);
-    InventoryDisplay display(management);
-    for(int i = 0; i < 5; i++) {
-        management.addItem(weapon);
-    }
-    EXPECT_EQ(display.getNumItems(), 5);
-
+    management.removeItem(&Medpack);
+    EXPECT_EQ(buffer.str(), "Medpack was not found in the inventory.\n");
 }
