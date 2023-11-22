@@ -5,13 +5,17 @@ class Page {
     private:
         std::string words;
         unsigned pageNum;
+        unsigned numRows;
     public:
-        Page() : pageNum(0) {}
-        Page(unsigned n) : pageNum(n) {}
-        Page(std::string w, unsigned n) : words(w), pageNum(n) {}
-        void output(); // outputs all words and the page number at the end,
-                       // wraps the words around the size of the default
-                       // terminal (120)
+        Page() : pageNum(0), numRows(0) {}
+        Page(unsigned n) : pageNum(n), numRows(0) {}
+        Page(std::string w, unsigned n) : 
+        words(w),
+        pageNum(n),
+        numRows(w.length() / 110) {}
+        void output(); // outputs words and pageNum at the end, wraps words around numColumns of default terminal (120)
+        int getPageNum();
+        int getNumRows();
 };
 
 #endif //PAGE_H
