@@ -5,7 +5,6 @@
 
 TEST(NPCTestSuite, TestNPCNaming) {
     NPC npc("Thomas");
-    
     std::stringstream buffer; //buffer object created form stringstream class
     std::cout.rdbuf(buffer.rdbuf()); //any buffer meant for cout is redirected to stringstream buffer object
     npc.printName(); 
