@@ -195,6 +195,228 @@ Enemy--|>Entity
 Weapon--|>Item
 HelpItem--|>Item
 ```
+
+# Updated Class Diagram
+
+```mermaid
+%%{
+  init: {
+    "fontFamily": "monospace",
+    "classDiagram": {
+      "curve": "linear"
+    }
+  }
+}%%
+
+classDiagram
+direction RL
+class mainMenu {
+    +output()void
+    +saveGame()void
+    +getSave()void
+    +exit()void
+    +selectCharacter()void
+}
+
+class Entity {
+    #health : int 
+    #attack : int 
+    #defense : int
+    +printStatus()void
+}
+<<abstract>> Entity
+
+class Soldier {
+    +buffAttack()void
+}
+
+class Engineer {
+    +buffDefense()void
+}
+
+class Biologist {
+    +buffHealth()void
+}
+class PlayerActions {
+    +walkForward()void
+	+walkBackwards()void
+	+walkRight()void
+	+walkLeft()void
+	+heal()void
+	+openJournal()void
+	+talktoBasar()void
+}
+<<friend>> PlayerActions
+
+PlayerActions<..Room
+class Room {
+    -hasItem : bool
+    -clearance : unsigned int
+    -lightLevel : int
+    +getItem()Item
+}
+
+class BattleActions {
+	+attack(Enemy*, PlayerCharacter*) : const int
+	+defend(PlayerCharacter*, int) : void
+	+useItem(HelpItem, PlayerCharacter*) : void
+}
+<<friend>> BattleActions
+
+class Basar {
+    -playerAffinity : int
+    -userJournal : Journal
+    +basarOutput()void
+}
+Journal --* Basar
+
+class Journal {
+    -pages : vector~Page~ 
+    +printPages(int)void
+}
+
+class Page {
+    -pageWords : string
+    +printPage()void
+}
+Page --* Journal
+
+PlayerActions..>PlayerCharacter
+BattleActions..>PlayerCharacter
+Basar --* PlayerCharacter
+Soldier--|>PlayerCharacter
+Engineer--|>PlayerCharacter
+Biologist--|>PlayerCharacter
+
+class IAdjustInventory {
+    +addItem(Item*)void
+    +removeItem(Item*)void
+}
+<<interface>> IAdjustInventory
+
+class IDisplayInventory {
+    +displayInventory()void
+    +getNumItems()size_t
+}
+<<interface>> IDisplayInventory
+
+class InventoryManagement { 
+    - backpack : vector~Item*~ 
+    - carryCap : int
+    +getBackpack() vector~Item*~
+}
+
+class InventoryDisplay {
+    - inventory : InventoryManagement&
+}
+
+InventoryDisplay --* PlayerCharacter
+InventoryManagement --* PlayerCharacter
+InventoryDisplay --o InventoryManagement
+InventoryManagement--|>IAdjustInventory
+InventoryDisplay--|>IDisplayInventory
+
+class PlayerCharacter {
+    -difficulty : string 
+    -basar : Basar 
+    -inventoryManagement : InventoryManagement
+    -inventoryDisplay : InventoryDisplay
+ 
+}
+<<abstract>> PlayerCharacter
+
+class IEnemyState {
+    +getAttack() int
+    +getHealth() int
+    +setHealth(int) void
+    +setEvasion(int) void
+    +setAccuracy(int) void
+    +printStatus() void
+}
+<<interface>> IEnemyState
+
+class IEnemyCombatActions {
+    +takeDamage(int) int
+    +dealDamage() int
+    +evadeAttack() bool
+    +attackHits() bool
+    +isAlive() bool
+}
+<<interface>> IEnemyCombatActions
+
+Enemy--|>IEnemyState
+Enemy--|>IEnemyCombatActions
+
+class INPCPrint {
+    +printName() void 
+    +printResponse() : void 
+}
+<<interface>> INPCPrint
+
+class INPCInteraction {
+    +addQuestion(string) void 
+    +addResponse(string) void
+    +getQuestionsSize() int
+    +getResponsesSize() int
+    +getResponse(int) string
+}
+<<interface>> INPCInteraction
+
+class NPCQuestionManager {
+    -responses : vector~string~ 
+    -askableQuestions : vector~string~ 
+	-name : string 
+}
+
+class NPCPrinter {
+    -name : string
+    -questionManager& : NPCQuestionManager
+}
+
+NPCQuestionManager --|> INPCInteraction
+NPCPrinter --|> INPCPrint
+NPCQuestionManager --o NPCPrinter
+
+class Enemy {
+    -evasion : int
+    -accuracy : int
+}
+<<abstract>> Enemy
+
+Rat--|>Enemy
+Terrorist--|>Enemy
+Crewmate--|>Enemy
+Alien--|>Enemy
+
+class IAssistive {
+    +getAssistance()int
+}
+<<interface>> IAssistive
+
+class Item {
+    #name : string
+    +useItem()int
+    +printItem()void
+}
+<<abstract>> Item
+
+class HelpItem {
+    -assistance : int
+}
+
+class Weapon {
+    -damage : int
+}
+
+Item --o InventoryManagement
+PlayerCharacter--|>Entity
+Enemy--|>Entity
+
+HelpItem--|>Item
+HelpItem--|>IAssistive
+Weapon--|>Item
+```
+
  
  > ## Phase III
  > You will need to schedule a check-in for the second scrum meeting with the same reader you had your first scrum meeting with (using Calendly). Your entire team must be present. This meeting will occur on Zoom and should be conducted by Wednesday of week 8.
