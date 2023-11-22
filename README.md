@@ -248,13 +248,20 @@ class PlayerActions {
 }
 <<friend>> PlayerActions
 
-PlayerActions<..Room
-class Room {
-    -hasItem : bool
-    -clearance : unsigned int
-    -lightLevel : int
-    +getItem()Item
+Hallway--|>Environment
+class Environment {
+    -items : vector<Item*>
+    -description : string
+    +displayDescription() : void
+    +addItem(Item) : 
+    +takeItem(Item*, PlayerCharacter&) : bool
+    +displayItems() : void
+    +getNumberItems() : size_t
 }
+<<abstract>> Environment
+
+class Hallway {}
+Hallway--*PlayerActions
 
 class BattleActions {
 	+attack(Enemy*, PlayerCharacter*) : const int
