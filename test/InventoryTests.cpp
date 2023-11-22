@@ -6,8 +6,9 @@ TEST(InventoryTests, TestEmptyInventoryOutput) {
     InventoryManagement management(10);
     InventoryDisplay display(management);
     std::stringstream buffer;
-    std::cout.rdbuf(buffer.rdbuf());
+    std::streambuf* prev = std::cout.rdbuf(buffer.rdbuf());
     display.displayInventory();
+    std::cout.rdbuf(prev);
     EXPECT_EQ(buffer.str(), "Nothing here...\n");
 }
 
@@ -17,8 +18,9 @@ TEST(InventoryTests, TestOneItemInventoryOutput) {
     InventoryDisplay display(management);
     management.addItem(weapon);
     std::stringstream buffer;
-    std::cout.rdbuf(buffer.rdbuf());
+    std::streambuf* prev = std::cout.rdbuf(buffer.rdbuf());
     display.displayInventory();
+    std::cout.rdbuf(prev);
     EXPECT_EQ(buffer.str(), "Inventory: Gun\n");
 }
 
@@ -32,8 +34,9 @@ TEST(InventoryTests, TestMultipleItemInventoryOutput) {
     management.addItem(health);
     management.addItem(misc);
     std::stringstream buffer;
-    std::cout.rdbuf(buffer.rdbuf());
+    std::streambuf* prev = std::cout.rdbuf(buffer.rdbuf());
     display.displayInventory();
+    std::cout.rdbuf(prev);
     EXPECT_EQ(buffer.str(), "Inventory: Gun, Medpack, Keycard\n");
 }
     
@@ -45,8 +48,9 @@ TEST(InventoryTests, TestFullInventoryOutput) {
         management.addItem(weapon);
     }
     std::stringstream buffer;
-    std::cout.rdbuf(buffer.rdbuf());
+    std::streambuf* prev = std::cout.rdbuf(buffer.rdbuf());
     management.addItem(weapon);
+    std::cout.rdbuf(prev);
     EXPECT_EQ(buffer.str(), "Your backpack is full. Throw something out and try again.\n");
 }
 
@@ -56,8 +60,9 @@ TEST(InventoryTests, DeleteItemsFromInventory) {
     InventoryDisplay display(management);
     management.addItem(weapon);
     std::stringstream buffer;
-    std::cout.rdbuf(buffer.rdbuf());
+    std::streambuf* prev = std::cout.rdbuf(buffer.rdbuf());
     management.removeItem(weapon);
+    std::cout.rdbuf(prev);
     EXPECT_EQ(buffer.str(), "Gun has been removed from the inventory.\n");
 }
 
@@ -66,8 +71,9 @@ TEST(InventoryTests, DeleteItemFromInventoryFail) {
     InventoryManagement management(10);
     InventoryDisplay display(management);
     std::stringstream buffer;
-    std::cout.rdbuf(buffer.rdbuf());
+    std::streambuf* prev = std::cout.rdbuf(buffer.rdbuf());
     management.removeItem(weapon);
+    std::cout.rdbuf(prev);
     EXPECT_EQ(buffer.str(), "Gun was not found in the inventory.\n");
 }
 
