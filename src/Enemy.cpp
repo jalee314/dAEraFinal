@@ -1,6 +1,23 @@
 #include "../header/Enemy.h"
 #include <iostream>
 
+bool Enemy::evadeAttack() {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> chance(1, 100);
+    int evadeChance = chance(gen);
+    return evadeChance <= evasion; //Random number generator will generate a number between 1-100, if the number 
+                                   //is less than or equal to enemy's evasion stat, the enemy will successfully dodge.
+}
+
+bool Enemy::attackHits() {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> chance(1, 100);
+    int attackChance = chance(gen);
+    return attackChance <= accuracy; //same concept as evadeAttack, but for enemy possibly missing attacks
+}
+
 int Rat::dealDamage() {
     if(!attackHits()) {
         std::cout << "Squeak! (The rat tries sinking its teeth into your arm, but it misses). \n";

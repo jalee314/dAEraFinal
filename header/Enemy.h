@@ -4,46 +4,44 @@
 #include <random>
 //Interface for all enemy modules
 
-class IEnemyDamage {
+class IEnemyState { //interface for the state of the enemy
+public:
+    virtual int getAttack() = 0;
+    virtual int getHealth() = 0;
+    virtual void setHealth(int newHealth) = 0;
+    virtual void setEvasion(int newEvasion) = 0;
+    virtual void setAccuracy(int newAccuracy) = 0;
+    virtual void printStatus() = 0;
+    virtual ~IEnemyState(){}
+};
+
+class IEnemyCombatActions { //interface for combat actions
 public:
     virtual int dealDamage() = 0;
     virtual void takeDamage(int damage) = 0;
-    virtual ~IEnemyDamage(){}
+    virtual bool evadeAttack() = 0;
+    virtual bool attackHits() = 0;
+    virtual bool isAlive() = 0;
+    virtual ~IEnemyCombatActions(){}
 };
 
-
-class Enemy: public IEntity ,public IEnemyDamage{
+class Enemy: public IEntity ,public IEnemyState, public IEnemyCombatActions{
 public:
-    Enemy(int h, int a, int d, int e, int ac):IEntity(h, a, d), evasion(e), accuracy(a){}
-    int getHealth(){return health;}
-    int getAttack(){return attack;}
-    void setHealth(int newHealth){health = newHealth;} 
-    void setEvasion(int newEvasion){evasion = newEvasion;} //function primarily for unit tests, don't think this will change in game
-    void setAccuracy(int newAccuracy){accuracy = newAccuracy;} //function primarily for unit tests, don't think this will change in game
-    inline bool evadeAttack(){
-        std::random_device rd;
-        std::mt19937 gen(rd());
-        std::uniform_int_distribution<int> chance(1, 100);
-        int evadeChance = chance(gen);
-        return evadeChance <= evasion; //Random number generator will generate a number between 1-100, if the number 
-                                       //is less than or equal to enemy's evasion stat, the enemy will successfully dodge.
-    }
-    inline bool attackHits() {
-        std::random_device rd;
-        std::mt19937 gen(rd());
-        std::uniform_int_distribution<int> chance(1, 100);
-        int attackChance = chance(gen);
-        return attackChance <= accuracy; //same concept as evadeAttack, but for enemy possibly missing attacks
-    }
-    inline bool isAlive(){
-        return health > 0;
-    }
+    Enemy(int healthValue, int attackValue, int defenseValue, int evasionValue, int accuracyValue):
+    IEntity(healthValue, attackValue, defenseValue), evasion(evasionValue), accuracy(accuracyValue){}
+    virtual int getHealth(){return health;}
+    virtual int getAttack(){return attack;}
+    virtual void setHealth(int newHealth){health = newHealth;} 
+    virtual void setEvasion(int newEvasion){evasion = newEvasion;} //function primarily for unit tests, don't think this will change in game
+    virtual void setAccuracy(int newAccuracy){accuracy = newAccuracy;} //function primarily for unit tests, don't think this will change in game
+    virtual bool isAlive(){return health > 0;}
+    virtual bool evadeAttack();
+    virtual bool attackHits();
+   
 private: 
     int evasion;
     int accuracy;    
 };
-
-
 
 class Rat : public Enemy {
 public:
