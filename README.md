@@ -261,6 +261,15 @@ class Environment {
 }
 <<abstract>> Environment
 
+class Map {
+    -vector~Environment~ rooms
+    +canMove()bool
+    +connectTo(Environment*, Environment*)void
+    +getLocation()Environment
+}
+
+Environment --* Map
+
 Hallway .. playerActions
 Lab .. playerActions
 
