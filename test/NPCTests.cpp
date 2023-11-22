@@ -33,7 +33,16 @@ TEST(NPCTestSuite, PrintResponse) {
 
 TEST(NPCTestSuite, AddQuestion) {
     NPCQuestionManager questionManager;
+    std::stringstream buffer;TEST(NPCTestSuite, PrintResponse) {
+    NPCQuestionManager questionManager;
+    NPCPrinter npc("Carla", questionManager);
     std::stringstream buffer;
+    std::cout.rdbuf(buffer.rdbuf());
+    questionManager.addResponse("I thought I was the only survivor... this is wonderful to see.");
+    npc.printResponse(0);
+    EXPECT_EQ("I thought I was the only survivor... this is wonderful to see.\n", buffer.str());
+}
+
     std::cout.rdbuf(buffer.rdbuf());
     questionManager.addQuestion("How many more rooms are there to discover?");
     questionManager.addQuestion("Are you doing alright?");
