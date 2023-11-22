@@ -1,21 +1,29 @@
 #include "../header/NPC.h"
 #include <iostream>
 
-void NPC::addResponse(const std::string& response) {
+void NPCQuestionManager::addResponse(const std::string& response) {
     responses.push_back(response);
 }
 
-void NPC::addQuestion(const std::string& question) {
+void NPCQuestionManager::addQuestion(const std::string& question) {
     askableQuestions.push_back(question);
 }
 
-void NPC::printName() {
-    std::cout << this->name << "\n";
+std::string NPCQuestionManager::getResponse(int index) {
+    if(index >= 0 && index < responses.size()) {
+        return responses[index];
+    }
+    else return "";
 }
 
-void NPC::printResponse(int index) {
-    if(index >= 0 && index < responses.size()) {
-        std::cout << responses[index] << "\n";
+void NPCPrinter::printName() {
+    std::cout << name << "\n";
+}
+
+void NPCPrinter::printResponse(int index) {
+    if(index >= 0 && index < questionManager.getResponsesSize()) {
+        std::cout << questionManager.getResponse(index) << "\n";
+
     }
     else std:: cout << "I am unable to answer your question." << "\n";
 }
