@@ -3,19 +3,12 @@
 #include <vector>
 #include <string>
 #include <iostream>
-
-class ItemStub {
-public:
-    ItemStub(std::string itemName): name(itemName){}
-    std::string getName() const {return name;}
-private:
-    std::string name;
-};
+#include "Item.h"
 
 class IAdjustInventory {
 public:
-    virtual void addItem(ItemStub &item) = 0;
-    virtual void removeItem(ItemStub &item) = 0;
+    virtual void addItem(Item* item) = 0;
+    virtual void removeItem(Item* item) = 0;
     virtual ~IAdjustInventory(){}
 };
 
@@ -29,11 +22,11 @@ public:
 class InventoryManagement: public IAdjustInventory{
 public:
     InventoryManagement(int cap): carryCap(cap){}
-    virtual void addItem(ItemStub &item);
-    virtual void removeItem(ItemStub &itemRemove);
-    const std::vector<ItemStub>& getBackpack() const {return backpack;}
+    virtual void addItem(Item* item);
+    virtual void removeItem(Item* item);
+    const std::vector<Item*>& getBackpack() const {return backpack;}
 private:
-    std::vector<ItemStub> backpack; 
+    std::vector<Item*> backpack; 
     int carryCap;
 };
 
