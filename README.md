@@ -209,7 +209,7 @@ HelpItem--|>Item
 }%%
 
 classDiagram
-direction RL
+direction LR
 class MainMenu {
     +output()void
     +saveGame()void
@@ -253,11 +253,11 @@ Hallway--|>Environment
 class Environment {
     -items : vector~Item*~
     -description : string
-    +displayDescription() : void
-    +addItem(Item) : 
-    +takeItem(Item*, PlayerCharacter&) : bool
-    +displayItems() : void
-    +getNumberItems() : size_t
+    +displayDescription()void
+    +addItem(Item)void
+    +takeItem(Item*, PlayerCharacter&)bool
+    +displayItems()void
+    +getNumberItems()size_t
 }
 <<abstract>> Environment
 
@@ -274,9 +274,9 @@ Hallway .. playerActions
 Lab .. playerActions
 
 class battleActions {
-	+attack(Enemy*, PlayerCharacter*) : const int
-	+defend(PlayerCharacter*, int) : void
-	+useItem(HelpItem, PlayerCharacter*) : void
+	+attack(Enemy*, PlayerCharacter*)const int
+	+defend(PlayerCharacter*, int)void
+	+useItem(HelpItem, PlayerCharacter*)void
 }
 <<friend>> battleActions
 
@@ -320,7 +320,7 @@ class IDisplayInventory {
 class InventoryManagement { 
     - backpack : vector~Item*~ 
     - carryCap : int
-    +getBackpack() vector~Item*~
+    +getBackpack()vector~Item*~
 }
 
 class InventoryDisplay {
@@ -366,16 +366,16 @@ Enemy--|>IEnemyCombatActions
 
 class INPCPrint {
     +printName() void 
-    +printResponse() : void 
+    +printResponse()void 
 }
 <<interface>> INPCPrint
 
 class INPCInteraction {
-    +addQuestion(string) void 
-    +addResponse(string) void
-    +getQuestionsSize() int
-    +getResponsesSize() int
-    +getResponse(int) string
+    +addQuestion(string)void 
+    +addResponse(string)void
+    +getQuestionsSize()int
+    +getResponsesSize()int
+    +getResponse(int)string
 }
 <<interface>> INPCInteraction
 
