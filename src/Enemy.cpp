@@ -1,25 +1,25 @@
 #include "../header/Enemy.h"
 #include <iostream>
 
-bool Enemy::evadeAttack() {
+bool EnemyBattle::evadeAttack() {
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<int> chance(1, 100);
     int evadeChance = chance(gen);
-    return evadeChance <= evasion; //Random number generator will generate a number between 1-100, if the number 
+    return evadeChance <= enemyStatus.getEvasion(); //Random number generator will generate a number between 1-100, if the number 
                                    //is less than or equal to enemy's evasion stat, the enemy will successfully dodge.
 }
 
-bool Enemy::attackHits() {
+bool EnemyBattle::attackHits() {
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<int> chance(1, 100);
     int attackChance = chance(gen);
-    return attackChance <= accuracy; //same concept as evadeAttack, but for enemy possibly missing attacks
+    return attackChance <= enemyStatus.getAccuracy(); //same concept as evadeAttack, but for enemy possibly missing attacks
 }
 
 int Rat::dealDamage() {
-    if(!attackHits()) {
+    if(!enemyBattle.attackHits()) {
         std::cout << "Squeak! (The rat tries sinking its teeth into your arm, but it misses). \n";
         return 0;
     }
@@ -29,7 +29,7 @@ int Rat::dealDamage() {
 }
 
 void Rat::takeDamage(int damage) {
-    if(evadeAttack()) {
+    if(enemyBattle.evadeAttack()) {
         std::cout << "Squeak! (The rat does a flip, and you miss your attack).\n";
         return;
     }   
@@ -52,7 +52,7 @@ void Rat::printStatus() {
 }
 
 int Terrorist::dealDamage() {
-    if(!attackHits()) {
+    if(!enemyBattle.attackHits()) {
         std::cout << "Take this! (The terrorist swipes his blade, but narrowly misses you).\n";
         return 0;
     }
@@ -62,7 +62,7 @@ int Terrorist::dealDamage() {
 }
 
 void Terrorist::takeDamage(int damage) {
-    if(evadeAttack()) {
+    if(enemyBattle.evadeAttack()) {
         std::cout << "Too slow! (The terrorist sidesteps, and you miss your attack).\n";
         return;
     }
@@ -85,7 +85,7 @@ void Terrorist::printStatus() {
 }
 
 int Crewmate::dealDamage() {
-    if(!attackHits()) {
+    if(!enemyBattle.attackHits()) {
         std::cout << "Braughhhhgh..... (Your former crewmate tries biting you, but they miss).\n";
         return 0;
     }
@@ -95,7 +95,7 @@ int Crewmate::dealDamage() {
 }
 
 void Crewmate::takeDamage(int damage) {
-    if(evadeAttack()) {
+    if(enemyBattle.evadeAttack()) {
         std::cout << "Grghhhhh... (The terrorist sidesteps, and you miss your attack).\n";
         return;
     }
@@ -118,7 +118,7 @@ void Crewmate::printStatus() {
 }
 
 int Alien::dealDamage() {
-    if(!attackHits()) {
+    if(!enemyBattle.attackHits()) {
         std::cout << "𒁲𒅎𒊑! (The alien tries probing your mind, but your willpower disallows it and the atempt fails).\n";
         return 0;
     }
@@ -128,7 +128,7 @@ int Alien::dealDamage() {
 }
 
 void Alien::takeDamage(int damage) {
-    if(evadeAttack()) {
+    if(enemyBattle.evadeAttack()) {
         std::cout << "𒆤𒄯𒊩! (The alien levitates, and you miss your attack).\n";
         return;
     }
