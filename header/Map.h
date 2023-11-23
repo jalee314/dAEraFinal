@@ -9,15 +9,15 @@
 
 class Map {
 private:
-    std::vector<Environment> rooms;
+    std::vector<Environment*> rooms;
     std::vector<std::vector<int>> adjacencyMatrix;
 
 public:
     Map(int numRooms);
-    void addRoom(const Environment& room);
+    void addRoom(Environment* room);
     void connectRooms(int from, int to);
     bool canMove(int from, int to) const;
-    const Environment& getRoom(int index) const;
+    const Environment* getRoom(int index) const;
 };
 
 #endif //MAP_H
