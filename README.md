@@ -345,31 +345,24 @@ class PlayerCharacter {
 class IEnemyState {
     +getAttack() int
     +getHealth() int
-    +getEvasion() int
-    +getAccuracy() int 
     +setHealth(int) void
     +setEvasion(int) void
     +setAccuracy(int) void
-    +isAlive() bool
+    +printStatus() void
 }
 <<interface>> IEnemyState
 
-class IEnemyCombatChance {
+class IEnemyCombatActions {
+    +takeDamage(int) int
+    +dealDamage() int
     +evadeAttack() bool
     +attackHits() bool
+    +isAlive() bool
 }
-<<interface>> IEnemyCombatChance
+<<interface>> IEnemyCombatActions
 
-class IEnemyDamagePrompts {
-    +dealDamage() int
-    +takeDamage(int) void
-}
-<<interface>> IEnemyDamagePrompts
-
-EnemyStatus--|>IEnemyState
-EnemyStatus--|>IEntity
-EnemyBattle--|>IEnemyCombatChance
-EnemyStatus--*EnemyBattle
+Enemy--|>IEnemyState
+Enemy--|>IEnemyCombatActions
 
 class INPCPrint {
     +printName() void 
@@ -401,43 +394,16 @@ NPCQuestionManager --|> INPCInteraction
 NPCPrinter --|> INPCPrint
 NPCQuestionManager --o NPCPrinter
 
-class EnemyStatus {
+class Enemy {
     -evasion : int
     -accuracy : int
 }
+<<abstract>> Enemy
 
-class EnemyBattle {
-    -enemyStatus : EnemyStatus&
-}
-
-class Rat {
-   -enemyBattle: EnemyBattle
-}
-
-class Alien {
-   -enemyBattle: EnemyBattle
-}
-
-class Crewmate {
-   -enemyBattle: EnemyBattle
-}
-
-class Terrorist {
-   -enemyBattle: EnemyBattle
-}
-
-Rat--|>EnemyStatus
-Rat--|>IEnemyDamagePrompts
-Rat--*EnemyBattle
-Terrorist--|>EnemyStatus
-Terrorist--|>IEnemyDamagePrompts
-Terrorist--*EnemyBattle
-Crewmate--|>EnemyStatus
-Crewmate--|>IEnemyDamagePrompts
-Crewmate--*EnemyBattle
-Alien--|>EnemyStatus
-Alien--|>IEnemyDamagePrompts
-Alien--*EnemyBattle
+Rat--|>Enemy
+Terrorist--|>Enemy
+Crewmate--|>Enemy
+Alien--|>Enemy
 
 class IAssistive {
     +getAssistance()int
