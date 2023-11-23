@@ -13,7 +13,7 @@ class Page {
         words(w),
         pageNum(n),
         numRows(w.length() / 110) {}
-        void output(); // outputs words and pageNum at the end, wraps words around numColumns of default terminal (120)
+        void output(); // outputs words and pageNum at the end, wraps words at a value around the num of columns in terminal (110)
         int getPageNum();
         int getNumRows();
 };
