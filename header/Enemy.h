@@ -4,83 +4,106 @@
 #include <random>
 //Interface for all enemy modules
 
-class IEnemyDamage {
+class IEnemyState{ //interface for the state of the enemy
+public:
+    virtual int getHealth() = 0;
+    virtual int getAttack() = 0;
+    virtual int getEvasion() = 0;
+    virtual int getAccuracy() = 0;
+    virtual void setHealth(int newHealth) = 0;
+    virtual void setEvasion(int newEvasion) = 0; //function primarily for unit tests, don't think this will change in game
+    virtual void setAccuracy(int newAccuracy) = 0; //function primarily for unit tests, don't think this will change in game
+    virtual bool isAlive() = 0;
+    virtual ~IEnemyState(){}
+};
+
+class IEnemyCombatChance { //interface for combat chance actions
+public:
+    virtual bool evadeAttack() = 0;
+    virtual bool attackHits() = 0;
+    virtual ~IEnemyCombatChance(){}
+};
+
+class IEnemyDamagePrompts { //interface for combat damage
 public:
     virtual int dealDamage() = 0;
     virtual void takeDamage(int damage) = 0;
-    virtual ~IEnemyDamage(){}
+    virtual ~IEnemyDamagePrompts(){}
 };
 
 
-class Enemy: public IEntity ,public IEnemyDamage{
+class EnemyStatus: public IEntity, public IEnemyState{
 public:
-    Enemy(int h, int a, int d, int e, int ac):IEntity(h, a, d), evasion(e), accuracy(a){}
-    int getHealth(){return health;}
-    int getAttack(){return attack;}
-    void setHealth(int newHealth){health = newHealth;} 
-    void setEvasion(int newEvasion){evasion = newEvasion;} //function primarily for unit tests, don't think this will change in game
-    void setAccuracy(int newAccuracy){accuracy = newAccuracy;} //function primarily for unit tests, don't think this will change in game
-    inline bool evadeAttack(){
-        std::random_device rd;
-        std::mt19937 gen(rd());
-        std::uniform_int_distribution<int> chance(1, 100);
-        int evadeChance = chance(gen);
-        return evadeChance <= evasion; //Random number generator will generate a number between 1-100, if the number 
-                                       //is less than or equal to enemy's evasion stat, the enemy will successfully dodge.
-    }
-    inline bool attackHits() {
-        std::random_device rd;
-        std::mt19937 gen(rd());
-        std::uniform_int_distribution<int> chance(1, 100);
-        int attackChance = chance(gen);
-        return attackChance <= accuracy; //same concept as evadeAttack, but for enemy possibly missing attacks
-    }
-    inline bool isAlive(){
-        return health > 0;
-    }
-private: 
+    EnemyStatus(int healthValue, int attackValue, int defenseValue, int evasionValue, int accuracyValue) :
+    IEntity(healthValue, attackValue, defenseValue), evasion(evasionValue), accuracy(accuracyValue){}
+
+    virtual int getHealth(){return health;}
+    virtual int getAttack(){return attack;}
+    virtual int getEvasion(){return evasion;}
+    virtual int getAccuracy(){return accuracy;}
+    virtual void setHealth(int newHealth){health = newHealth;}
+    virtual void setEvasion(int newEvasion){evasion = newEvasion;}
+    virtual void setAccuracy(int newAccuracy){accuracy = newAccuracy;}
+    virtual bool isAlive(){return health>0;}
+private:
     int evasion;
-    int accuracy;    
+    int accuracy;
 };
 
-
-
-class Rat : public Enemy {
+class EnemyBattle: public IEnemyCombatChance{
 public:
-    Rat(): Enemy(5, 1, 0, 30, 60) {}
+    EnemyBattle(EnemyStatus& status): enemyStatus(status){}
+    virtual bool evadeAttack();
+    virtual bool attackHits();
+   
+private: 
+    EnemyStatus& enemyStatus;
+};
+
+class Rat : public EnemyStatus, public IEnemyDamagePrompts {
+public:
+    Rat(): EnemyStatus(5, 1, 0, 30, 60), enemyBattle(*this) {}
     virtual int dealDamage();
     virtual void takeDamage(int damage);
     virtual void printStatus();
+private:
+    EnemyBattle enemyBattle;
 };
 
 //Terrorist enemy
 
-class Terrorist : public Enemy {
+class Terrorist : public EnemyStatus, public IEnemyDamagePrompts {
 public:
-    Terrorist(): Enemy(20, 8, 3, 10, 90) {}
+    Terrorist(): EnemyStatus(20, 8, 3, 10, 90), enemyBattle(*this) {}
     virtual int dealDamage();
     virtual void takeDamage(int damage);
     virtual void printStatus();
+private:
+    EnemyBattle enemyBattle;
 };
 
 //Crewmate enemy
 
-class Crewmate : public Enemy {
+class Crewmate : public EnemyStatus, public IEnemyDamagePrompts {
 public:
-    Crewmate(): Enemy(15, 5, 2, 15, 70) {}
+    Crewmate(): EnemyStatus(15, 5, 2, 15, 70), enemyBattle(*this) {}
     virtual int dealDamage();
     virtual void takeDamage(int damage);
     virtual void printStatus();
+private:
+    EnemyBattle enemyBattle;
 };
 
 //Alien enemy
 
-class Alien : public Enemy {
+class Alien : public EnemyStatus, public IEnemyDamagePrompts {
 public:
-    Alien(): Enemy(10, 10, 4, 20, 85) {}
+    Alien(): EnemyStatus(10, 10, 4, 20, 85), enemyBattle(*this)  {}
     virtual int dealDamage();
     virtual void takeDamage(int damage);
     virtual void printStatus();
+private:
+    EnemyBattle enemyBattle;
 };
 
 //IMPORTANT, current Health, Attack, and Evasion values are just temporary stats chosen at my liking, will  
