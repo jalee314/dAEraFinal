@@ -47,21 +47,21 @@ class PlayerStub{
 };
 
 class Environment {
+
+protected:
+    std::string description;
+    std::vector<ItemStub*> items;
+
 public:
     Environment(const std::string& description);
     virtual ~Environment();
 
     void displayDescription() const;
 
-    // Add methods to manage items or interactable things
     void addItem(ItemStub* item);
     bool takeItem(ItemStub* item, PlayerStub& player);
     void displayItems() const;
     size_t getNumberItems() const;
-
-protected:
-    std::string description;
-    std::vector<ItemStub*> items;
 };
 
 #endif // ENVIRONMENT_H
