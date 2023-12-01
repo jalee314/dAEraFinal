@@ -13,30 +13,28 @@ class PlayerCharacter : public IEntity{
     public:
         PlayerCharacter(int, int, int, string); //IEntity, h, a, d
         virtual void printStatus();
-        virtual int getHealth() { return health; }
-        virtual int getAttack() { return attack; }
-        virtual int getDefense() { return defense; }
+        virtual const string getDifficulty() { return difficulty; }
+        virtual const int getHealth() { return health; }
+        virtual const int getAttack() { return attack; }
+        virtual const int getDefense() { return defense; }
 
     friend class battleActions;
 };
 
 class Soldier : public PlayerCharacter{ //for all characters they are given default stats
-    private:
-        void buffAttack();
     public:
         Soldier() : PlayerCharacter(120, 7, 5, "Easy"){}
+        void buffAttack();
 };
 
 class Engineer : public PlayerCharacter{
-    private:
-        void buffDefense();
     public:
         Engineer() : PlayerCharacter(100, 5, 4, "Medium"){}
+        void buffDefense();
 };
 
 class Biologist : public PlayerCharacter{
-    private:
-        void buffHealth();
     public:
         Biologist() : PlayerCharacter(80, 3, 3, "Hard"){}
+        void buffHealth();
 };
