@@ -20,23 +20,23 @@ class PlayerCharacter : public IEntity{
     friend class battleActions;
 };
 
-class Soldier : public PlayerCharacter{ //for all characters, ONLY pass in the health, attack, and defense
+class Soldier : public PlayerCharacter{ //for all characters they are given default stats
     private:
         void buffAttack();
     public:
-        Soldier(int health, int attack, int defense, string diff = "Easy") : PlayerCharacter(health, attack, defense, diff){}
+        Soldier() : PlayerCharacter(120, 7, 5, "Easy"){}
 };
 
 class Engineer : public PlayerCharacter{
     private:
         void buffDefense();
     public:
-        Engineer(int health, int attack, int defense, string diff = "Medium") : PlayerCharacter(health, attack, defense, diff){}
+        Engineer() : PlayerCharacter(100, 5, 4, "Medium"){}
 };
 
 class Biologist : public PlayerCharacter{
     private:
         void buffHealth();
     public:
-        Biologist(int health, int attack, int defense, string diff = "Hard") : PlayerCharacter(health, attack, defense, diff){}
+        Biologist() : PlayerCharacter(80, 3, 3, "Hard"){}
 };

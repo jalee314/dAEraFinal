@@ -12,15 +12,15 @@ void PlayerCharacter::printStatus(){
     cout << "Current Weapon: " << "----" << endl;
 }
 
-/*
+
 void Soldier::buffAttack(){
+    attack += 2;
 }
 
 void Engineer::buffDefense(){
-
+    defense += 1;
 }
 
 void Biologist::buffHealth(){
-
+    health += 20;
 }
-*/
