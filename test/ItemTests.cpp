@@ -4,7 +4,7 @@
 #include <sstream>
 
 TEST(ItemsTestSuite, useHelpItem) {
-    HelpItem vitamins("Vitamins", 5);
+    HelpItem vitamins("Vitamins", 5, "health");
     EXPECT_EQ(vitamins.useItem(), 5);
 }
 
@@ -14,7 +14,7 @@ TEST(ItemsTestSuite, useWeapon) {
 }
 
 TEST(ItemsTestSuite, printHelpItem) {
-    HelpItem vitamins("Vitamins", 10); 
+    HelpItem vitamins("Vitamins", 10, "health"); 
     std::stringstream buffer;
     std::cout.rdbuf(buffer.rdbuf()); 
     vitamins.printItem();

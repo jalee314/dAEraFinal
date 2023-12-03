@@ -27,12 +27,14 @@ protected:
 
 class HelpItem: public Item, public IAssistive {
 public:
-    HelpItem(const std::string& itemName, int assistanceValue): Item(itemName), assistance(assistanceValue){}
+    HelpItem(const std::string& itemName, int assistanceValue, const std::string& itemType): Item(itemName), assistance(assistanceValue), type(itemType){}
     virtual int useItem();
     virtual void printItem();
     virtual int getAssistance() const{return assistance;}
+    std::string getType(){return type;}
 private:
     int assistance;
+    std::string type;
 };
 
 class Weapon: public Item {
