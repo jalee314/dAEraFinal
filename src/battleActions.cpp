@@ -32,7 +32,7 @@ const int battleActions::attack(EnemyStatus* attackedEnemy, PlayerCharacter* att
     }
 }
 
-/*
+
 void battleActions::useItem(HelpItem item, PlayerCharacter* character){ //for now does perma buffs
     if(item.type() == "health"){ //checks what type of buff to give
         character->health = character->health + item.getAssistance();
@@ -44,7 +44,7 @@ void battleActions::useItem(HelpItem item, PlayerCharacter* character){ //for no
         character->attack = character->attack + item.getAssistance();
     }
 }
-*/
+
 
 void battleActions::defend(PlayerCharacter* character, int damage){ //deals damage to characters
 
