@@ -11,12 +11,14 @@ class PlayerCharacter : public IEntity{
         //Basar -> needs implementation (stub not needed)
         //Inventory -> needs implementation (stub not needed)
     public:
-        PlayerCharacter(int, int, int, string); //IEntity, h, a, d
+        PlayerCharacter(int health, int attack, int defense, string diff);
         virtual void printStatus();
         virtual const string getDifficulty() { return difficulty; }
         virtual const int getHealth() { return health; }
         virtual const int getAttack() { return attack; }
         virtual const int getDefense() { return defense; }
+
+        virtual ~PlayerCharacter(){}
 
     friend class battleActions;
 };
@@ -35,6 +37,6 @@ class Engineer : public PlayerCharacter{
 
 class Biologist : public PlayerCharacter{
     public:
-        Biologist() : PlayerCharacter(80, 3, 3, "Hard"){}
+        Biologist() : PlayerCharacter(80, 4, 3, "Hard"){}
         void buffHealth();
 };

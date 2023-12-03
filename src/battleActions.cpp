@@ -1,7 +1,4 @@
 #include "../header/battleActions.h"
-#include "../header/Enemy.h"
-#include "../header/playerCharacter.h"
-#include "../header/Item.h"
 #include <stdlib.h>
 #include <time.h>
 #include <iostream>
@@ -11,7 +8,7 @@ using namespace std;
 const int battleActions::attack(EnemyStatus* attackedEnemy, PlayerCharacter* attacker){//returns damage to be done
     srand(time(NULL));
 
-    if((rand() % 25) <= attackedEnemy->getEvasion()){ //chance of hitting
+    if((rand() % 25) > attackedEnemy->getEvasion()){ //chance of hitting
         int totalDamage = 0;
 
         totalDamage = attacker->attack;
@@ -33,25 +30,27 @@ const int battleActions::attack(EnemyStatus* attackedEnemy, PlayerCharacter* att
 }
 
 
-void battleActions::useItem(HelpItem item, PlayerCharacter* character){ //for now does perma buffs
-    if(item.type() == "health"){ //checks what type of buff to give
-        character->health = character->health + item.getAssistance();
+void battleActions::useItem(HelpItem* item, PlayerCharacter* character){ //for now does perma buffs
+    if(item->getType() == "health"){ //checks what type of buff to give
+        character->health = character->health + item->getAssistance();
     }
-    else if(item.type() == "defense"){
-        character->defense = character->defense + item.getAssistance();
+    else if(item->getType() == "defense"){
+        character->defense = character->defense + item->getAssistance();
     }
     else{
-        character->attack = character->attack + item.getAssistance();
+        character->attack = character->attack + item->getAssistance();
     }
 }
 
-
 void battleActions::defend(PlayerCharacter* character, int damage){ //deals damage to characters
 
-    if(damage < 0){ //if damage is negative then it switches the sign (dmg cannot be negative)
-        character->health = character->health + (character->defense + damage);
+    if(damage <= 0){
+        return;
     }
-    else if(damage > 0){
-        character->health = character->health + (character->defense - damage);
+    else {
+        int netDamage = damage - character->defense;
+        if(netDamage > 0) {
+            character->health -= netDamage;
+        }
     }
 }
