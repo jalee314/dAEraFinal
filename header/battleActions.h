@@ -1,6 +1,7 @@
 #include <iostream>
 #include "playerCharacter.h"
 #include "Enemy.h"
+#include "Inventory.h"
 #include "Item.h"
 #pragma once
 using namespace std;

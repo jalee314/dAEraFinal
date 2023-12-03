@@ -58,9 +58,12 @@ TEST(BattleTests, testItemHealthBuff) {
   Biologist protagonist;
   battleActions battle;
   HelpItem bandages("Bandages", 5, "health");
+  protagonist.addToInventory(&bandages);
   allen.setAccuracy(100);
   battle.defend(&protagonist, allen.dealDamage());
+  ASSERT_TRUE(protagonist.itemInInventory(&bandages));
   battle.useItem(&bandages, &protagonist);
+  ASSERT_FALSE(protagonist.itemInInventory(&bandages));
   ASSERT_EQ(protagonist.getHealth(), 73); 
 }
 
@@ -68,9 +71,12 @@ TEST(BattleTests, testItemAttackBuff) {
   Crewmate rick;
   Engineer protagonist;
   battleActions battle;
-  HelpItem roids("Steroids", 3, "attack"); 
+  HelpItem roids("Steroids", 3, "attack");
+  protagonist.addToInventory(&roids);
+  ASSERT_TRUE(protagonist.itemInInventory(&roids));
   rick.setEvasion(0);
   battle.useItem(&roids, &protagonist);
+  ASSERT_FALSE(protagonist.itemInInventory(&roids));
   rick.takeDamage(battle.attack(&rick, &protagonist));
   ASSERT_EQ(rick.getHealth(), 8); 
 }
@@ -80,8 +86,11 @@ TEST(BattleTests, testItemDefenseBuff) {
   Soldier protagonist;
   battleActions battle;
   HelpItem chestplate("Chestplate", 2, "defense"); 
+  protagonist.addToInventory(&chestplate);
+  ASSERT_TRUE(protagonist.itemInInventory(&chestplate));
   grunt.setAccuracy(100);
   battle.useItem(&chestplate, &protagonist);
+  ASSERT_FALSE(protagonist.itemInInventory(&chestplate));
   battle.defend(&protagonist, grunt.dealDamage());
   ASSERT_EQ(protagonist.getHealth(), 114); 
 }
@@ -92,7 +101,10 @@ TEST(BattleTests, killEnemy) {
   battleActions battle;
   HelpItem devtool("devtool", 100, "attack"); 
   grunt.setEvasion(0);
+  protagonist.addToInventory(&devtool);
+  ASSERT_TRUE(protagonist.itemInInventory(&devtool));
   battle.useItem(&devtool, &protagonist);
+  ASSERT_FALSE(protagonist.itemInInventory(&devtool));
   grunt.takeDamage(battle.attack(&grunt, &protagonist));
   ASSERT_FALSE(grunt.isAlive()); 
 }

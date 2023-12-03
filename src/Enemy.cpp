@@ -125,11 +125,10 @@ void Crewmate::printStatus() {
 
 int Alien::dealDamage() {
     if(!enemyBattle.attackHits()) {
-        std::cout << "𒁲𒅎𒊑! (The alien tries probing your mind, but your willpower disallows it and the atempt fails).\n";
+        std::cout << "𒁲𒅎𒊑! (The alien tries probing your mind, but your willpower disallows it and the attempt fails).\n";
         return 0;
     }
     std::cout << "𒉽𒈪𒊒! (The alien probes your mind, and attacks your brain from the inside).\n"; 
-    //Not sure if the damage taken will be outputted in a different function, could remove everything after the first \n if so.
     return attack;
 }
 
