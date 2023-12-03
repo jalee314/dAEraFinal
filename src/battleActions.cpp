@@ -1,23 +1,20 @@
-#include "battleActions.h"
+#include "../header/battleActions.h"
+#include "../header/Enemy.h"
+#include "../header/playerCharacter.h"
+#include "../header/Item.h"
 #include <stdlib.h>
 #include <time.h>
 #include <iostream>
 
 using namespace std;
 
-const int battleActions::attack(EnemyStub* attackedEnemy, PlayerCharacterStub* attacker){//returns damage to be done
+const int battleActions::attack(EnemyStatus* attackedEnemy, PlayerCharacter* attacker){//returns damage to be done
     srand(time(NULL));
 
     if((rand() % 25) <= attackedEnemy->getEvasion()){ //chance of hitting
         int totalDamage = 0;
 
-        if(attacker->weaponDmg == 0){
-            totalDamage = attacker->attack;
-        }
-        else{
-            int addedWeaponDmg = (rand() % attacker->weaponDmg) + 1;
-            totalDamage = addedWeaponDmg + attacker->attack;
-        }
+        totalDamage = attacker->attack;
 
 
         if(totalDamage <= 0){
@@ -36,7 +33,7 @@ const int battleActions::attack(EnemyStub* attackedEnemy, PlayerCharacterStub* a
 }
 
 
-void battleActions::useItem(HelpItemStub item, PlayerCharacterStub* character){ //for now does perma buffs
+void battleActions::useItem(HelpItem item, PlayerCharacter* character){ //for now does perma buffs
     if(item.type() == "health"){ //checks what type of buff to give
         character->health = character->health + item.getAssistance();
     }
@@ -48,7 +45,8 @@ void battleActions::useItem(HelpItemStub item, PlayerCharacterStub* character){ 
     }
 }
 
-void battleActions::defend(PlayerCharacterStub* character, int damage){ //deals damage to characters
+
+void battleActions::defend(PlayerCharacter* character, int damage){ //deals damage to characters
 
     if(damage < 0){ //if damage is negative then it switches the sign (dmg cannot be negative)
         character->health = character->health + (character->defense + damage);
