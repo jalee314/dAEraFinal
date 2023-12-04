@@ -19,3 +19,5 @@ unsigned Basar::getAffinity() { return this->playerAffinity; }
 void Basar::decreaseAffinity() { if (this->playerAffinity > 1) this->playerAffinity--; }
 
 void Basar::increaseAffinity() { if (this->playerAffinity < 3) this->playerAffinity++; }
+
+void Basar::addPage(Page p) { this->journal.addPage(p); }

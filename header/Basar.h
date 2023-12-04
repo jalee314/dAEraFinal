@@ -19,6 +19,7 @@ class Basar {
         unsigned getAffinity(); // Retrieves the player affinity level.
         void decreaseAffinity(); // Decrements playerAffinity by 1.
         void increaseAffinity(); // Increments playerAffinity by 1.
+        void addPage(Page); // Adds a new page to the journal.
 };
 
 #endif //BASAR_H
