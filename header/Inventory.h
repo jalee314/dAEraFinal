@@ -9,6 +9,7 @@ class IAdjustInventory {
 public:
     virtual void addItem(Item* item) = 0;
     virtual void removeItem(Item* item) = 0;
+    virtual bool hasItem(Item* itemToFind) = 0;
     virtual ~IAdjustInventory(){}
 };
 
@@ -24,6 +25,7 @@ public:
     InventoryManagement(int cap): carryCap(cap){}
     virtual void addItem(Item* item);
     virtual void removeItem(Item* item);
+    virtual bool hasItem(Item* itemToFind);
     const std::vector<Item*>& getBackpack() const {return backpack;}
 private:
     std::vector<Item*> backpack; 

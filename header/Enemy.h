@@ -13,7 +13,6 @@ public:
     virtual void setHealth(int newHealth) = 0;
     virtual void setEvasion(int newEvasion) = 0; //function primarily for unit tests, don't think this will change in game
     virtual void setAccuracy(int newAccuracy) = 0; //function primarily for unit tests, don't think this will change in game
-    virtual bool isAlive() = 0;
     virtual ~IEnemyState(){}
 };
 
@@ -44,7 +43,7 @@ public:
     virtual void setHealth(int newHealth){health = newHealth;}
     virtual void setEvasion(int newEvasion){evasion = newEvasion;}
     virtual void setAccuracy(int newAccuracy){accuracy = newAccuracy;}
-    virtual bool isAlive(){return health>0;}
+
 private:
     int evasion;
     int accuracy;
@@ -62,7 +61,7 @@ private:
 
 class Rat : public EnemyStatus, public IEnemyDamagePrompts {
 public:
-    Rat(): EnemyStatus(5, 1, 0, 30, 60), enemyBattle(*this) {}
+    Rat(): EnemyStatus(5, 6, 0, 30, 60), enemyBattle(*this) {}
     virtual int dealDamage();
     virtual void takeDamage(int damage);
     virtual void printStatus();
@@ -74,7 +73,7 @@ private:
 
 class Terrorist : public EnemyStatus, public IEnemyDamagePrompts {
 public:
-    Terrorist(): EnemyStatus(20, 8, 3, 10, 90), enemyBattle(*this) {}
+    Terrorist(): EnemyStatus(20, 13, 2, 10, 90), enemyBattle(*this) {}
     virtual int dealDamage();
     virtual void takeDamage(int damage);
     virtual void printStatus();
@@ -86,7 +85,7 @@ private:
 
 class Crewmate : public EnemyStatus, public IEnemyDamagePrompts {
 public:
-    Crewmate(): EnemyStatus(15, 5, 2, 15, 70), enemyBattle(*this) {}
+    Crewmate(): EnemyStatus(15, 11, 1, 15, 70), enemyBattle(*this) {}
     virtual int dealDamage();
     virtual void takeDamage(int damage);
     virtual void printStatus();
@@ -98,7 +97,7 @@ private:
 
 class Alien : public EnemyStatus, public IEnemyDamagePrompts {
 public:
-    Alien(): EnemyStatus(10, 10, 4, 20, 85), enemyBattle(*this)  {}
+    Alien(): EnemyStatus(20, 15, 3, 20, 85), enemyBattle(*this)  {}
     virtual int dealDamage();
     virtual void takeDamage(int damage);
     virtual void printStatus();

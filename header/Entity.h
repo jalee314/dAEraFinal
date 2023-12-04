@@ -5,6 +5,7 @@ class IEntity {
 public:
     IEntity(int h, int a, int d): health(h), attack(a), defense(d) {}
     virtual void printStatus() = 0;
+    bool isAlive(){return health > 0;} 
     virtual ~IEntity(){}
 protected:
     int health;

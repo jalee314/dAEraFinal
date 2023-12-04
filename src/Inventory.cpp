@@ -5,6 +5,7 @@
 void InventoryManagement::addItem(Item* item) {
     if(backpack.size() < carryCap) {
         backpack.push_back(item);
+        std::cout << item->getName() << " has been added to your inventory.\n";
     }
     else {
         std::cout << "Your backpack is full. Throw something out and try again.\n";
@@ -23,6 +24,15 @@ void InventoryManagement::removeItem(Item* itemRemove) {
         
     }
     else std::cout << itemRemove->getName() << " was not found in the inventory.\n";
+}
+
+bool InventoryManagement::hasItem(Item* itemToFind) {
+    std::vector<Item*>::iterator item;
+    item = std::find_if(backpack.begin(), backpack.end(), 
+    [&itemToFind](const Item* usedItem) {
+        return itemToFind->getName() == usedItem->getName();
+    });
+    return item != backpack.end();
 }
 
 void InventoryDisplay::displayInventory() {
