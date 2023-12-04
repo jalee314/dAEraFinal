@@ -21,6 +21,10 @@ public:
     virtual int useItem() = 0;
     virtual void printItem() = 0;
     std::string getName() const{return name;}
+        // Added equality operator
+    bool operator==(const Item& other) const {
+        return name == other.name;
+    }
 protected:
     std::string name;
 };
