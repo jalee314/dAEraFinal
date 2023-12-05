@@ -22,7 +22,8 @@ class PlayerCharacter : public IEntity{
         virtual const int getDefense() { return defense; }
         void addToInventory(Item* item);
         void removeFromInventory(Item* item);
-        bool itemInInventory(Item* item);
+        bool itemInInventory(const std::string& item);
+        Item* getItemFromInventory(const std::string& item);
         void showInventory();
 
         virtual ~PlayerCharacter(){}

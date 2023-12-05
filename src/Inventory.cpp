@@ -35,6 +35,20 @@ bool InventoryManagement::hasItem(const std::string& itemToFInd) {
     return item != backpack.end();
 }
 
+bool InventoryManagement::getItem(const std::string& item) {
+    std::vector<Item*>::iterator item;
+    item = std::find_if(backpack.begin(), backpack.end(), 
+    [&item](const Item* itemFind) {
+        return item == itemFind->getName();
+    });
+    
+    if(item != backpack.end()) {
+        return *item;
+    }
+    return nullptr;
+}
+
+
 void InventoryDisplay::displayInventory() {
     std::vector<Item*>::const_iterator item;
     const std::vector<Item*>& backpack = inventory.getBackpack();
