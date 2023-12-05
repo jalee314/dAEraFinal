@@ -12,7 +12,6 @@ class PlayerCharacter : public IEntity{
         string difficulty;
         InventoryManagement inventory;
         InventoryDisplay inventoryDisplay;
-        //Basar -> needs implementation (stub not needed)
     public:
         PlayerCharacter(int health, int attack, int defense, string diff);
         virtual void printStatus();
