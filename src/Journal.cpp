@@ -6,3 +6,5 @@ void Journal::addPage(Page p) {
     this->pages.push_back(p);
     this->numPages++;
 }
+
+unsigned Journal::getNumPages() { return this->numPages; }
