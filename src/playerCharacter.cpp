@@ -25,7 +25,7 @@ void PlayerCharacter::removeFromInventory(Item* item) {
     inventory.removeItem(item);
 }
 
-bool PlayerCharacter::itemInInventory(Item* item) {
+bool PlayerCharacter::itemInInventory(const std::string& item) {
     return inventory.hasItem(item);
 }   
 
