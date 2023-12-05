@@ -9,7 +9,7 @@ void Environment::displayDescription() const {
     std::cout << description << std::endl;
 }
 
-void Environment::addItem(ItemStub* item) {
+void Environment::addItem(Item* item) {
     items.push_back(item);
 }
 
@@ -17,20 +17,22 @@ void Environment::displayItems() const {
     if (!items.empty()) {
         std::cout << "You see ";
         for (const auto& item : items) {
-            item->getItemName();
+            std::cout << item->getName();
+            std::cout << ' ';
         }
+        std::cout << '\n';
     } else {
         std::cout << "Nothing useful here." << std::endl;
     }
 }
 
 //Takes item from the environment and adds it to players inv
-bool Environment::takeItem(ItemStub* item, PlayerStub& player) {
-   auto it = std::find_if(items.begin(), items.end(), [&](ItemStub* i){ return *i == *item; });
+bool Environment::takeItem(Item* item, InventoryManagement& player) {
+   auto it = std::find_if(items.begin(), items.end(), [&](Item* i){ return *i == *item; });
 
    if (it != items.end()) {
        // Item found in the environment
-       player.addItemToInventory(*it);
+       player.addItem(*it);
        items.erase(it);
        return true;
    } else {

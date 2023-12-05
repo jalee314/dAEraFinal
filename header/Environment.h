@@ -5,7 +5,28 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "Inventory.h"
+#include "Item.h"
 
+class Environment {
+
+protected:
+    std::string description;
+    std::vector<Item*> items;
+
+public:
+    Environment(const std::string& description);
+    virtual ~Environment();
+
+    void displayDescription() const;
+
+    void addItem(Item* item);
+    bool takeItem(Item* item, InventoryManagement& player);
+    void displayItems() const;
+    size_t getNumberItems() const;
+};
+
+/*
 class ItemStub{
     private:
         std::string itemName; 
@@ -45,23 +66,6 @@ class PlayerStub{
             return inventory.size();
         }
 };
-
-class Environment {
-
-protected:
-    std::string description;
-    std::vector<ItemStub*> items;
-
-public:
-    Environment(const std::string& description);
-    virtual ~Environment();
-
-    void displayDescription() const;
-
-    void addItem(ItemStub* item);
-    bool takeItem(ItemStub* item, PlayerStub& player);
-    void displayItems() const;
-    size_t getNumberItems() const;
-};
+*/
 
 #endif // ENVIRONMENT_H
