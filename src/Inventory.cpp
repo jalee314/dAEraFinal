@@ -26,11 +26,11 @@ void InventoryManagement::removeItem(Item* itemRemove) {
     else std::cout << itemRemove->getName() << " was not found in the inventory.\n";
 }
 
-bool InventoryManagement::hasItem(Item* itemToFind) {
+bool InventoryManagement::hasItem(const std::string& itemToFInd) {
     std::vector<Item*>::iterator item;
     item = std::find_if(backpack.begin(), backpack.end(), 
     [&itemToFind](const Item* usedItem) {
-        return itemToFind->getName() == usedItem->getName();
+        return itemToFind == usedItem->getName();
     });
     return item != backpack.end();
 }
