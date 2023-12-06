@@ -25,12 +25,16 @@ void PlayerCharacter::removeFromInventory(Item* item) {
     inventory.removeItem(item);
 }
 
-bool PlayerCharacter::itemInInventory(Item* item) {
+bool PlayerCharacter::itemInInventory(const std::string& item) {
     return inventory.hasItem(item);
 }   
 
 void PlayerCharacter::showInventory() {
     inventoryDisplay.displayInventory();
+}
+
+Item* PlayerCharacter::getItemFromInventory(const std::string& item) {
+    return inventory.getItem(item);
 }
 
 

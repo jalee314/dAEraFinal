@@ -7,7 +7,7 @@ int HelpItem::useItem() {
 }
 
 void HelpItem::printItem() {
-    std::cout << "Item: " << name << ", Assistance: " << assistance << "\n";
+    std::cout << "Item: " << name << "\n Assistance Type: " << type << "\n Assistance Value: " << assistance << "\n";
 }
 
 int Weapon::useItem() {

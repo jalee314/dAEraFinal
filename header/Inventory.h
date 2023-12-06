@@ -17,6 +17,7 @@ class IDisplayInventory {
 public:
     virtual void displayInventory() = 0;
     virtual std::size_t getNumItems() = 0;
+    virtual Item* getItem() = 0;
     virtual ~IDisplayInventory(){}
 };
 
@@ -25,7 +26,9 @@ public:
     InventoryManagement(int cap): carryCap(cap){}
     virtual void addItem(Item* item);
     virtual void removeItem(Item* item);
-    virtual bool hasItem(Item* itemToFind);
+    virtual bool hasItem(const std::string& item);
+    virtual Item* getItem(const std::string& item);
+
     const std::vector<Item*>& getBackpack() const {return backpack;}
 private:
     std::vector<Item*> backpack; 
