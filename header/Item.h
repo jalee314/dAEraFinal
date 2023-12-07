@@ -46,6 +46,7 @@ public:
     Weapon(const std::string& itemName, int damageValue): Item(itemName), damage(damageValue){}
     virtual int useItem();
     virtual void printItem();
+    int getDamage(){return damage;}
 private:
     int damage;
 };

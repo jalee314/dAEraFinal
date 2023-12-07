@@ -5,10 +5,10 @@
 void InventoryManagement::addItem(Item* item) {
     if(backpack.size() < carryCap) {
         backpack.push_back(item);
-        std::cout << item->getName() << " has been added to your inventory.\n";
+        std::cout << item->getName() << " has been added to your inventory.\n\n";
     }
     else {
-        std::cout << "Your backpack is full. Throw something out and try again.\n";
+        std::cout << "Your backpack is full. Throw something out and try again.\n\n";
     }
 }
 
@@ -23,7 +23,7 @@ void InventoryManagement::removeItem(Item* itemRemove) {
         backpack.erase(item);
         
     }
-    else std::cout << itemRemove->getName() << " was not found in the inventory.\n";
+    else std::cout << itemRemove->getName() << " was not found in the inventory.\n\n";
 }
 
 bool InventoryManagement::hasItem(const std::string& itemToFind) {
@@ -60,9 +60,9 @@ void InventoryDisplay::displayInventory() {
                 std::cout << ", ";
             }
         }
-        std::cout << "\n";
+        std::cout << "\n\n";
     }
-    else std::cout << "Nothing here...\n";
+    else std::cout << "Nothing here...\n\n";
 }
 
 std::size_t InventoryDisplay::getNumItems() {

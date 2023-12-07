@@ -40,7 +40,7 @@ void battleActions::useItem(Item* item, PlayerCharacter* character){ //for now d
         else {
             character->attack = character->attack + helpItem->getAssistance();
         }
-        std::cout << "You use the " << item->getName() << ".\n";
+        std::cout << "You use the " << helpItem->getName() << ". It gives you +" << helpItem->getAssistance() << " " << helpItem->getType() << ".\n";
         character->inventory.removeItem(item);
     }
     else {
