@@ -14,8 +14,8 @@ private:
 
 public:
     Room(const std::string& name, const std::string& description);
-    std::string& getRoomName() const;
-    void prtintRoomName();
+    const std::string& getRoomName() const;
+    void printRoomName();
         //put a item in the room for the player to find
     void setItemInRoom(Item* item);
 
@@ -32,7 +32,7 @@ public:
     void setPageInRoom(Page* page);
 
         //pointer to page in the room
-    Page* getPageInRoom();
+    Page* getPageFromRoom();
     virtual ~Room();
 };
 

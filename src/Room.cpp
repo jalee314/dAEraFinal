@@ -32,7 +32,7 @@ void Room::setPageInRoom(Page* page) {
     pagePointer = page;
 }
 
-Page* Room::getPageInRoom() {
+Page* Room::getPageFromRoom() {
     return pagePointer;
 }
 Room::~Room() {}
