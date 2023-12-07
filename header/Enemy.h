@@ -1,3 +1,4 @@
+
 #ifndef ENEMY_H
 #define ENEMY_H
 #include "Entity.h"
@@ -31,7 +32,7 @@ public:
 };
 
 
-class EnemyStatus: public IEntity, public IEnemyState{
+class EnemyStatus: public IEntity, public IEnemyState, public IEnemyDamagePrompts {
 public:
     EnemyStatus(int healthValue, int attackValue, int defenseValue, int evasionValue, int accuracyValue) :
     IEntity(healthValue, attackValue, defenseValue), evasion(evasionValue), accuracy(accuracyValue){}
@@ -59,7 +60,7 @@ private:
     EnemyStatus& enemyStatus;
 };
 
-class Rat : public EnemyStatus, public IEnemyDamagePrompts {
+class Rat : public EnemyStatus {
 public:
     Rat(): EnemyStatus(5, 6, 0, 30, 60), enemyBattle(*this) {}
     virtual int dealDamage();
@@ -71,7 +72,7 @@ private:
 
 //Terrorist enemy
 
-class Terrorist : public EnemyStatus, public IEnemyDamagePrompts {
+class Terrorist : public EnemyStatus {
 public:
     Terrorist(): EnemyStatus(20, 13, 2, 10, 90), enemyBattle(*this) {}
     virtual int dealDamage();
@@ -83,7 +84,7 @@ private:
 
 //Crewmate enemy
 
-class Crewmate : public EnemyStatus, public IEnemyDamagePrompts {
+class Crewmate : public EnemyStatus {
 public:
     Crewmate(): EnemyStatus(15, 11, 1, 15, 70), enemyBattle(*this) {}
     virtual int dealDamage();
@@ -95,7 +96,7 @@ private:
 
 //Alien enemy
 
-class Alien : public EnemyStatus, public IEnemyDamagePrompts {
+class Alien : public EnemyStatus {
 public:
     Alien(): EnemyStatus(20, 15, 3, 20, 85), enemyBattle(*this)  {}
     virtual int dealDamage();

@@ -9,7 +9,8 @@ class IAdjustInventory {
 public:
     virtual void addItem(Item* item) = 0;
     virtual void removeItem(Item* item) = 0;
-    virtual bool hasItem(Item* itemToFind) = 0;
+    virtual bool hasItem(const std::string& itemToFind) = 0;
+    virtual Item* getItem(std::string& itemGet) = 0;
     virtual ~IAdjustInventory(){}
 };
 
@@ -17,7 +18,6 @@ class IDisplayInventory {
 public:
     virtual void displayInventory() = 0;
     virtual std::size_t getNumItems() = 0;
-    virtual Item* getItem() = 0;
     virtual ~IDisplayInventory(){}
 };
 
@@ -25,9 +25,9 @@ class InventoryManagement: public IAdjustInventory{
 public:
     InventoryManagement(int cap): carryCap(cap){}
     virtual void addItem(Item* item);
-    virtual void removeItem(Item* item);
-    virtual bool hasItem(const std::string& item);
-    virtual Item* getItem(const std::string& item);
+    virtual void removeItem(Item* itemRemove);
+    virtual bool hasItem(const std::string& itemToFind);
+    virtual Item* getItem(std::string& item);
 
     const std::vector<Item*>& getBackpack() const {return backpack;}
 private:

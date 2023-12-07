@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <iostream>
+#include <string>
 
 using namespace std;
 
@@ -21,24 +22,30 @@ const int battleActions::attack(EnemyStatus* attackedEnemy, PlayerCharacter* att
 }
 
 
-void battleActions::useItem(HelpItem* item, PlayerCharacter* character){ //for now does perma buffs
-    if (!character->itemInInventory(item)) {
+void battleActions::useItem(Item* item, PlayerCharacter* character){ //for now does perma buffs
+    if(!character->itemInInventory(item->getName())) {
         std::cout << "Item not in inventory." << std::endl;
         return;
     }
-    if(item->getType() == "health"){ //checks what type of buff to give
-        character->health = character->health + item->getAssistance();
-    }
-    else if(item->getType() == "defense"){
-        character->defense = character->defense + item->getAssistance();
-    }
-    else{
-        character->attack = character->attack + item->getAssistance();
-    }
 
-    std::cout << "You use the " << item->getName() << ".\n";
+    HelpItem* helpItem = dynamic_cast<HelpItem*>(item);
 
-    character->inventory.removeItem(item);
+    if(helpItem != nullptr) {
+        if(helpItem->getType() == "health") { //checks what type of buff to give
+            character->health = character->health + helpItem->getAssistance();
+        }
+        else if(helpItem->getType() == "defense"){
+            character->defense = character->defense + helpItem->getAssistance();
+        }
+        else {
+            character->attack = character->attack + helpItem->getAssistance();
+        }
+        std::cout << "You use the " << item->getName() << ".\n";
+        character->inventory.removeItem(item);
+    }
+    else {
+        std::cout << "Invalid item for this function.\n\n";
+    }
 }
 
 void battleActions::defend(PlayerCharacter* character, int damage){ //deals damage to characters

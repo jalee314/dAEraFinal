@@ -33,10 +33,13 @@ void PlayerCharacter::showInventory() {
     inventoryDisplay.displayInventory();
 }
 
-Item* PlayerCharacter::getItemFromInventory(const std::string& item) {
+Item* PlayerCharacter::getItemFromInventory(std::string& item) {
     return inventory.getItem(item);
 }
 
+std::size_t PlayerCharacter::showCurrNumItems() {
+    return inventoryDisplay.getNumItems();
+}
 
 void Soldier::buffAttack(){
     attack += 2;

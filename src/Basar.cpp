@@ -1,4 +1,5 @@
 #include "../header/Basar.h"
+#include <iostream>
 
 void Basar::outputBasarScreen() {
     unsigned selection = 0;

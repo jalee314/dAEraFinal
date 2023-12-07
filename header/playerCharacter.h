@@ -22,8 +22,9 @@ class PlayerCharacter : public IEntity{
         void addToInventory(Item* item);
         void removeFromInventory(Item* item);
         bool itemInInventory(const std::string& item);
-        Item* getItemFromInventory(const std::string& item);
+        Item* getItemFromInventory(std::string& item);
         void showInventory();
+        std::size_t showCurrNumItems();
 
         virtual ~PlayerCharacter(){}
 

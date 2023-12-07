@@ -18,7 +18,7 @@ public:
     Environment(const std::string& description);
     virtual ~Environment();
 
-    void displayDescription() const;
+    std::string displayDescription() const;
 
     void addItem(Item* item);
     bool takeItem(Item* item, InventoryManagement& player);
@@ -69,3 +69,4 @@ class PlayerStub{
 */
 
 #endif // ENVIRONMENT_H
+

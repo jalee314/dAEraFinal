@@ -5,8 +5,8 @@ Environment::Environment(const std::string& description) : description(descripti
 
 Environment::~Environment() {}
 
-void Environment::displayDescription() const {
-    std::cout << description << std::endl;
+std::string Environment::displayDescription() const {
+    return description;
 }
 
 void Environment::addItem(Item* item) {

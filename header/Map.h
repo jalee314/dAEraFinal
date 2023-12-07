@@ -17,7 +17,7 @@ public:
     void addRoom(Environment* room);
     void connectRooms(int from, int to);
     bool canMove(int from, int to) const;
-    const Environment* getRoom(int index) const;
+    Environment* getRoom(int index);
 };
 
 #endif //MAP_H
