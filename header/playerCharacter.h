@@ -12,8 +12,9 @@ class PlayerCharacter : public IEntity{
         string difficulty;
         InventoryManagement inventory;
         InventoryDisplay inventoryDisplay;
+        Weapon weapon;
     public:
-        PlayerCharacter(int health, int attack, int defense, string diff);
+        PlayerCharacter(int health, int attack, int defense, string diff, Weapon& charWeapon);
         virtual void printStatus();
         virtual const string getDifficulty() { return difficulty; }
         virtual const int getHealth() { return health; }
@@ -33,18 +34,20 @@ class PlayerCharacter : public IEntity{
 
 class Soldier : public PlayerCharacter{ //for all characters they are given default stats
     public:
-        Soldier() : PlayerCharacter(120, 7, 5, "Easy"){}
+        Soldier(Weapon& weapon) : PlayerCharacter(120, 7, 5, "Easy", weapon){            
+        }
         void buffAttack();
 };
 
 class Engineer : public PlayerCharacter{
     public:
-        Engineer() : PlayerCharacter(100, 5, 4, "Medium"){}
+        Engineer(Weapon& weapon) : PlayerCharacter(100, 5, 4, "Medium", weapon){
+        }
         void buffDefense();
 };
 
 class Biologist : public PlayerCharacter{
     public:
-        Biologist() : PlayerCharacter(80, 4, 3, "Hard"){}
+        Biologist(Weapon& weapon) : PlayerCharacter(80, 4, 3, "Hard", weapon){}
         void buffHealth();
 };
