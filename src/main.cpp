@@ -91,6 +91,15 @@ int main() {
 
 	//Initialize the page that will appear in each room.
 	Page* noPage = nullptr;
+	Page secondPage("	I got bit by one of those damn rats. In the midst of all the chaos, why'd they have to go after me? Why not after one of those scumbags who caused this whole thing? Goddamn it.\n\nI never saw it, but I heard that the last guy who got bit was jettisoned off the ship and into space. The higher-ups allegedly said that it would have cost too much to research a cure for whatever it is those nasty little gray pricks are carrying. Maybe it's just a rumor. But they'd never admit it themselves, and it seems believable enough.\n\nI wonder what would have happened if they let him live...\n\n", 2);
+	Page thirdPage("	ship CoLD... Dark... Big scry green guy.\n\nRat bite turn yellow...\n\nMeat...\n\nItchy... Tasty...\n\n", 3);
+	Page fourthPage("	The results are phenomenal. This organism is one of the most impressive specimens I've examined to date. Its physiology is remarkable, its tendency to domestication is breathtaking... A creature like this should truly be appreciated and respected.\n\nBut it's not going to be. I know why the bigwigs are having us perform this much research. Because it slit the throats of six of its captors in three seconds. They know it's violent, and they want to use it. They want to master it.\n\nAnd naturally, they're going to risk OUR lives to do it. Not their own.\n\n", 4);
+	Page fifthPage("	I am the captain of the Free.\n\n To any members of the Dæra who are alive to read this, I am sorry. I know these words will not mean much, but find solace in potential death by knowing that this action of ours is a push for freedom. Freedom from tyranny. Freedom from being watched. Freedom from having everything decided for us by an authority we didn't choose.\n\nWe have lost many of our own too, and I'm sure you have as well. But what did they all die for? Did they die for nothing? No. They died under a system that must change. A system that is directly responsible for causing them harm. And to be complicit while that happens is distasteful.\n\nEvery war has casualties. And this war is a people's war. Will you selfishly moan about what could have been of your life slaving away on this orbital panopticon? Or are you willing to die for the sake of posterity? Leave a legacy you are proud of.", 5);
+	Page* secondPagePointer = &secondPage;
+	Page* thirdPagePointer = &thirdPage;
+	Page* fourthPagePointer = &fourthPage;
+	Page* fifthPagePointer = &fifthPage;
+
 
 	//creating our map (gonna be a big chunk lol)
 	
@@ -101,19 +110,19 @@ int main() {
 	Room weaponRoom("Two large, backlit storage racks with firearms and blunt weaponry meet you as you enter the room.", 
 	"Weapon/Ammunition Room", shotgunPointer, weaponRoomTerrorist, noPage);
 	Room infirmary("Off-white walls surround what was once a safe haven. Now, it's a mess, with beds turned over and flickering lights that fill you with dread.", 
-	"Infirmary", firstAidKitPointer, infirmaryCrewmate, noPage);
+	"Infirmary", firstAidKitPointer, infirmaryCrewmate, thirdPagePointer);
 	Room supplyCloset("It's a little cramped in here.", 
 	"Supply Closet", keyCardPointer, supplyClosetTerrorist, noPage);
 	Room testingLab("Torn-up documents and blood—is it even human?—litter the floor. On the other side, you can see the enclosure that Specimen Aleph was trapped in for seven months.", 
-	"Testing Lab", steroidsPointer, labCrewmate, noPage);
+	"Testing Lab", steroidsPointer, labCrewmate, fourthPagePointer);
 	Room sleepingQuarters("An organized set of bunk beds in a boot camp-like arrangement juxtapose the disarray of the rest of the ship. By the looks of it, nobody was in here at the time of detonation.", 
 	"Sleeping Quarters", prescribedPillsPointer, sleepingQuarterAlien, noPage);
 	Room kitchen("It's a gray cantina with some awful-looking (and, from your experience, the taste isn't any better) sludge stored in tubs. The expiration date is around ten years from now.", 
 	"Kitchen", fryingPanPointer, kitchenRat, noPage);
 	Room ratRoom("I don't wanna talk about it. Get me out." ,
-	"The Rat Room", nutritionalFoodPointer, ratRoomRat, noPage);
+	"The Rat Room", nutritionalFoodPointer, ratRoomRat, secondPagePointer);
 	Room loadingZone("This is where other ships usually dock to unload shipments. It's unlikely anybody's coming to help now...", 
-	"Loading Zone", noItem, loadingZoneTerrorist, noPage);
+	"Loading Zone", noItem, loadingZoneTerrorist, fifthPagePointer);
 	Room boilerRoom("Several pipes conjoin to form an amalgamation of mechanical prowess. They all connect to their respective machines and extend out of the room, through the walls.", 
 	"Boiler Room", hammerPointer, boilerRoomCrewmate, noPage); 
 	Room escapeRoom("Freedom is right in front of you.",
@@ -244,7 +253,7 @@ int main() {
 	roomDirections[15] = {{"north", 6}, {"south", 14}};
 	roomDirections[16] = {{"west", 17}, {"east", 12}};
 	roomDirections[17] = {{"east", 16}, {"north", 18}};
-	roomDirections[18] = {{"north", 2}, {"south", 3}};
+	roomDirections[18] = {{"north", 2}, {"south", 17}};
 	roomDirections[19] = {{"north", 12}, {"south", 20}};
 	roomDirections[20] = {{"north", 19}};
 	roomDirections[21] = {{"south", 22}};
@@ -255,6 +264,10 @@ int main() {
 	//^^ which directions we can move from when we’re in a certain room, and the room that it’ll take us to defined by the index in the vector
 
 	std::string characterChoice;
+	bool isSoldier = false;
+	bool isEngineer = false;
+	bool isBiologist = false;
+
 	Weapon soldierDefault("Rifle", 7);
 	Soldier soldier(&soldierDefault);
 	Weapon engineerDefault("Wrench", 5);
@@ -268,14 +281,17 @@ int main() {
 		std:: cin >> characterChoice;
 		if(characterChoice == "1" || characterChoice == "soldier" || characterChoice == "Soldier") {
 			protagonist = &soldier;
+			isSoldier = true;
 			break;
 		}
 		else if(characterChoice == "2" || characterChoice == "engineer" || characterChoice == "Engineer") {
 			protagonist = &engineer;
+			isEngineer = true;
 			break;
 		}
 		else if(characterChoice == "3" || characterChoice == "biologist" || characterChoice == "Biologist") {
 			protagonist = &biologist;
+			isBiologist = true;
 			break;
 		}
 		else {
@@ -283,23 +299,25 @@ int main() {
 		}
 	}
 	
-	std::cout << "\n\nYou wake up in a room…blah blah idk youssef writes better lore than me this is a test\n\n";
-	//Some lore things 
+	std::cout << "\n\nBOOM!\n\nThe sirens ring; al-Dæra has been attacked. You don’t know who orchestrated it and you don’t know why they orchestrated it. Could it have been the Free? Was it a fuel leak?\n\nFear fills your body, ";
+	if(isSoldier) {
+		std::cout << "but you’ve been trained for this. You need to kill the aliens and protect your fellow crewmates—or what’s left of them.\n\n";
+	}
+	if(isEngineer) {
+		std::cout << "but you have a responsibility; you swore an oath. You need to make sure Specimen Aleph doesn't escape and endanger the rest of humanity.\n\n";
+	}
+	if(isBiologist) {
+		std::cout << "but you know what you have to do to get out of here. There's only one more damaged escape pod, and you know how to repair it.\n\n";
+	}
+	std::cout << "You're holed up in the control room—the Core. You can hear the bloodcurdling screams of your acquaintances and the roars of Specimen Aleph reverberating against the cold, hard blacksteel of the hull… but you push on.\n\n";
+
 	int currentRoomIndex = 0;
 	int nextRoomIndex;
-	Environment* currentRoom = gameMap.getRoom(currentRoomIndex);
-	//while loop will be our actual game loop
+	Environment* currentRoom = gameMap.getRoom(currentRoomIndex);	
 	std::string playerChoice;
-	HelpItem realPills("Pills", 3, "health");
-	HelpItem* pills = &realPills;
-
-	protagonist->addToInventory(&engineerDefault);
-	protagonist->addToInventory(pills);
-
-	while(gameRunning) {		
-		std::cout << "You are currently in the " << currentRoom->displayDescription() <<".\n\n";
-	
-
+	//game loop
+	while(gameRunning) {	
+		std::cout << "You are currently in the " << currentRoom->displayName() <<".\n\n";
 		if(battleOccuring) {
 			std::cout << "\n\nYou're now engaged in combat against the " << enemy->getEnemyType() << "!";
 			std::string battleInput;
@@ -352,7 +370,7 @@ int main() {
 			}
 		}
 		
-		std::cout << "1. Move Rooms\n2. Pick Up Item\n3. Basar\n4. Look for Page\n5. Player Status\n6. Check Inventory\n\n";
+		std::cout << "1. Move Rooms\n2. Pick Up Item\n3. BASAR\n4. Look for Page\n5. Player Status\n6. Check Inventory\n7. Get Room Description\n\n";
 
 		std::cin >> playerChoice;
 
@@ -382,7 +400,7 @@ int main() {
 					if(gameMap.canMove(currentRoomIndex, nextRoomIndex)) {
 						currentRoomIndex = nextRoomIndex;
 						currentRoom = gameMap.getRoom(currentRoomIndex);
-						std::cout << "\nI move to the " << currentRoom->displayDescription() << "\n\n";
+						std::cout << "\nI move to the " << currentRoom->displayName() << "\n\n";
 						break;
 					}
 				}
@@ -394,13 +412,31 @@ int main() {
 			}
 		} 
 		else if(playerChoice == "2" || playerChoice == "Item" || playerChoice == "item") {
-			
+			if(currentRoom->getItemFromRoom() != nullptr) {
+				if(protagonist->showCurrNumItems() != 8) { //8 is max number of items able to hold, this should be a constant but alas whatever.	
+					std::cout<<"\n\nThere's an item on the floor... I guess I'll take it with me\n\n";
+					protagonist->addToInventory(currentRoom->getItemFromRoom());
+					currentRoom->setItemInRoom(noItem);
+				}
+				else std::cout << "\n\nMy inventory is full. I have to drop something before I can pick this up.\n\n";
+			}
+			else {
+				std::cout << "\n\nNothing here except for the cold, hard floor.\n\n";
+			}
 		}
 		else if(playerChoice == "3" || playerChoice == "Basar" || playerChoice == "page") {
 			basar.outputBasarScreen();
 		}
 		else if(playerChoice == "4" || playerChoice == "Page" || playerChoice == "page") {
-	
+			if(currentRoom->getPageFromRoom() != nullptr) {
+				Page newPageToAdd = *(currentRoom->getPageFromRoom());
+				basar.addPage(newPageToAdd);
+				std::cout << "\n\nI found a page...I'll add it to my journal for safekeeping (Open BASAR to access the page)\n\n";
+				currentRoom->setPageInRoom(noPage);
+			}
+			else {
+				std::cout << "\n\nLooks like there's no page in this room. Maybe in another room.\n\n";
+			}
 		}
 		else if(playerChoice == "5" || playerChoice =="Status" || playerChoice == "status") {
 			std::cout << "\n\n";
@@ -417,10 +453,10 @@ int main() {
 					std::cout << "\n\n";
 					protagonist->showInventory();
 					std::cout<<"\n\nDo you want to use an item?\n\n1.Yes \n2.No\n\n";
-					std::cin >> playerChoice;
+					std::getline(std::cin, playerChoice);
 					if(playerChoice == "1" || playerChoice == "Yes" || playerChoice == "yes") {
 						std::cout << "\n\nType the name of the item you wish to use (case sensitive)\n\n >> ";
-						std::cin >> playerChoice;
+						std::getline(std::cin, playerChoice);
 						if(protagonist->itemInInventory(playerChoice)) {
 							Item* itemToUse = protagonist->getItemFromInventory(playerChoice);
 							if(itemToUse->getType() != "weapon") {
@@ -453,9 +489,8 @@ int main() {
 			}
 			
 		}
-		else {
-			std::cout << "\n\nInvalid input. Choose one of the options given\n\n";
-			continue;
+		else if(playerChoice == "7" || playerChoice == "Description" || playerChoice == "description") {
+			std::cout << "\n" << currentRoom->displayDescription() << "\n\n";
 		}
 
 	}	
@@ -468,3 +503,4 @@ int main() {
     		cin.ignore();
     		cin >> ;
 		} */
+

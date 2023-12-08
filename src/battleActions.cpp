@@ -24,7 +24,7 @@ const int battleActions::attack(EnemyStatus* attackedEnemy, PlayerCharacter* att
 
 void battleActions::useItem(Item* item, PlayerCharacter* character){ //for now does perma buffs
     if(!character->itemInInventory(item->getName())) {
-        std::cout << "Item not in inventory." << std::endl;
+        std::cout << "\n\nItem not in inventory.\n\n" << std::endl;
         return;
     }
         if(item->getType() == "health") { //checks what type of buff to give
@@ -37,14 +37,14 @@ void battleActions::useItem(Item* item, PlayerCharacter* character){ //for now d
             character->attack = character->attack + item->getValue();
         }
         else if(item->getType() == "weapon"){
-            std::cout << "\n\nThis is a weapon, I can't use this item, I can only equip!";
+            std::cout << "\n\nThis is a weapon, I can't use this item, I can only equip it...\n\n";
             return;
         }
         else if(item->getType() == "wincon") { //wincon = win condition for keycard
-            std::cout << "\n\nYou're gonna need this to escape, I'd think twice before leaving it behind...";
+            std::cout << "\n\nYou're gonna need this to escape, I'd think twice before leaving it behind...\n\n";
             return;
         }
-        std::cout << "You use the " << item->getName() << ". It gives you +" << item->getValue() << " " << item->getType() << ".\n";
+        std::cout << "\n\nYou use the " << item->getName() << ". It gives you +" << item->getValue() << " " << item->getType() << ".\n\n";
         character->inventory.removeItem(item);
 }
 

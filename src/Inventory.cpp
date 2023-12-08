@@ -19,7 +19,7 @@ void InventoryManagement::removeItem(Item* itemRemove) {
         return itemRemove->getName() == itemToRemove->getName();
     });
     if(item !=backpack.end()) {
-        std::cout << (*item)->getName() << " has been removed from the inventory.\n";
+        std::cout << (*item)->getName() << " has been removed from the inventory.\n\n";
         backpack.erase(item);
         
     }
