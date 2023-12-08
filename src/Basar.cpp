@@ -17,7 +17,7 @@ void Basar::outputBasarScreen() {
     while (true) {
         std::cout << "                                                                      BASAR" << std::endl;
         std::cout << "\n\n\n\n\n\n\n" << "1. ACCESS JOURNAL" << "\n\n" << "2. EXIT BASAR" << "\n\n" << "3. EXIT GAME\n\n\n>> ";
-        std::cin >> input;
+        std::getline(std::cin, input);
 
         if(isInteger(input)) {
             selection = std::stoi(input);

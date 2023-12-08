@@ -520,13 +520,62 @@ To anticipate more types of rooms being added as we develop our story, I decided
  > * Make sure your README file and Project board are up-to-date reflecting the current status of your project (e.g. any changes that you have made during the project such as changes to your class diagram). Previous versions should still be visible through your commit history. 
  
  ## Screenshots
- > Screenshots of the input/output after running your application
+ <i>Numbers correlate to row number on the table on top of the readme file.<i></br></br>
+ Input 1: </br>
+ ![Picture of Input 1](https://github.com/cs100/final-project-jlee1667-yadam003-shilt003-mmira069/blob/master/img/input1.png) </br>
+ Output 1: </br>
+ ![Picture of Output 1](https://github.com/cs100/final-project-jlee1667-yadam003-shilt003-mmira069/blob/master/img/output1.png) </br>
+ Input 2: </br>
+ ![Picture of Input 2](https://github.com/cs100/final-project-jlee1667-yadam003-shilt003-mmira069/blob/master/img/input2.png) </br>
+ Output 2: </br>
+ ![Picture of Output 2](https://github.com/cs100/final-project-jlee1667-yadam003-shilt003-mmira069/blob/master/img/output2.png) </br>
+ Input 3: </br>
+ ![Picture of Input 3](https://github.com/cs100/final-project-jlee1667-yadam003-shilt003-mmira069/blob/master/img/input3.png) </br>
+ Output 3: </br>
+ ![Picture of Output 3](https://github.com/cs100/final-project-jlee1667-yadam003-shilt003-mmira069/blob/master/img/output3.png) </br>
+ Input 4: </br>
+ ![Picture of Input 4](https://github.com/cs100/final-project-jlee1667-yadam003-shilt003-mmira069/blob/master/img/input4.png) </br>
+ Output 4a, victory: </br>
+ ![Picture of Output 4a](https://github.com/cs100/final-project-jlee1667-yadam003-shilt003-mmira069/blob/master/img/output4a.png) </br>
+ Output 4b, defeat: </br>
+ ![Picture of Output 4b](https://github.com/cs100/final-project-jlee1667-yadam003-shilt003-mmira069/blob/master/img/output4b.png) </br>
+ Input 5: </br>
+ ![Picture of Input 5](https://github.com/cs100/final-project-jlee1667-yadam003-shilt003-mmira069/blob/master/img/input5.png) </br>
+ Output 5: </br>
+ ![Picture of Output 5](https://github.com/cs100/final-project-jlee1667-yadam003-shilt003-mmira069/blob/master/img/output5.png) </br>
+ Input 6: </br>
+ ![Picture of Input 6](https://github.com/cs100/final-project-jlee1667-yadam003-shilt003-mmira069/blob/master/img/input6.png) </br>
+ Output 6: </br>
+ ![Picture of Output 6](https://github.com/cs100/final-project-jlee1667-yadam003-shilt003-mmira069/blob/master/img/output6.png) </br>
+ Input 7: </br>
+ ![Picture of Input 7](https://github.com/cs100/final-project-jlee1667-yadam003-shilt003-mmira069/blob/master/img/input7.png) </br>
+ Output 7a, direction valid: </br>
+ ![Picture of Output 7a](https://github.com/cs100/final-project-jlee1667-yadam003-shilt003-mmira069/blob/master/img/output7a.png) </br>
+ Output 7b, direction invalid: </br>
+ ![Picture of Output 7b](https://github.com/cs100/final-project-jlee1667-yadam003-shilt003-mmira069/blob/master/img/output7b.png) </br>
+ Input 8: </br>
+ ![Picture of Input 8](https://github.com/cs100/final-project-jlee1667-yadam003-shilt003-mmira069/blob/master/img/input8.png) </br>
+ Output 8: </br>
+ ![Picture of Output 8](https://github.com/cs100/final-project-jlee1667-yadam003-shilt003-mmira069/blob/master/img/output8.png) </br>
+ Input 9: </br>
+ ![Picture of Input 9](https://github.com/cs100/final-project-jlee1667-yadam003-shilt003-mmira069/blob/master/img/input9.png) </br>
+ Output 9: </br>
+ ![Picture of Output 9](https://github.com/cs100/final-project-jlee1667-yadam003-shilt003-mmira069/blob/master/img/output9.png) </br>
+ Input 10: </br>
+ ![Picture of Input 10](https://github.com/cs100/final-project-jlee1667-yadam003-shilt003-mmira069/blob/master/img/input10.png) </br>
+ Output 10: </br>
+ ![Picture of Output 10](https://github.com/cs100/final-project-jlee1667-yadam003-shilt003-mmira069/blob/master/img/output10.png) </br>
+ Input 11: </br>
+ ![Picture of Input 11](https://github.com/cs100/final-project-jlee1667-yadam003-shilt003-mmira069/blob/master/img/input11.png) </br>
+ Output 11: </br>
+ ![Picture of Output 11](https://github.com/cs100/final-project-jlee1667-yadam003-shilt003-mmira069/blob/master/img/output11.png) </br>
+ 
  ## Installation/Usage
 Steps to run dÆRA
 - Clone the online repository onto your local machine.
-- First, type ```$cmake .``` into your terminal.
-- Next, type ```$make``` into your terminal.
-- Finally, type ```$./dAEra``` into your terminal.
+- First, type ```$ cmake .``` into your terminal.
+- Next, type ```$ make``` into your terminal.
+- Finally, type ```$ ./dAEra``` into your terminal.
 - Enjoy your gaming experience!  
  ## Testing
-All modules of our project were unit tested using google's Googletest submodules. In approaching this project, our group opted for a top-down testing approach, creating our large modules first and developing stubs for our smaller modules, and slowly worked our way down and ensured that our stubs and low level modules gave the same result in our unit tests. After finishing a lower module, we immediately integrated the related classes together and ensured that our test results were the same between stub and actual implemenation.
+All modules of our project were unit-tested using Google's Googletest submodules. In approaching this project, our group opted for a top-down testing approach, creating our large modules first and developing stubs for our smaller modules, and slowly worked our way down and ensured that our stubs and low-level modules gave the same result in our unit tests. After finishing a lower module, we immediately integrated the related classes and ensured that our test results were the same between the stubs and actual implementation.
