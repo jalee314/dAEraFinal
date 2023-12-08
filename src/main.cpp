@@ -477,7 +477,10 @@ int main() {
 			}
 		}
 		else if(playerChoice == "3" || playerChoice == "Basar" || playerChoice == "page") {
-			basar.outputBasarScreen();
+			while(true) {
+				basar.outputBasarScreen();
+				break;
+			}
 		}
 		else if(playerChoice == "4" || playerChoice == "Page" || playerChoice == "page") {
 			if(currentRoom->getPageFromRoom() != nullptr) {
