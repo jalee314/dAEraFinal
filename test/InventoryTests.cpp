@@ -20,7 +20,7 @@ TEST(InventoryTests, TestEmptyInventoryOutput) {
     std::stringstream buffer;
     std::cout.rdbuf(buffer.rdbuf());
     display.displayInventory();
-    EXPECT_EQ(buffer.str(), "Nothing here...\n");
+    EXPECT_EQ(buffer.str(), "Nothing here...\n\n");
 }
 
 TEST(InventoryTests, TestOneItemInventoryOutput) {
@@ -31,24 +31,9 @@ TEST(InventoryTests, TestOneItemInventoryOutput) {
     std::stringstream buffer;
     std::cout.rdbuf(buffer.rdbuf());
     display.displayInventory();
-    EXPECT_EQ(buffer.str(), "Inventory: Gun\n");
+    EXPECT_EQ(buffer.str(), "Inventory: Gun\n\n");
 }
 
-TEST(InventoryTests, TestMultipleItemInventoryOutput) {
-    Weapon Gun("Gun", 10);
-    HelpItem Medpack("Medpack", 20);
-    HelpItem Keycard("Keycard", 0);
-    InventoryManagement management(10);
-    InventoryDisplay display(management);
-    management.addItem(&Gun);
-    management.addItem(&Medpack);
-    management.addItem(&Keycard);
-    std::stringstream buffer;
-    std::cout.rdbuf(buffer.rdbuf());
-    display.displayInventory();
-    EXPECT_EQ(buffer.str(), "Inventory: Gun, Medpack, Keycard\n");
-}
-    
 TEST(InventoryTests, TestFullInventoryOutput) {
     Weapon Gun("Gun", 10);
     InventoryManagement management(10);
@@ -59,26 +44,43 @@ TEST(InventoryTests, TestFullInventoryOutput) {
     std::stringstream buffer;
     std::cout.rdbuf(buffer.rdbuf());
     management.addItem(&Gun);
-    EXPECT_EQ(buffer.str(), "Your backpack is full. Throw something out and try again.\n");
+    EXPECT_EQ(buffer.str(), "Your backpack is full. Throw something out and try again.\n\n");
 }
 
 TEST(InventoryTests, DeleteItemsFromInventory) {
-    HelpItem Medpack("Medpack", 20);
+    HelpItem Medpack("Medpack", 20, "health");
     InventoryManagement management(10);
     InventoryDisplay display(management);
     management.addItem(&Medpack);
     std::stringstream buffer;
     std::cout.rdbuf(buffer.rdbuf());
     management.removeItem(&Medpack);
-    EXPECT_EQ(buffer.str(), "Medpack has been removed from the inventory.\n");
+    EXPECT_EQ(buffer.str(), "Medpack has been removed from the inventory.\n\n");
+}
+
+TEST(InventoryTests, TestMultipleItemInventoryOutput) {
+    Weapon Gun("Gun", 10);
+    HelpItem Medpack("Medpack", 20, "health");
+    HelpItem Keycard("Keycard", 0, "wincon");
+    InventoryManagement management(10);
+    InventoryDisplay display(management);
+    management.addItem(&Gun);
+    management.addItem(&Medpack);
+    management.addItem(&Keycard);
+    std::stringstream buffer;
+    std::cout.rdbuf(buffer.rdbuf());
+    display.displayInventory();
+    EXPECT_EQ(buffer.str(), "Inventory: Gun, Medpack, Keycard\n\n");
 }
 
 TEST(InventoryTests, DeleteItemFromInventoryFail) {
-    HelpItem Medpack("Medpack", 20);
+    HelpItem Medpack("Medpack", 20, "health");
     InventoryManagement management(10);
     InventoryDisplay display(management);
     std::stringstream buffer;
     std::cout.rdbuf(buffer.rdbuf());
     management.removeItem(&Medpack);
-    EXPECT_EQ(buffer.str(), "Medpack was not found in the inventory.\n");
+    EXPECT_EQ(buffer.str(), "Medpack was not found in the inventory.\n\n");
 }
+
+

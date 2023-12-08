@@ -22,6 +22,7 @@ public:
     bool operator==(const Item& other) const {
         return name == other.name;
     }
+    virtual ~Item(){}
     
 protected:
     std::string name;
