@@ -45,8 +45,10 @@ graph TD
     n4-- Equip/trash item -->n4
     n5-- Prompt/exit <i>Basar</i> -->n5
     n3-- Encounter enemy -->n6
-
-
+    n6-- Win battle -->n7
+    n6-- Lose battle -->n8
+    n7-->n3
+    n8-- Back to Main Menu -->n1
 ```
 
 ### Screen Layouts
