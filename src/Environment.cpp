@@ -1,14 +1,18 @@
 #include "../header/Environment.h"
 #include <algorithm>
 
-Environment::Environment(const std::string& description) : description(description) {}
+Environment::Environment(const std::string& description, const std::string& name) : description(description),  roomName(name){}
 
 Environment::~Environment() {}
 
 std::string Environment::displayDescription() const {
     return description;
 }
+std::string Environment::displayName() const {
+    return roomName;
+}
 
+/*
 void Environment::addItem(Item* item) {
     items.push_back(item);
 }
@@ -45,3 +49,4 @@ bool Environment::takeItem(Item* item, InventoryManagement& player) {
 size_t Environment::getNumberItems() const {
     return items.size();
 }
+*/

@@ -12,21 +12,21 @@ class Environment {
 
 protected:
     std::string description;
-    std::vector<Item*> items;
-
+    std::string roomName;
 public:
-    Environment(const std::string& description);
+    Environment(const std::string& description, const std::string& roomName);
     virtual ~Environment();
 
     std::string displayDescription() const;
-
+    std::string displayName() const;
+/*
     void addItem(Item* item);
     bool takeItem(Item* item, InventoryManagement& player);
     void displayItems() const;
     size_t getNumberItems() const;
 };
 
-/*
+
 class ItemStub{
     private:
         std::string itemName; 
@@ -65,8 +65,9 @@ class PlayerStub{
         size_t getInventorySize() const {
             return inventory.size();
         }
-};
+
 */
+};
 
 #endif // ENVIRONMENT_H
 
