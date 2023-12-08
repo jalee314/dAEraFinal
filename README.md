@@ -264,50 +264,69 @@ class Biologist {
 Lab --|> Environment
 Hallway--|>Environment
 class Environment {
-    -items : vector~Item*~
+    -roomName : string
     -description : string
-    +displayDescription()void
-    +addItem(Item)void
-    +takeItem(Item*, PlayerCharacter&)bool
-    +displayItems()void
-    +getNumberItems()size_t
+    +displayDescription()string
+    +displayName()string
+    +getItemFromRoom()Item*
+    +getEnemyFromRoom()EnemyStatus*
+    +GetPageFromRoom()Page*
+    +setItemInRoom(Item*)void
+    +displayName(EnemyStatus*)void
+    +displayName(Page*)void
+
 }
 <<abstract>> Environment
 
 class Map {
-    -vector~Environment~ rooms
-    +canMove()bool
-    +connectTo(Environment*, Environment*)void
-    +getLocation()Environment
+    -vector~Environment*~ rooms
+    -vector~vector~int~~ adjacencyMatrix
+    +addRoom(Environment*)void
+    +canMove(int, int)bool
+    +connectRooms(int int)void
+    +getRoom(int)Environment*
+}
+
+class Room {
+    -itemPointer : Item*
+    -enemyPointer : Enemy*
+    -pagePointer : Page*
 }
 
 Environment --* Map
 
-Hallway .. playerActions
-Lab .. playerActions
+Hallway --|> Environment
+Room --|> Environment
 
 class battleActions {
-	+attack(Enemy*, PlayerCharacter*)const int
+	+attack(EnemyStatus*, PlayerCharacter*)const int
 	+defend(PlayerCharacter*, int)void
-	+useItem(HelpItem, PlayerCharacter*)void
+	+useItem(Item*, PlayerCharacter*)void
 }
 <<friend>> battleActions
 
 class Basar {
-    -playerAffinity : int
-    -userJournal : Journal
-    +basarOutput()void
+    -journal : Journal
+    +outputBasarScreen()void
+    +outputJournalSelectScreen()void
+    +outputJournalScreen(unsigned)void
+    +addPage(Page)void
 }
 Journal --* Basar
 
 class Journal {
-    -pages : vector~Page~ 
-    +printPage(int)void
+    -pages : vector~Page~
+    -numPages : unsigned
+    +getNumPages()unsigned
+    +outputPage(unsigned)void
+    +addPage(Page)void
 }
 
 class Page {
-    -pageWords : string
-    +printPage()void
+    -words : string
+    -pageNum : unsigned
+    +output()void
+    +getPageNum(int)
 }
 Page --* Journal
 
@@ -321,6 +340,8 @@ Biologist--|>PlayerCharacter
 class IAdjustInventory {
     +addItem(Item*)void
     +removeItem(Item*)void
+    +hasItem(string)bool
+    +getItem(string)Item*
 }
 <<interface>> IAdjustInventory
 
@@ -351,18 +372,17 @@ class PlayerCharacter {
     -inventory : InventoryManagement
     -inventoryDisplay : InventoryDisplay
     -weapon : Item*
-    +printStatus()void
     +getDifficulty()string
     +getHealth()int
     +getAttack()int
     +getDefense()int
     +setAttack(Item* weapon)void
     +getWeapon()Item*
-    +setWeapon()void
-    +addToInventory(Item* item);
-    +removeFromInventory(Item* item)void
-    +itemInInventory(const string& item)bool
-    +getItemFromInventory(string& item)Item*
+    +setWeapon(Item*)void
+    +addToInventory(Item*);
+    +removeFromInventory(Item*)void
+    +itemInInventory(const string&)bool
+    +getItemFromInventory(string&)Item*
     +showInventory()void
     +showCurrNumItems()size_t
 }
@@ -380,17 +400,23 @@ class IEnemyState {
 }
 <<interface>> IEnemyState
 
-class IEnemyCombatActions {
-    +takeDamage(int) int
-    +dealDamage() int
+class IEnemyCombatChance {
     +evadeAttack() bool
     +attackHits() bool
-    +isAlive() bool
 }
-<<interface>> IEnemyCombatActions
+
+<<interface>> IEnemyCombatChance
+
+class IEnemyDamagePrompts {
+    +takeDamage(int) int
+    +dealDamage() int
+}
+
+<<interface>> IEnemyDamagePrompts
 
 Enemy--|>IEnemyState
-Enemy--|>IEnemyCombatActions
+Enemy--|>IEnemyCombatChance
+Enemy--|>IEnemyDamagePrompts
 
 class INPCPrint {
     +printName() void 
@@ -415,23 +441,44 @@ class NPCQuestionManager {
 
 class NPCPrinter {
     -name : string
-    -questionManager& : NPCQuestionManager
+    -questionManager : &NPCQuestionManager
 }
 
 NPCQuestionManager --|> INPCInteraction
 NPCPrinter --|> INPCPrint
 NPCQuestionManager --o NPCPrinter
 
-class Enemy {
+class EnemyStatus {
     -evasion : int
     -accuracy : int
+    -enemyType : string
 }
-<<abstract>> Enemy
 
-Rat--|>Enemy
-Terrorist--|>Enemy
-Crewmate--|>Enemy
-Alien--|>Enemy
+class EnemyBattle {
+}
+
+class Rat {
+    -enemyBattle : EnemyBattle
+}
+
+class Terrorist {
+    -enemyBattle : EnemyBattle
+}
+
+class Crewmate {
+    -enemyBattle : EnemyBattle
+}
+
+class Alien {
+    -enemyBattle : EnemyBattle
+}
+
+EnemyBattle--|>IEnemyCombatChance
+EnemyStatus--*EnemyBattle
+Rat--|>EnemyStatus
+Terrorist--|>EnemyStatus
+Crewmate--|>EnemyStatus
+Alien--|>EnemyStatus
 
 class Item {
     #name : string
