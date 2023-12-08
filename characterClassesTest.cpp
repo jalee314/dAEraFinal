@@ -1,4 +1,6 @@
-#include "playerCharacter.h"
+#include "./header/playerCharacter.h"
+#include "./header/Item.h"
+#include "./header/Inventory.h"
 #include "gtest/gtest.h"
 #include <iostream>
 
@@ -13,7 +15,8 @@ int main(int argc, char **argv) {
 
 //TESTS FOR CREATION
 TEST(playerCharactertest, characterCreationSOL){
-  Soldier victor;
+  Weapon stub("Stub", 0);
+  Soldier victor(&stub);
 
   ASSERT_EQ(victor.getAttack(), 7);
   ASSERT_EQ(victor.getDefense(), 5);
@@ -22,7 +25,8 @@ TEST(playerCharactertest, characterCreationSOL){
 }
 
 TEST(playerCharactertest, characterCreationENGI){
-  Engineer justin;
+  Weapon stub("Stub", 0);
+  Engineer justin(&stub);
 
   ASSERT_EQ(justin.getAttack(), 5);
   ASSERT_EQ(justin.getDefense(), 4);
@@ -31,9 +35,10 @@ TEST(playerCharactertest, characterCreationENGI){
 }
 
 TEST(playerCharactertest, characterCreationBIOL){
-  Biologist matthew;
+  Weapon stub("Stub", 0);
+  Biologist matthew(&stub);
 
-  ASSERT_EQ(matthew.getAttack(), 3);
+  ASSERT_EQ(matthew.getAttack(), 4);
   ASSERT_EQ(matthew.getDefense(), 3);
   ASSERT_EQ(matthew.getHealth(), 80);
   ASSERT_STREQ(matthew.getDifficulty().c_str(), "Hard");
@@ -42,21 +47,24 @@ TEST(playerCharactertest, characterCreationBIOL){
 
 //BUFF CHECKING
 TEST(playerCharactertest, buffAttack){
-  Soldier victor;
+  Weapon stub("Stub", 0);
+  Soldier victor(&stub);
   victor.buffAttack();
 
   EXPECT_EQ(victor.getAttack(), 9);
 }
 
 TEST(playerCharactertest, buffDefense){
-  Engineer justin;
+  Weapon stub("Stub", 0);
+  Engineer justin(&stub);
   justin.buffDefense();
 
   EXPECT_EQ(justin.getDefense(), 5);
 }
 
 TEST(playerCharactertest, buffHealth){
-  Biologist matthew;
+  Weapon stub("Stub", 0);
+  Biologist matthew(&stub);
   matthew.buffHealth();
 
   EXPECT_EQ(matthew.getHealth(), 100);
