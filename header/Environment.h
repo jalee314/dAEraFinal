@@ -7,6 +7,8 @@
 #include <vector>
 #include "Inventory.h"
 #include "Item.h"
+#include "Enemy.h"
+#include "Page.h"
 
 class Environment {
 
@@ -16,9 +18,14 @@ protected:
 public:
     Environment(const std::string& description, const std::string& roomName);
     virtual ~Environment();
-
     std::string displayDescription() const;
     std::string displayName() const;
+    virtual Item* getItemFromRoom() { return nullptr; }
+    virtual EnemyStatus* getEnemyFromRoom() { return nullptr; }
+    virtual Page* getPageFromRoom() {return nullptr; }
+    virtual void setItemInRoom(Item* item){}
+    virtual void setEnemyInRoom(EnemyStatus* enemy){}
+    virtual void setPageInRoom(Page* page){}
 /*
     void addItem(Item* item);
     bool takeItem(Item* item, InventoryManagement& player);
