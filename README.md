@@ -12,13 +12,18 @@ It is being developed via the language C++.
 
 | Input                                                                        | Output                                                                                      |
 | :--------------------------------------------------------------------------: |    :-----------------------------------------------------------------------------------:    |
-| Player chooses character class                                               | Player receives information regarding chosen class                                          |
+| Player is given options regarding character classes and can choose           | Player is sent straight into the game to be able to play                                    |
 | Player makes choice based on options given                                   | Terminal outputs pre-determined text for the given choice                                   |
+| Player chooses to check on current stats and information about character     | Terminal outputs health and current weapon of the player character		             |
 | Player encounters enemies and engages in combat                              | Terminal prints either a victory or defeat screen depending on the situation                |
+| Player finds an item in a given room in the game                             | Item is added to the player's inventory for later use exploring the world or while in combat|
 | Player chooses to drop item from inventory                                   | Item is removed from player inventory and the result is outputted in the terminal           |
+| Player chooses to traverse the map                                           | Terminal outputs movement options, and whether or not they are valid.                       |
 | Player interacts with **Basar** to receive messages through the terminal     | **Basar** returns a message in the terminal                                                 |
 | Player equips items found during the game                                    | Player stats are changed and shown to the player in the terminal                            |
 | Player looks inside journal item                                             | Terminal outputs hints on what needs to be done next, and expands on the lore of the story  |
+| Player asks for a description of current room                                | Terminal returns a brief description and expands upon the lore of the game                  |
+
 
 A [project board](https://github.com/orgs/cs100/projects/314/views/1) has been set up to streamline the development process.
 ## User Interface Specification
