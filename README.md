@@ -3,7 +3,7 @@
 _Developed by:_ [Sydney Hilton](https://github.com/Sydnyepie), [Youssef Adam](https://github.com/atxm), [Jason Lee](https://github.com/jalee314), [Mario Koa Miranda](https://github.com/KoaMiranda)  
 
 ## Project Description
- > **_Maneuver your way through the chaos of ad-Dæra, an Egyptian space station left in disarray after an unidentified organism breaches containment._**
+ > **_Maneuver your way through the chaos of al-Dæra, an Egyptian space station left in disarray after an unidentified organism breaches containment._**
 
 The developers all share the desire to develop a compelling and immersive narrative where _you_ choose your story.  
 The player will interact with several non-playable characters (NPCs)—including the AI that controls the station—through various dialogue options.
@@ -19,7 +19,7 @@ It is being developed via the language C++.
 | Player finds an item in a given room in the game                             | Item is added to the player's inventory for later use exploring the world or while in combat|
 | Player chooses to drop item from inventory                                   | Item is removed from player inventory and the result is outputted in the terminal           |
 | Player chooses to traverse the map                                           | Terminal outputs movement options, and whether or not they are valid.                       |
-| Player interacts with **Basar** to receive messages through the terminal     | **Basar** returns a message in the terminal                                                 |
+| Player interacts with **Basar** to read the journal     | **Basar** outputs a page upon user request and selection                                                 |
 | Player equips items found during the game                                    | Player stats are changed and shown to the player in the terminal                            |
 | Player looks inside journal item                                             | Terminal outputs hints on what needs to be done next, and expands on the lore of the story  |
 | Player asks for a description of current room                                | Terminal returns a brief description and expands upon the lore of the game                  |
@@ -28,8 +28,26 @@ It is being developed via the language C++.
 A [project board](https://github.com/orgs/cs100/projects/314/views/1) has been set up to streamline the development process.
 ## User Interface Specification
 ### Navigation Diagram
-![Picture of Navigation Diagram](https://github.com/cs100/final-project-jlee1667-yadam003-shilt003-mmira069/blob/master/img/Navigation_Diagram.jpg)
-Our navigation diagram shows all the options the players have once in the game. All users will start at the home screen, from which they will have the option to load up a save file or start a new game. At that point, the user will have options to open an inventory menu or open a menu to interact with Basar. The user will also randomly encounter enemies, from which they can either win or lose the battle.
+```mermaid
+graph TD
+    n1((Main Menu))
+    n2([Character Class Screen])
+    n3([Game Screen])
+    n4([Inventory Screen])
+    n5([<i>Basar</i> Screen])
+    n6([Battle Screen])
+    n7([Victory Screen])
+    n8([Lose Screen])
+    n1-->n2
+    n2-- Start Game -->n3
+    n3-->n4
+    n3-->n5
+    n4-- Equip/trash item -->n4
+    n5-- Prompt/exit <i>Basar</i> -->n5
+    n3-- Encounter enemy -->n6
+
+
+```
 
 ### Screen Layouts
 ![Picture of Screen Layouts](https://github.com/cs100/final-project-jlee1667-yadam003-shilt003-mmira069/blob/master/img/Screen_Layout.png) <br/>
@@ -215,10 +233,7 @@ classDiagram
 direction LR
 class MainMenu {
     +output()void
-    +saveGame()void
-    +getSave()void
-    +exit()void
-    +selectCharacter()void
+    +quit()void
 }
 
 class Entity {
@@ -226,30 +241,22 @@ class Entity {
     #attack : int 
     #defense : int
     +printStatus()void
+    +isAlive()bool
 }
 <<abstract>> Entity
 
 class Soldier {
-    +buffAttack()void
+    +buffStat()void
 }
 
 class Engineer {
-    +buffDefense()void
+    +buffStat()void
 }
 
 class Biologist {
-    +buffHealth()void
+    +buffStat()void
 }
-class playerActions {
-    +walkForward()void
-	+walkBackwards()void
-	+walkRight()void
-	+walkLeft()void
-	+heal()void
-	+openJournal()void
-	+talktoBasar()void
-}
-<<friend>> playerActions
+
 
 Lab --|> Environment
 Hallway--|>Environment
@@ -337,21 +344,36 @@ InventoryManagement--|>IAdjustInventory
 InventoryDisplay--|>IDisplayInventory
 
 class PlayerCharacter {
-    -difficulty : string 
-    -basar : Basar 
-    -inventoryManagement : InventoryManagement
+    -difficulty : string
+    -inventory : InventoryManagement
     -inventoryDisplay : InventoryDisplay
- 
+    -weapon : Item*
+    +printStatus()void
+    +getDifficulty()string
+    +getHealth()int
+    +getAttack()int
+    +getDefense()int
+    +setAttack(Item* weapon)void
+    +getWeapon()Item*
+    +setWeapon()void
+    +addToInventory(Item* item);
+    +removeFromInventory(Item* item)void
+    +itemInInventory(const string& item)bool
+    +getItemFromInventory(string& item)Item*
+    +showInventory()void
+    +showCurrNumItems()size_t
 }
-<<abstract>> PlayerCharacter
 
 class IEnemyState {
-    +getAttack() int
-    +getHealth() int
-    +setHealth(int) void
-    +setEvasion(int) void
-    +setAccuracy(int) void
-    +printStatus() void
+    +getHealth()int
+    +getAttack()int
+    +getEvasion()int
+    +getAccuracy()int
+    +getEnemyType()string
+    +setHealth(int)void
+    +setEvasion(int)void
+    +setAccuracy(int)void
+    +printStatus()void
 }
 <<interface>> IEnemyState
 
