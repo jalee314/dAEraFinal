@@ -37,15 +37,13 @@ class PlayerCharacter : public IEntity{
 
 class Soldier : public PlayerCharacter{ //for all characters they are given default stats
     public:
-        Soldier(Weapon* weapon) : PlayerCharacter(120, 7, 5, "Easy", weapon){            
-        }
+        Soldier(Weapon* weapon) : PlayerCharacter(120, 7, 5, "Easy", weapon){}
         void buffAttack();
 };
 
 class Engineer : public PlayerCharacter{
     public:
-        Engineer(Weapon* weapon) : PlayerCharacter(100, 5, 4, "Medium", weapon){
-        }
+        Engineer(Weapon* weapon) : PlayerCharacter(100, 5, 4, "Medium", weapon){}
         void buffDefense();
 };
 

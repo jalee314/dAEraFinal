@@ -12,14 +12,16 @@ int main(int argc, char **argv) {
 
 //test to make sure changes work
 TEST(BattleTests, compileTest){
-    ASSERT_NO_THROW(Soldier mate);  
+    Weapon universalWeapon("Gun", 8);
+    ASSERT_NO_THROW(Soldier mate(&universalWeapon));  
     ASSERT_NO_THROW(Rat Remmy);
     ASSERT_NO_THROW(battleActions actions);
 }
 
 TEST(BattleTests, testPlayerAttacksEnemy) {
   Rat remmy;
-  Biologist protagonist;
+  Weapon universalWeapon("Gun", 8);
+  Biologist protagonist(&universalWeapon);
   battleActions battle;
   remmy.setEvasion(0);
   remmy.takeDamage(battle.attack(&remmy, &protagonist));
@@ -28,7 +30,8 @@ TEST(BattleTests, testPlayerAttacksEnemy) {
 
 TEST(BattleTests, testPlayerAttacksMissEnemy) {
   Rat remmy;
-  Biologist protagonist;
+  Weapon universalWeapon("Gun", 8);
+  Biologist protagonist(&universalWeapon);
   battleActions battle;
   remmy.setEvasion(100);
   remmy.takeDamage(battle.attack(&remmy, &protagonist));
@@ -37,7 +40,8 @@ TEST(BattleTests, testPlayerAttacksMissEnemy) {
 
 TEST(BattleTests, testEnemyAttacksPlayer) {
   Alien allen;
-  Biologist protagonist;
+  Weapon universalWeapon("Gun", 8);
+  Biologist protagonist(&universalWeapon);
   battleActions battle;
   allen.setAccuracy(100);
   battle.defend(&protagonist, allen.dealDamage());
@@ -46,7 +50,8 @@ TEST(BattleTests, testEnemyAttacksPlayer) {
 
 TEST(BattleTests,testEnemyAttacksMissPlayer) {
   Alien allen;
-  Biologist protagonist;
+  Weapon universalWeapon("Gun", 8);
+  Biologist protagonist(&universalWeapon);
   battleActions battle;
   allen.setAccuracy(0);
   battle.defend(&protagonist, allen.dealDamage());
@@ -55,63 +60,64 @@ TEST(BattleTests,testEnemyAttacksMissPlayer) {
 
 TEST(BattleTests, testItemHealthBuff) {
   Alien allen;
-  Biologist protagonist;
+  Weapon universalWeapon("Gun", 8);
+  Biologist protagonist(&universalWeapon);
   battleActions battle;
   HelpItem bandages("Bandages", 5, "health");
   protagonist.addToInventory(&bandages);
   allen.setAccuracy(100);
   battle.defend(&protagonist, allen.dealDamage());
-  ASSERT_TRUE(protagonist.itemInInventory(&bandages));
+  ASSERT_TRUE(protagonist.itemInInventory("Bandages"));
   battle.useItem(&bandages, &protagonist);
-  ASSERT_FALSE(protagonist.itemInInventory(&bandages));
+  ASSERT_FALSE(protagonist.itemInInventory("Bandages"));
   ASSERT_EQ(protagonist.getHealth(), 73); 
 }
 
 TEST(BattleTests, testItemAttackBuff) {
   Crewmate rick;
-  Engineer protagonist;
+  Weapon universalWeapon("Gun", 8);
+  Engineer protagonist(&universalWeapon);
   battleActions battle;
   HelpItem roids("Steroids", 3, "attack");
   protagonist.addToInventory(&roids);
-  ASSERT_TRUE(protagonist.itemInInventory(&roids));
+  ASSERT_TRUE(protagonist.itemInInventory("Steroids"));
   rick.setEvasion(0);
   battle.useItem(&roids, &protagonist);
-  ASSERT_FALSE(protagonist.itemInInventory(&roids));
+  ASSERT_FALSE(protagonist.itemInInventory("Steroids"));
   rick.takeDamage(battle.attack(&rick, &protagonist));
-  ASSERT_EQ(rick.getHealth(), 8); 
+  ASSERT_EQ(rick.getHealth(), 10); 
 }
 
 TEST(BattleTests, testItemDefenseBuff) {
   Terrorist grunt;
-  Soldier protagonist;
+  Weapon universalWeapon("Gun", 8);
+  Soldier protagonist(&universalWeapon);
   battleActions battle;
   HelpItem chestplate("Chestplate", 2, "defense"); 
   protagonist.addToInventory(&chestplate);
-  ASSERT_TRUE(protagonist.itemInInventory(&chestplate));
+  ASSERT_TRUE(protagonist.itemInInventory("Chestplate"));
   grunt.setAccuracy(100);
   battle.useItem(&chestplate, &protagonist);
-  ASSERT_FALSE(protagonist.itemInInventory(&chestplate));
+  ASSERT_FALSE(protagonist.itemInInventory("Chestplate"));
   battle.defend(&protagonist, grunt.dealDamage());
   ASSERT_EQ(protagonist.getHealth(), 114); 
 }
 
 TEST(BattleTests, killEnemy) {
   Terrorist grunt;
-  Soldier protagonist;
+  Weapon universalWeapon("Gun", 100);
+  Soldier protagonist(&universalWeapon);
+  protagonist.setAttack(&universalWeapon);
   battleActions battle;
-  HelpItem devtool("devtool", 100, "attack"); 
   grunt.setEvasion(0);
-  protagonist.addToInventory(&devtool);
-  ASSERT_TRUE(protagonist.itemInInventory(&devtool));
-  battle.useItem(&devtool, &protagonist);
-  ASSERT_FALSE(protagonist.itemInInventory(&devtool));
   grunt.takeDamage(battle.attack(&grunt, &protagonist));
   ASSERT_FALSE(grunt.isAlive()); 
 }
 
 TEST(BattleTests, characterDeath) {
   Alien allen;
-  Biologist protagonist;
+  Weapon universalWeapon("Gun", 8);
+  Biologist protagonist(&universalWeapon);
   battleActions battle;
   allen.setAccuracy(100);
   battle.defend(&protagonist, allen.dealDamage());
