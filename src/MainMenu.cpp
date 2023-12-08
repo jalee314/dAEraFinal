@@ -7,7 +7,7 @@ void MainMenu::output() {
     std::cout << "                                        dÆRA" << std::endl;
     std::cout << " 1.   Start Game" << std::endl;
     std::cout << " 2.   Exit" << std::endl;
-    std::cout << "\n";
+    std::cout << "\n>> ";
 }
 
 void MainMenu::quit() {

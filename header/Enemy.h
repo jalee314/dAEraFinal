@@ -76,7 +76,7 @@ private:
 
 class Terrorist : public EnemyStatus {
 public:
-    Terrorist(): EnemyStatus(20, 13, 2, 10, 90, "Terrorist"), enemyBattle(*this) {}
+    Terrorist(): EnemyStatus(20, 13, 0, 10, 90, "Terrorist"), enemyBattle(*this) {}
     virtual int dealDamage();
     virtual void takeDamage(int damage);
     virtual void printStatus();
@@ -88,7 +88,7 @@ private:
 
 class Crewmate : public EnemyStatus {
 public:
-    Crewmate(): EnemyStatus(15, 11, 1, 15, 70, "Crewmate"), enemyBattle(*this) {}
+    Crewmate(): EnemyStatus(15, 11, 0, 15, 70, "Crewmate"), enemyBattle(*this) {}
     virtual int dealDamage();
     virtual void takeDamage(int damage);
     virtual void printStatus();
@@ -100,7 +100,7 @@ private:
 
 class Alien : public EnemyStatus {
 public:
-    Alien(): EnemyStatus(20, 15, 3, 20, 85, "Alien"), enemyBattle(*this)  {}
+    Alien(): EnemyStatus(20, 15, 0, 20, 85, "Alien"), enemyBattle(*this)  {}
     virtual int dealDamage();
     virtual void takeDamage(int damage);
     virtual void printStatus();

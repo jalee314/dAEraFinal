@@ -25,9 +25,9 @@ int main() {
 	PlayerCharacter* protagonist; 
 	string menuInput;
 	//instantiate all objects required
-	mainMenu.output();
 	while(true) {
-		std::cin >> menuInput;
+		mainMenu.output();
+		std::getline(std::cin, menuInput);
 		if(menuInput == "1") {
 			break;
 		}
@@ -91,10 +91,10 @@ int main() {
 
 	//Initialize the page that will appear in each room.
 	Page* noPage = nullptr;
-	Page secondPage("	I got bit by one of those damn rats. In the midst of all the chaos, why'd they have to go after me? Why not after one of those scumbags who caused this whole thing? Goddamn it.\n\nI never saw it, but I heard that the last guy who got bit was jettisoned off the ship and into space. The higher-ups allegedly said that it would have cost too much to research a cure for whatever it is those nasty little gray pricks are carrying. Maybe it's just a rumor. But they'd never admit it themselves, and it seems believable enough.\n\nI wonder what would have happened if they let him live...\n\n", 2);
-	Page thirdPage("	ship CoLD... Dark... Big scry green guy.\n\nRat bite turn yellow...\n\nMeat...\n\nItchy... Tasty...\n\n", 3);
-	Page fourthPage("	The results are phenomenal. This organism is one of the most impressive specimens I've examined to date. Its physiology is remarkable, its tendency to domestication is breathtaking... A creature like this should truly be appreciated and respected.\n\nBut it's not going to be. I know why the bigwigs are having us perform this much research. Because it slit the throats of six of its captors in three seconds. They know it's violent, and they want to use it. They want to master it.\n\nAnd naturally, they're going to risk OUR lives to do it. Not their own.\n\n", 4);
-	Page fifthPage("	I am the captain of the Free.\n\n To any members of the Dæra who are alive to read this, I am sorry. I know these words will not mean much, but find solace in potential death by knowing that this action of ours is a push for freedom. Freedom from tyranny. Freedom from being watched. Freedom from having everything decided for us by an authority we didn't choose.\n\nWe have lost many of our own too, and I'm sure you have as well. But what did they all die for? Did they die for nothing? No. They died under a system that must change. A system that is directly responsible for causing them harm. And to be complicit while that happens is distasteful.\n\nEvery war has casualties. And this war is a people's war. Will you selfishly moan about what could have been of your life slaving away on this orbital panopticon? Or are you willing to die for the sake of posterity? Leave a legacy you are proud of.", 5);
+	Page secondPage("I got bit by one of those damn rats. In the midst of all the chaos, why'd they have to go after me? Why not after one of those scumbags who caused this whole thing? Goddamn it.\n\nI never saw it, but I heard that the last guy who got bit was jettisoned off the ship and into space. The higher-ups allegedly said that it would have cost too much to research a cure for whatever it is those nasty little gray pricks are carrying. Maybe it's just a rumor. But they'd never admit it themselves, and it seems believable enough.\n\nI wonder what would have happened if they let him live...\n\n", 2);
+	Page thirdPage("ship CoLD... Dark... Big scry green guy.\n\nRat bite turn yellow...\n\nMeat...\n\nItchy... Tasty...\n\n", 3);
+	Page fourthPage("The results are phenomenal. This organism is one of the most impressive specimens I've examined to date. Its physiology is remarkable, its tendency to domestication is breathtaking... A creature like this should truly be appreciated and respected.\n\nBut it's not going to be. I know why the bigwigs are having us perform this much research. Because it slit the throats of six of its captors in three seconds. They know it's violent, and they want to use it. They want to master it.\n\nAnd naturally, they're going to risk OUR lives to do it. Not their own.\n\n", 4);
+	Page fifthPage("I am the captain of the Free.\n\n To any members of the Dæra who are alive to read this, I am sorry. I know these words will not mean much, but find solace in potential death by knowing that this action of ours is a push for freedom. Freedom from tyranny. Freedom from being watched. Freedom from having everything decided for us by an authority we didn't choose.\n\nWe have lost many of our own too, and I'm sure you have as well. But what did they all die for? Did they die for nothing? No. They died under a system that must change. A system that is directly responsible for causing them harm. And to be complicit while that happens is distasteful.\n\nEvery war has casualties. And this war is a people's war. Will you selfishly moan about what could have been of your life slaving away on this orbital panopticon? Or are you willing to die for the sake of posterity? Leave a legacy you are proud of.", 5);
 	Page* secondPagePointer = &secondPage;
 	Page* thirdPagePointer = &thirdPage;
 	Page* fourthPagePointer = &fourthPage;
@@ -277,8 +277,8 @@ int main() {
 
 
 	while(true) {
-		std::cout << "\n\nChoose your class…\n\n1. Soldier:\nHP: 120\nAttack: 7\nDefense: 5\nDifficulty: Easy\n\n2. Engineer:\nHP: 100\nAttack: 5\nDefense: 4\nDifficulty: Medium\n\n3. Biologist:\nHP: 80\nAttack: 4\nDefense: 3\nDifficulty: Hard\n\n";
-		std:: cin >> characterChoice;
+		std::cout << "\n\nChoose your class…\n\n1. Soldier:\nHP: 120\nAttack: 7\nDefense: 5\nDifficulty: Easy\n\n2. Engineer:\nHP: 100\nAttack: 5\nDefense: 4\nDifficulty: Medium\n\n3. Biologist:\nHP: 80\nAttack: 4\nDefense: 3\nDifficulty: Hard\n\n>> ";
+		std::getline(std::cin, characterChoice);
 		if(characterChoice == "1" || characterChoice == "soldier" || characterChoice == "Soldier") {
 			protagonist = &soldier;
 			isSoldier = true;
@@ -318,40 +318,56 @@ int main() {
 	//game loop
 	while(gameRunning) {	
 		std::cout << "You are currently in the " << currentRoom->displayName() <<".\n\n";
+
+		if(currentRoom->getEnemyFromRoom() != nullptr) {
+			enemy = currentRoom->getEnemyFromRoom();
+			battleOccuring = true;
+		}
+		
 		if(battleOccuring) {
-			std::cout << "\n\nYou're now engaged in combat against the " << enemy->getEnemyType() << "!";
+			std::cout << "\nThe " << enemy->getEnemyType() << " attacks me! Looks like I have to fight!";
 			std::string battleInput;
 			std::string itemChoice;
 			while(battleOccuring) {
 				while(true) {
 					std::cout << "\n\n";
 					protagonist->printStatus();
-					std::cout << "\nWhat will you do?\n1. Attack\n2. Use Item\n\n";
-					cin >> battleInput;
+					std::cout << "\nWhat will I do?\n1. Attack\n2. Use Item\n3. Do Nothing (not advised)\n\n>> ";
+					std::getline(std::cin, battleInput);
 					if(battleInput == "1" || battleInput == "attack" || battleInput == "Attack") {
 						std::cout << "\n\n";
 						enemy->takeDamage(battle.attack(enemy, protagonist));
 						std::cout << "\n\n";
-						enemy->printStatus();
+						if(enemy->isAlive()) {
+							enemy->printStatus();
+						}
+						else{
+							break;
+						}
 						std::cout << "\n";
 						break;
 					}
 					else if(battleInput == "2" || battleInput == "Item" || battleInput == "item") {
 						if(protagonist->showCurrNumItems() == 0) {
-							std::cout << "\n\nNothing in your inventory... in that case you should attack.\n\n";
+							std::cout << "\n\nNothing in my inventory... in that case I should attack.\n\n";
 							continue;
 						}
-						std::cout << "\n\nUse which item?\n\n";
+						std::cout << "\n\nUse which item?\n\n>> ";
 						protagonist->showInventory();
-						std::cin >> itemChoice;
+						std::getline(std::cin, itemChoice);
 						if(!protagonist->itemInInventory(itemChoice)) {
-							std::cout << "\n\nYou don't have that item….\n\n";
+							std::cout << "\n\nI don't have that item….\n\n";
+							continue;
 						}
 						Item* item = protagonist->getItemFromInventory(itemChoice);
 						battle.useItem(item, protagonist);
 						break; 
+					}
+					else if(battleInput == "3" || battleInput == "nothing" || battleInput == "Nothing") {
+						std::cout << "\n\nI don't think I'm going to do anything for this turn, let's see what happens.\n\n";
+						break;
 					} 	
-					else std::cout << "\n\nNot a valid move! Do a real move, cmon now!\n\n";
+					else std::cout << "\n\nNot a valid move! Execute a valid option.\n\n";
 				}
 				if(enemy->isAlive()) {
 					std::cout << "\n\n";
@@ -359,26 +375,27 @@ int main() {
 					std::cout << "\n\n"; 
 				}		
 				if(!protagonist->isAlive()) {
-					std::cout << "You fall to your knees, and you feel your strength fading away. \"Not like this…\"\n\n";
+					std::cout << "I fall to my knees, and feel my strength slowly fading away. \"Not like this…\"\n\n";
 					std::cout << "You've lost the game! Restart the program to give it another try, you'll be able to load a save file coming soon!\n\nThanks for playing!\n\n";
 					mainMenu.quit();
 				}
 				if(!enemy->isAlive()) {
-					std::cout << "You have won this battle!\n\n";
+					currentRoom->setEnemyInRoom(noEnemy);
+					std::cout << "I have won this battle!\n\n";
 					battleOccuring = false;
 				}
 			}
 		}
 		
-		std::cout << "1. Move Rooms\n2. Pick Up Item\n3. BASAR\n4. Look for Page\n5. Player Status\n6. Check Inventory\n7. Get Room Description\n\n";
+		std::cout << "1. Move Rooms\n2. Pick Up Item\n3. BASAR\n4. Look for Page\n5. Player Status\n6. Check Inventory\n7. Get Room Description\n\n>> ";
 
-		std::cin >> playerChoice;
+		std::getline(std::cin, playerChoice);
 
 		if(playerChoice == "1"|| playerChoice == "Move" || playerChoice == "move") {
 			std::string direction;
 			while(true){
-				std::cout << "\n\nChoose a direction:\n1.North\n2.South\n3.East\n4.West\n\n";
-				std::cin >> direction;
+				std::cout << "\n\nChoose a direction:\n\n1. North\n2. South\n3. East\n4. West\n\n5. Exit\n\n>> ";
+				std::getline(std::cin, direction);
 				if(direction == "1" || direction == "north" || direction == "North") {
 					direction = "north";
 				}
@@ -391,12 +408,24 @@ int main() {
 				else if(direction == "4" || direction == "west" || direction == "West") {
 					direction = "west";
 				}
+				else if(direction == "5" || direction == "exit" || direction == "Exit") {
+					break;
+				}
 				else {
-					std::cout << "\n\nInvalid input, choose a proper direction man!";
+					std::cout << "\n\nInvalid input, choose a proper direction.\n";
 					continue;
 				}
 				if(roomDirections[currentRoomIndex].find(direction) != roomDirections[currentRoomIndex].end()) {
 					nextRoomIndex = roomDirections[currentRoomIndex][direction];
+					std::string requiredItemForEscape = "Key Card";
+					if(nextRoomIndex == 24 && !protagonist->itemInInventory(requiredItemForEscape)) {
+                		std::cout << "\nI need the " << requiredItemForEscape << " to enter the Escape Room. It has to be somewhere on this damn ship...\n\n";
+                		continue;
+           			}
+					if(nextRoomIndex == 24 && protagonist->itemInInventory(requiredItemForEscape)) {
+                		std::cout << "\nI swipe the Key Card, and the hatch doors unlock. I'm almost free from this hell.\n\n";
+           			}
+
 					if(gameMap.canMove(currentRoomIndex, nextRoomIndex)) {
 						currentRoomIndex = nextRoomIndex;
 						currentRoom = gameMap.getRoom(currentRoomIndex);
@@ -445,17 +474,17 @@ int main() {
 		}
 		else if(playerChoice == "6" || playerChoice =="inventory" || playerChoice == "Inventory") {
 			if(protagonist->showCurrNumItems() == 0) {
-				cout << "\n\nYou currently have nothing in your inventory\n\n";
+				cout << "\n\nI currently have nothing in my inventory\n\n";
 				continue;
 			}
 			else {
 				while(true){
 					std::cout << "\n\n";
 					protagonist->showInventory();
-					std::cout<<"\n\nDo you want to use an item?\n\n1.Yes \n2.No\n\n";
+					std::cout<<"\n\n1. Use Item \n2. Drop Item\n3. Exit\n\n>> ";
 					std::getline(std::cin, playerChoice);
-					if(playerChoice == "1" || playerChoice == "Yes" || playerChoice == "yes") {
-						std::cout << "\n\nType the name of the item you wish to use (case sensitive)\n\n >> ";
+					if(playerChoice == "1" || playerChoice == "Use" || playerChoice == "use") {
+						std::cout << "\n\nType the name of the item you wish to use (case sensitive)\n\n>> ";
 						std::getline(std::cin, playerChoice);
 						if(protagonist->itemInInventory(playerChoice)) {
 							Item* itemToUse = protagonist->getItemFromInventory(playerChoice);
@@ -478,12 +507,25 @@ int main() {
 							std::cout << "\n\nNot a valid item in inventory, try again (CASE SENSITIVE).";
 						}
 					}
-					else if(playerChoice == "2" || playerChoice == "No" || playerChoice == "no") {
-						std::cout << "\n\n";
+					else if(playerChoice == "2" || playerChoice == "Drop" || playerChoice == "drop") {
+						std::cout << "\n\nWhich item should I drop (case sensitive)?\n\n>> ";
+						std::getline(std::cin, playerChoice);
+						std::cout <<"\n";
+						if(protagonist->itemInInventory(playerChoice)) {
+							Item* itemToDrop = protagonist->getItemFromInventory(playerChoice); 
+							protagonist->removeFromInventory(itemToDrop);
+							break;
+						}
+						std::cout << "\n\nNot a valid item in inventory, try again (CASE SENSITIVE).";
+						continue;
+					}
+					else if(playerChoice == "3" || playerChoice == "Exit" || playerChoice == "exit") {
 						break;
 					}
 					else {
 						std::cout <<"\n\nInvalid input. Choose one of the options given\n\n";
+						std::cout <<"\n";
+					
 					}	
 				}
 			}
@@ -496,11 +538,4 @@ int main() {
 	}	
 	
 }
-
-	/*	cin >> ;
-		while(cin.fail()){ //input check loop
-    		cin.clear();
-    		cin.ignore();
-    		cin >> ;
-		} */
 
