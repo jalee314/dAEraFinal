@@ -15,7 +15,7 @@ public:
     Item(const std::string& itemName): name(itemName){}
     virtual int useItem() = 0;
     virtual void printItem() = 0;
-    virtual int getValue const() = 0;
+    virtual int getValue() const = 0;
     virtual std::string getType() = 0;
     std::string getName() const{return name;}
         // Added equality operator
@@ -44,7 +44,7 @@ public:
     Weapon(const std::string& itemName, int damageValue): Item(itemName), damage(damageValue){}
     virtual int useItem();
     virtual void printItem();
-    virtual int getValue(){return damage;}
+    virtual int getValue() const{return damage;}
     virtual std::string getType(){return "weapon";}
 private:
     int damage;

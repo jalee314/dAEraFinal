@@ -16,7 +16,7 @@ weapon(charWeapon)
 
 void PlayerCharacter::printStatus(){
     cout << "Current Health: " << getHealth() << endl; 
-    cout << "Current Weapon: " << weapon->getName() <<  " (" << weapon->getDamage() << " damage)" << endl;
+    cout << "Current Weapon: " << weapon->getName() <<  " (" << weapon->getValue() << " damage)" << endl;
 }
 
 void PlayerCharacter::addToInventory(Item* item) {

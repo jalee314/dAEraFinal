@@ -28,23 +28,24 @@ void battleActions::useItem(Item* item, PlayerCharacter* character){ //for now d
         return;
     }
         if(item->getType() == "health") { //checks what type of buff to give
-            character->health = character->health + helpItem->getAssistance();
+            character->health = character->health + item->getValue();
         }
         else if(item->getType() == "defense"){
-            character->defense = character->defense + helpItem->getAssistance();
+            character->defense = character->defense + item->getValue();
         }
         else if(item->getType() == "defense"){
-            character->attack = character->attack + helpItem->getAssistance();
+            character->attack = character->attack + item->getValue();
         }
-        else {
-            std::cout << "\n\nThis is a weapon, can't use this item!"
+        else if(item->getType() == "weapon"){
+            std::cout << "\n\nThis is a weapon, I can't use this item, I can only equip!";
+            return;
         }
-        std::cout << "You use the " << helpItem->getName() << ". It gives you +" << helpItem->getAssistance() << " " << helpItem->getType() << ".\n";
+        else if(item->getType() == "wincon") { //wincon = win condition for keycard
+            std::cout << "\n\nYou're gonna need this to escape, I'd think twice before leaving it behind...";
+            return;
+        }
+        std::cout << "You use the " << item->getName() << ". It gives you +" << item->getValue() << " " << item->getType() << ".\n";
         character->inventory.removeItem(item);
-    }
-    else {
-        std::cout << "Invalid item for this function.\n\n";
-    }
 }
 
 void battleActions::defend(PlayerCharacter* character, int damage){ //deals damage to characters

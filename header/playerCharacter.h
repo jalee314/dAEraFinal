@@ -12,7 +12,7 @@ class PlayerCharacter : public IEntity{
         string difficulty;
         InventoryManagement inventory;
         InventoryDisplay inventoryDisplay;
-        Weapon* weapon;
+        Item* weapon;
     public:
         PlayerCharacter(int health, int attack, int defense, string diff, Weapon* charWeapon);
         virtual void printStatus();
@@ -20,9 +20,9 @@ class PlayerCharacter : public IEntity{
         virtual const int getHealth() { return health; }
         virtual const int getAttack() { return attack; }
         virtual const int getDefense() { return defense; }
-        void setAttack(Weapon* weapon) {attack = weapon->getDamage();} //switching weapon
-        Weapon* getWeapon() {return weapon;}
-        void setWeapon(Weapon* newWeapon) {weapon = newWeapon;} 
+        void setAttack(Item* weapon) {attack = weapon->getValue();} //switching weapon
+        Item* getWeapon() {return weapon;}
+        void setWeapon(Item* newWeapon) {weapon = newWeapon;} 
         void addToInventory(Item* item);
         void removeFromInventory(Item* item);
         bool itemInInventory(const std::string& item);

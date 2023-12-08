@@ -37,22 +37,87 @@ int main() {
 		else std::cout << "\nInvalid option, Choose 1 or 2...\n\n";
 	}
 	
+	//initialize the enemies that should spawn in each room
+	EnemyStatus* noEnemy = nullptr;
+
+	Rat ratInRatRoom;
+	Rat ratInKitchen;
+	Rat* ratRoomRat = &ratInRatRoom; 
+	Rat* kitchenRat = &ratInKitchen;
+
+	Alien alienInRecRoom;
+	Alien alienInSleepingQuarters; 
+	Alien alienInEscapeRoom;
+	Alien* recRoomAlien = &alienInRecRoom;
+	Alien* sleepingQuarterAlien = &alienInSleepingQuarters;
+	Alien* escapeRoomAlien = &alienInEscapeRoom;
+
+	Crewmate crewmateInLab;
+	Crewmate crewmateInInfirmary;
+	Crewmate crewmateInBoilerRoom;
+	Crewmate* labCrewmate = &crewmateInLab;
+	Crewmate* infirmaryCrewmate = &crewmateInInfirmary;
+	Crewmate* boilerRoomCrewmate = &crewmateInBoilerRoom;
+
+	Terrorist terroristInSupplyCloset;
+	Terrorist terroristInLoadingZone;
+	Terrorist terroristInWeaponRoom;
+	Terrorist* supplyClosetTerrorist = &terroristInSupplyCloset;
+	Terrorist* loadingZoneTerrorist = &terroristInLoadingZone;
+	Terrorist* weaponRoomTerrorist = &terroristInWeaponRoom;
+
+	//initialize the items that will appear in each room;
+	Item* noItem = nullptr;
 	
+	Weapon shotgun("Shotgun", 10);
+	Weapon hammer("Hammer", 8);
+	Weapon fryingPan("Frying Pan", 9);
+	Weapon* shotgunPointer = &shotgun; //*
+	Weapon* hammerPointer = &hammer; //*
+	Weapon *fryingPanPointer = &fryingPan; //*
+
+	HelpItem kevlarVest("Kevlar Vest", 2, "defense");
+	HelpItem firstAidKit("First Aid Kit", 10, "health");
+	HelpItem steroids("Medicinal Steroids", 3, "attack");
+	HelpItem nutritionalFood("Nutritional Sludge", 5, "health");
+	HelpItem prescribedPills("Prescribed Pills", 5, "health");
+	HelpItem keyCard("Key Card", 0, "wincon");
+	HelpItem* kevlarVestPointer = &kevlarVest; //*
+	HelpItem* firstAidKitPointer = &firstAidKit; //*
+	HelpItem* steroidsPointer = &steroids; //*
+	HelpItem* nutritionalFoodPointer = &nutritionalFood; //*
+	HelpItem* prescribedPillsPointer = &prescribedPills; //*
+	HelpItem* keyCardPointer = &keyCard; //*
+
+	//Initialize the page that will appear in each room.
+	Page* noPage = nullptr;
 
 	//creating our map (gonna be a big chunk lol)
 	
-	Room controlRoom("Control Room(spawn point)");
-	Room recRoom("Recreation Room");
-	Room weaponRoom("Weapon/Ammunition Room");
-	Room infirmary("Infirmary");
-	Room supplyCloset("Supply Closet");
-	Room testingLab("Testing Lab");
-	Room sleepingQuarters("Sleeping Quarters");
-	Room kitchen("Kitchen");
-	Room ratRoom("The Rat Room");
-	Room loadingZone("Loading Zone");
-	Room boilerRoom("Boiler Room"); 
-	Room escapeRoom("Escape Room");
+	Room controlRoom("An array of generative machinery surrounds you, disorganized wires maneuvering the floor like electric serpents.", 
+	"Control Room (spawn point)", kevlarVestPointer, noEnemy, noPage);
+	Room recRoom("It's a small room, with just one television and a few gaming consoles with barely any games. There are some magazines, but they're old; no one's brought any from Earth in a long time.", 
+	"Recreation Room", noItem, recRoomAlien, noPage);
+	Room weaponRoom("Two large, backlit storage racks with firearms and blunt weaponry meet you as you enter the room.", 
+	"Weapon/Ammunition Room", shotgunPointer, weaponRoomTerrorist, noPage);
+	Room infirmary("Off-white walls surround what was once a safe haven. Now, it's a mess, with beds turned over and flickering lights that fill you with dread.", 
+	"Infirmary", firstAidKitPointer, infirmaryCrewmate, noPage);
+	Room supplyCloset("It's a little cramped in here.", 
+	"Supply Closet", keyCardPointer, supplyClosetTerrorist, noPage);
+	Room testingLab("Torn-up documents and blood—is it even human?—litter the floor. On the other side, you can see the enclosure that Specimen Aleph was trapped in for seven months.", 
+	"Testing Lab", steroidsPointer, labCrewmate, noPage);
+	Room sleepingQuarters("An organized set of bunk beds in a boot camp-like arrangement juxtapose the disarray of the rest of the ship. By the looks of it, nobody was in here at the time of detonation.", 
+	"Sleeping Quarters", prescribedPillsPointer, sleepingQuarterAlien, noPage);
+	Room kitchen("It's a gray cantina with some awful-looking (and, from your experience, the taste isn't any better) sludge stored in tubs. The expiration date is around ten years from now.", 
+	"Kitchen", fryingPanPointer, kitchenRat, noPage);
+	Room ratRoom("I don't wanna talk about it. Get me out." ,
+	"The Rat Room", nutritionalFoodPointer, ratRoomRat, noPage);
+	Room loadingZone("This is where other ships usually dock to unload shipments. It's unlikely anybody's coming to help now...", 
+	"Loading Zone", noItem, loadingZoneTerrorist, noPage);
+	Room boilerRoom("Several pipes conjoin to form an amalgamation of mechanical prowess. They all connect to their respective machines and extend out of the room, through the walls.", 
+	"Boiler Room", hammerPointer, boilerRoomCrewmate, noPage); 
+	Room escapeRoom("Freedom is right in front of you.",
+	"Escape Room", noItem, escapeRoomAlien, noPage);
 	//hallways
 
 	Hallway hallwayControlRec("Hallway between Control Room and Rec Room");
@@ -233,7 +298,8 @@ int main() {
 
 	while(gameRunning) {		
 		std::cout << "You are currently in the " << currentRoom->displayDescription() <<".\n\n";
-		
+	
+
 		if(battleOccuring) {
 			std::cout << "\n\nYou're now engaged in combat against the " << enemy->getEnemyType() << "!";
 			std::string battleInput;
@@ -316,12 +382,12 @@ int main() {
 					if(gameMap.canMove(currentRoomIndex, nextRoomIndex)) {
 						currentRoomIndex = nextRoomIndex;
 						currentRoom = gameMap.getRoom(currentRoomIndex);
-						std::cout << "\nYou move to the " << currentRoom->displayDescription() << "\n\n";
+						std::cout << "\nI move to the " << currentRoom->displayDescription() << "\n\n";
 						break;
 					}
 				}
 				else {
-					std::cout << "\n\nYou can't go that way, just a wall.";
+					std::cout << "\n\nI can't go that way, just a wall.";
 					continue;
 				}
 
@@ -357,18 +423,16 @@ int main() {
 						std::cin >> playerChoice;
 						if(protagonist->itemInInventory(playerChoice)) {
 							Item* itemToUse = protagonist->getItemFromInventory(playerChoice);
-							HelpItem* helpItem = dynamic_cast<HelpItem*>(itemToUse);
-							if(helpItem != nullptr) {
-								battle.useItem(itemToUse, protagonist);
-								break;
+							if(itemToUse->getType() != "weapon") {
+							battle.useItem(itemToUse, protagonist);
+							break;	
 							}
 							else {
-								Weapon* newWeapon = dynamic_cast<Weapon*>(itemToUse);
 								std::cout << "\n";
 								protagonist->addToInventory(protagonist->getWeapon());
-								protagonist->setWeapon(newWeapon);
-								protagonist->setAttack(newWeapon); 
-								std::cout << newWeapon->getName() << " has been equipped.\n" << newWeapon->getName() << " deals " << newWeapon->getValue() << " damage.\n\n";
+								protagonist->setWeapon(itemToUse);
+								protagonist->setAttack(itemToUse); 
+								std::cout << itemToUse->getName() << " has been equipped.\n" << itemToUse->getName() << " deals " << itemToUse->getValue() << " damage.\n\n";
 								protagonist->removeFromInventory(itemToUse);
 								std::cout << "\n\n";
 								break;
@@ -384,9 +448,7 @@ int main() {
 					}
 					else {
 						std::cout <<"\n\nInvalid input. Choose one of the options given\n\n";
-					}
-
-						
+					}	
 				}
 			}
 			
