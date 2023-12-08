@@ -5,15 +5,7 @@ Room::Room(const std::string& description, const std::string& name, Item* item, 
     enemyPointer = enemy;
     pagePointer = page;
 }
-/*
-const std::string& Room::getRoomName() const {
-    return roomName;
-}
 
-void Room::printRoomName() {
-    std::cout << roomName << '\n';
-}
-*/
 void Room::setItemInRoom(Item* item) {
     itemPointer = item;
 }

@@ -2,10 +2,7 @@
 #define ROOM_H
 
 #include "Environment.h"
-/*
-#include "Enemy.h"
-#include "Page.h"
-*/
+
 class Room : public Environment {
 private:
     Item* itemPointer;
