@@ -386,7 +386,22 @@ int main() {
 				}
 			}
 		}
-		
+
+		if(currentRoom == gameRooms[24]){
+			std::cout << "Finally, after countless battles, I'm able to escape from this hell in space. I don't have a clue where this escape pod will take me... but I'm sure anywhere else is better than this god-foresaken station. So long...\n\n\n\n";
+			std::cout << "Congrats on beating the game! ";
+			if(isSoldier) std::cout << "Try any of the other classes for a more challenging experience!\n\n";
+			if(isEngineer) std::cout << "Try the biologist class for a more challening experience!\n\n";
+			if(isBiologist) std::cout << "You beat the game on the hardest difficulty, you're a real pro!\n\n";
+   			std::cout << "\n						  Credits:\n\n";
+			std::cout << "						Youssef Adam\n";
+			std::cout << "						Sydney Hilton\n";
+			std::cout << "						  Jason Lee\n";
+			std::cout << "						Mario Miranda\n\n\n";
+			std::cout << "					     Thanks for playing!\n\n\n";
+			mainMenu.quit();
+		}		
+
 		std::cout << "1. Move Rooms\n2. Pick Up Item\n3. BASAR\n4. Look for Page\n5. Player Status\n6. Check Inventory\n7. Get Room Description\n\n>> ";
 
 		std::getline(std::cin, playerChoice);

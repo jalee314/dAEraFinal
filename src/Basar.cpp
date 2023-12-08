@@ -50,7 +50,7 @@ void Basar::outputJournalSelectScreen() {
         std::cout << "                                                                      BASAR" << std::endl;
         std::cout << "\n\n\n\nSELECT ENTRY" << "\n\n";
         for (unsigned i = 1; i < numEntries + 1; i++) std::cout << i << ". Entry " << i << "\n\n";
-        std::cout << "9. Exit" << "\n\n";
+        std::cout << "9. Exit" << "\n\n>>";
         std::cin >> input;
         if(!isInteger(input)) {
             std::cout << "\n\nBASAR ONLY TAKES NUMBERS. INPUT A NUMBER\n\n";
