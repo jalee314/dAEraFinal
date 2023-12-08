@@ -455,6 +455,7 @@ class EnemyStatus {
 }
 
 class EnemyBattle {
+    
 }
 
 class Rat {
