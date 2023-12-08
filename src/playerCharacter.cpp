@@ -43,14 +43,17 @@ std::size_t PlayerCharacter::showCurrNumItems() {
     return inventoryDisplay.getNumItems();
 }
 
-void Soldier::buffAttack(){
+void Soldier::buffStat(){
     attack += 2;
+    std::cout << "\nAttack has been buffed +2\n";
 }
 
-void Engineer::buffDefense(){
+void Engineer::buffStat(){
     defense += 1;
+    std::cout << "\nDefense has been buffed +1\n";
 }
 
-void Biologist::buffHealth(){
+void Biologist::buffStat(){
     health += 20;
+    std::cout << "\nHealth has been buffed +20\n";
 }

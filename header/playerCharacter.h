@@ -20,6 +20,7 @@ class PlayerCharacter : public IEntity{
         virtual const int getHealth() { return health; }
         virtual const int getAttack() { return attack; }
         virtual const int getDefense() { return defense; }
+        virtual void buffStat() = 0;
         void setAttack(Item* weapon) {attack = weapon->getValue();} //switching weapon
         Item* getWeapon() {return weapon;}
         void setWeapon(Item* newWeapon) {weapon = newWeapon;} 
@@ -38,17 +39,17 @@ class PlayerCharacter : public IEntity{
 class Soldier : public PlayerCharacter{ //for all characters they are given default stats
     public:
         Soldier(Weapon* weapon) : PlayerCharacter(120, 7, 5, "Easy", weapon){}
-        void buffAttack();
+        virtual void buffStat();
 };
 
 class Engineer : public PlayerCharacter{
     public:
         Engineer(Weapon* weapon) : PlayerCharacter(100, 5, 4, "Medium", weapon){}
-        void buffDefense();
+        virtual void buffStat();
 };
 
 class Biologist : public PlayerCharacter{
     public:
         Biologist(Weapon* weapon) : PlayerCharacter(80, 4, 3, "Hard", weapon){}
-        void buffHealth();
+        virtual void buffStat();
 };

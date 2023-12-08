@@ -49,7 +49,7 @@ TEST(playerCharactertest, characterCreationBIOL){
 TEST(playerCharactertest, buffAttack){
   Weapon stub("Stub", 0);
   Soldier victor(&stub);
-  victor.buffAttack();
+  victor.buffStat();
 
   EXPECT_EQ(victor.getAttack(), 9);
 }
@@ -57,7 +57,7 @@ TEST(playerCharactertest, buffAttack){
 TEST(playerCharactertest, buffDefense){
   Weapon stub("Stub", 0);
   Engineer justin(&stub);
-  justin.buffDefense();
+  justin.buffStat();
 
   EXPECT_EQ(justin.getDefense(), 5);
 }
@@ -65,7 +65,7 @@ TEST(playerCharactertest, buffDefense){
 TEST(playerCharactertest, buffHealth){
   Weapon stub("Stub", 0);
   Biologist matthew(&stub);
-  matthew.buffHealth();
+  matthew.buffStat();
 
   EXPECT_EQ(matthew.getHealth(), 100);
 }

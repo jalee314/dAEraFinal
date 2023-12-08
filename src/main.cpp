@@ -325,6 +325,7 @@ int main() {
 		}
 		
 		if(battleOccuring) {
+			int buffStatCounter = 0;
 			std::cout << "\nThe " << enemy->getEnemyType() << " attacks me! Looks like I have to fight!";
 			std::string battleInput;
 			std::string itemChoice;
@@ -332,7 +333,7 @@ int main() {
 				while(true) {
 					std::cout << "\n\n";
 					protagonist->printStatus();
-					std::cout << "\nWhat will I do?\n1. Attack\n2. Use Item\n3. Do Nothing (not advised)\n\n>> ";
+					std::cout << "\nWhat will I do?\n1. Attack\n2. Use Item\n3. Buff Yourself\n4. Do Nothing (not advised)\n\n>> ";
 					std::getline(std::cin, battleInput);
 					if(battleInput == "1" || battleInput == "attack" || battleInput == "Attack") {
 						std::cout << "\n\n";
@@ -363,7 +364,14 @@ int main() {
 						battle.useItem(item, protagonist);
 						break; 
 					}
-					else if(battleInput == "3" || battleInput == "nothing" || battleInput == "Nothing") {
+					else if(battleInput == "3" || battleInput == "buff" || battleInput == "Buff") {
+						if(buffStatCounter == 0) {
+							protagonist->buffStat();
+							buffStatCounter++;
+						}
+						else std::cout << "\n\nYou've already buffed your stats once this battle. You can only buff your stats once per battle.\n\n";
+					} 	
+					else if(battleInput == "4" || battleInput == "nothing" || battleInput == "Nothing") {
 						std::cout << "\n\nI don't think I'm going to do anything for this turn, let's see what happens.\n\n";
 						break;
 					} 	
