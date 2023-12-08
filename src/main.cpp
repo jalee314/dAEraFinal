@@ -1,15 +1,16 @@
-#include "header/MainMenu.h"
-#include "header/Enemy.h"
-#include "header/Inventory.h"
-#include "header/Item.h"
-#include "header/Environment.h"
-#include "header/Map.h"
-#include "header/Hallway.h"
-#include "header/NPC.h"
-#include "header/playerCharacter.h"
-#include "header/battleActions.h"
-#include "header/Basar.h"
-#include "header/NPC.h"
+#include "../header/MainMenu.h"
+#include "../header/Enemy.h"
+#include "../header/Inventory.h"
+#include "../header/Item.h"
+#include "../header/Environment.h"
+#include "../header/Map.h"
+#include "../header/Hallway.h"
+#include "../header/NPC.h"
+#include "../header/playerCharacter.h"
+#include "../header/battleActions.h"
+#include "../header/Basar.h"
+#include "../header/NPC.h"
+#include "../header/Room.h"
 #include <iostream>
 #include <unordered_map>
 
@@ -40,18 +41,18 @@ int main() {
 
 	//creating our map (gonna be a big chunk lol)
 	
-	Environment controlRoom("Control Room(spawn point)");
-	Environment recRoom("Recreation Room");
-	Environment weaponRoom("Weapon/Ammunition Room");
-	Environment infirmary("Infirmary");
-	Environment supplyCloset("Supply Closet");
-	Environment testingLab("Testing Lab");
-	Environment sleepingQuarters("Sleeping Quarters");
-	Environment kitchen("Kitchen");
-	Environment ratRoom("The Rat Room");
-	Environment loadingZone("Loading Zone");
-	Environment boilerRoom("Boiler Room"); 
-	Environment escapeRoom("Escape Room");
+	Room controlRoom("Control Room(spawn point)");
+	Room recRoom("Recreation Room");
+	Room weaponRoom("Weapon/Ammunition Room");
+	Room infirmary("Infirmary");
+	Room supplyCloset("Supply Closet");
+	Room testingLab("Testing Lab");
+	Room sleepingQuarters("Sleeping Quarters");
+	Room kitchen("Kitchen");
+	Room ratRoom("The Rat Room");
+	Room loadingZone("Loading Zone");
+	Room boilerRoom("Boiler Room"); 
+	Room escapeRoom("Escape Room");
 	//hallways
 
 	Hallway hallwayControlRec("Hallway between Control Room and Rec Room");
@@ -189,23 +190,26 @@ int main() {
 	//^^ which directions we can move from when we’re in a certain room, and the room that it’ll take us to defined by the index in the vector
 
 	std::string characterChoice;
-	Soldier soldier;
-	Engineer engineer;
-	Biologist biologist;
+	Weapon soldierDefault("Rifle", 7);
+	Soldier soldier(&soldierDefault);
+	Weapon engineerDefault("Wrench", 5);
+	Engineer engineer(&engineerDefault);
+	Weapon biologistDefault("Syringe", 4);
+	Biologist biologist(&biologistDefault);
 
 
 	while(true) {
-		std::cout << "\n\nChoose your class…:\n\nSoldier:\nHP: 120\nAttack: 7\nDefense: 5\n\nEngineer:\nHP: 100\nAttack: 5\nDefense: 4\n\nBiologist:\nHP: 80\nAttack: 4\nDefense: 3\n\n";
+		std::cout << "\n\nChoose your class…\n\n1. Soldier:\nHP: 120\nAttack: 7\nDefense: 5\nDifficulty: Easy\n\n2. Engineer:\nHP: 100\nAttack: 5\nDefense: 4\nDifficulty: Medium\n\n3. Biologist:\nHP: 80\nAttack: 4\nDefense: 3\nDifficulty: Hard\n\n";
 		std:: cin >> characterChoice;
-		if(characterChoice == "soldier" || characterChoice == "Soldier") {
+		if(characterChoice == "1" || characterChoice == "soldier" || characterChoice == "Soldier") {
 			protagonist = &soldier;
 			break;
 		}
-		else if(characterChoice == "engineer" || characterChoice == "Engineer") {
+		else if(characterChoice == "2" || characterChoice == "engineer" || characterChoice == "Engineer") {
 			protagonist = &engineer;
 			break;
 		}
-		else if(characterChoice == "biologist" || characterChoice == "Biologist") {
+		else if(characterChoice == "3" || characterChoice == "biologist" || characterChoice == "Biologist") {
 			protagonist = &biologist;
 			break;
 		}
@@ -221,54 +225,17 @@ int main() {
 	Environment* currentRoom = gameMap.getRoom(currentRoomIndex);
 	//while loop will be our actual game loop
 	std::string playerChoice;
-	
+	HelpItem realPills("Pills", 3, "health");
+	HelpItem* pills = &realPills;
+
+	protagonist->addToInventory(&engineerDefault);
+	protagonist->addToInventory(pills);
+
 	while(gameRunning) {		
 		std::cout << "You are currently in the " << currentRoom->displayDescription() <<".\n\n";
-
-		std::cout << "1. Move Rooms\n2. Pick Up Item\n3. Basar\n4. Look for Page\n\n";
-
-		std::cin >> playerChoice;
-
-		if(playerChoice == "1"|| playerChoice == "Move" || playerChoice == "move") {
-			std::string direction;
-			while(true){
-				std::cout << "\n\nChoose a direction:\n1.North\n2.South\n3.East\n4.West\n\n";
-				std::cin >> direction;
-				if(direction == "1" || direction == "north" || direction == "North") {
-					direction = "north";
-				}
-				else if(direction == "2" || direction == "south" || direction == "South") {
-					direction = "south";
-				}
-				else if(direction == "3" || direction == "east" || direction == "East") {
-					direction = "east";
-				}
-				else if(direction == "4" || direction == "west" || direction == "West") {
-					direction = "west";
-				}
-				else {
-					std::cout << "\n\nInvalid input, choose a proper direction man!";
-					continue;
-				}
-				if(roomDirections[currentRoomIndex].find(direction) != roomDirections[currentRoomIndex].end()) {
-					nextRoomIndex = roomDirections[currentRoomIndex][direction];
-					if(gameMap.canMove(currentRoomIndex, nextRoomIndex)) {
-						currentRoomIndex = nextRoomIndex;
-						currentRoom = gameMap.getRoom(currentRoomIndex);
-						std::cout << "\nYou move to the " << currentRoom->displayDescription() << "\n\n";
-						break;
-					}
-				}
-				else {
-					std::cout << "\n\nYou can't go that way, just a wall.";
-					continue;
-				}
-
-				}
-			} 
-
+		
 		if(battleOccuring) {
-			std::cout << "\n\nYou're now engaged in combat!";
+			std::cout << "\n\nYou're now engaged in combat against the " << enemy->getEnemyType() << "!";
 			std::string battleInput;
 			std::string itemChoice;
 			while(battleOccuring) {
@@ -317,6 +284,116 @@ int main() {
 					battleOccuring = false;
 				}
 			}
+		}
+		
+		std::cout << "1. Move Rooms\n2. Pick Up Item\n3. Basar\n4. Look for Page\n5. Player Status\n6. Check Inventory\n\n";
+
+		std::cin >> playerChoice;
+
+		if(playerChoice == "1"|| playerChoice == "Move" || playerChoice == "move") {
+			std::string direction;
+			while(true){
+				std::cout << "\n\nChoose a direction:\n1.North\n2.South\n3.East\n4.West\n\n";
+				std::cin >> direction;
+				if(direction == "1" || direction == "north" || direction == "North") {
+					direction = "north";
+				}
+				else if(direction == "2" || direction == "south" || direction == "South") {
+					direction = "south";
+				}
+				else if(direction == "3" || direction == "east" || direction == "East") {
+					direction = "east";
+				}
+				else if(direction == "4" || direction == "west" || direction == "West") {
+					direction = "west";
+				}
+				else {
+					std::cout << "\n\nInvalid input, choose a proper direction man!";
+					continue;
+				}
+				if(roomDirections[currentRoomIndex].find(direction) != roomDirections[currentRoomIndex].end()) {
+					nextRoomIndex = roomDirections[currentRoomIndex][direction];
+					if(gameMap.canMove(currentRoomIndex, nextRoomIndex)) {
+						currentRoomIndex = nextRoomIndex;
+						currentRoom = gameMap.getRoom(currentRoomIndex);
+						std::cout << "\nYou move to the " << currentRoom->displayDescription() << "\n\n";
+						break;
+					}
+				}
+				else {
+					std::cout << "\n\nYou can't go that way, just a wall.";
+					continue;
+				}
+
+			}
+		} 
+		else if(playerChoice == "2" || playerChoice == "Item" || playerChoice == "item") {
+			
+		}
+		else if(playerChoice == "3" || playerChoice == "Basar" || playerChoice == "page") {
+			basar.outputBasarScreen();
+		}
+		else if(playerChoice == "4" || playerChoice == "Page" || playerChoice == "page") {
+	
+		}
+		else if(playerChoice == "5" || playerChoice =="Status" || playerChoice == "status") {
+			std::cout << "\n\n";
+			protagonist->printStatus();
+			std::cout << "\n\n";
+		}
+		else if(playerChoice == "6" || playerChoice =="inventory" || playerChoice == "Inventory") {
+			if(protagonist->showCurrNumItems() == 0) {
+				cout << "\n\nYou currently have nothing in your inventory\n\n";
+				continue;
+			}
+			else {
+				while(true){
+					std::cout << "\n\n";
+					protagonist->showInventory();
+					std::cout<<"\n\nDo you want to use an item?\n\n1.Yes \n2.No\n\n";
+					std::cin >> playerChoice;
+					if(playerChoice == "1" || playerChoice == "Yes" || playerChoice == "yes") {
+						std::cout << "\n\nType the name of the item you wish to use (case sensitive)\n\n >> ";
+						std::cin >> playerChoice;
+						if(protagonist->itemInInventory(playerChoice)) {
+							Item* itemToUse = protagonist->getItemFromInventory(playerChoice);
+							HelpItem* helpItem = dynamic_cast<HelpItem*>(itemToUse);
+							if(helpItem != nullptr) {
+								battle.useItem(itemToUse, protagonist);
+								break;
+							}
+							else {
+								Weapon* newWeapon = dynamic_cast<Weapon*>(itemToUse);
+								std::cout << "\n";
+								protagonist->addToInventory(protagonist->getWeapon());
+								protagonist->setWeapon(newWeapon);
+								protagonist->setAttack(newWeapon); 
+								std::cout << newWeapon->getName() << " has been equipped.\n" << newWeapon->getName() << " deals " << newWeapon->getValue() << " damage.\n\n";
+								protagonist->removeFromInventory(itemToUse);
+								std::cout << "\n\n";
+								break;
+							}
+						}
+						else {
+							std::cout << "\n\nNot a valid item in inventory, try again (CASE SENSITIVE).";
+						}
+					}
+					else if(playerChoice == "2" || playerChoice == "No" || playerChoice == "no") {
+						std::cout << "\n\n";
+						break;
+					}
+					else {
+						std::cout <<"\n\nInvalid input. Choose one of the options given\n\n";
+					}
+
+						
+				}
+			}
+			
+		}
+		else {
+			std::cout << "\n\nInvalid input. Choose one of the options given\n\n";
+			continue;
 		}
 
 	}	

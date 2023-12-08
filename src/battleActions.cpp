@@ -27,18 +27,17 @@ void battleActions::useItem(Item* item, PlayerCharacter* character){ //for now d
         std::cout << "Item not in inventory." << std::endl;
         return;
     }
-
-    HelpItem* helpItem = dynamic_cast<HelpItem*>(item);
-
-    if(helpItem != nullptr) {
-        if(helpItem->getType() == "health") { //checks what type of buff to give
+        if(item->getType() == "health") { //checks what type of buff to give
             character->health = character->health + helpItem->getAssistance();
         }
-        else if(helpItem->getType() == "defense"){
+        else if(item->getType() == "defense"){
             character->defense = character->defense + helpItem->getAssistance();
         }
-        else {
+        else if(item->getType() == "defense"){
             character->attack = character->attack + helpItem->getAssistance();
+        }
+        else {
+            std::cout << "\n\nThis is a weapon, can't use this item!"
         }
         std::cout << "You use the " << helpItem->getName() << ". It gives you +" << helpItem->getAssistance() << " " << helpItem->getType() << ".\n";
         character->inventory.removeItem(item);
