@@ -6,7 +6,7 @@ _Developed by:_ [Sydney Hilton](https://github.com/Sydnyepie), [Youssef Adam](ht
  > **_Maneuver your way through the chaos of al-Dæra, an Egyptian space station left in disarray after an unidentified organism breaches containment._**
 
 The developers all share the desire to develop a compelling and immersive narrative where _you_ choose your story.  
-The player will interact with several non-playable characters (NPCs)—including the AI that controls the station—through various dialogue options.
+The player can interact with a variety of aspects—including the assistant that helps them navigate the station—through various input options.
 This project provides a science-fiction horror experience in the form of a text-based roleplaying video game.  
 It is being developed via the language C++.
 
