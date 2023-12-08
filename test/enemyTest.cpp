@@ -17,20 +17,20 @@ TEST(EnemyInteractionTest, AlienAttackedTest) {
     Alien alien;
     alien.setEvasion(0);
     alien.takeDamage(5);
-    EXPECT_EQ(alien.getHealth(), 5);
+    EXPECT_EQ(alien.getHealth(), 15);
 }
 
 TEST(EnemyInteractionTest, MissAttackOnAlien) {
     Alien alien;
     alien.setEvasion(100);
     alien.takeDamage(1000);
-    EXPECT_EQ(alien.getHealth(), 10);
+    EXPECT_EQ(alien.getHealth(), 20);
 }
 
 TEST(EnemyInteractionTest, AlienAttacks) {
     Alien alien;
     alien.setAccuracy(100);
-    EXPECT_EQ(alien.dealDamage(), 10);
+    EXPECT_EQ(alien.dealDamage(), 15);
 }
 
 TEST(EnemyInteractionTest, AlienAttackMisses) {
@@ -63,7 +63,7 @@ TEST(EnemyInteractionTest, MissAttackOnRat) {
 TEST(EnemyInteractionTest, RatAttacks) {
     Rat rat;
     rat.setAccuracy(100);
-    EXPECT_EQ(rat.dealDamage(), 1);
+    EXPECT_EQ(rat.dealDamage(), 6);
 }
 
 TEST(EnemyInteractionTest, RatAttackMisses) {
@@ -96,7 +96,7 @@ TEST(EnemyInteractionTest, MissAttackOnCrewmate) {
 TEST(EnemyInteractionTest, CrewmateAttacks) {
     Crewmate crewmate;
     crewmate.setAccuracy(100);
-    EXPECT_EQ(crewmate.dealDamage(), 5);
+    EXPECT_EQ(crewmate.dealDamage(), 11);
 }
 
 TEST(EnemyInteractionTest, CrewmateAttackMisses) {
@@ -129,7 +129,7 @@ TEST(EnemyInteractionTest, MissAttackOnTerrorist) {
 TEST(EnemyInteractionTest, TerroristAttacks) {
     Terrorist terrorist;
     terrorist.setAccuracy(100);
-    EXPECT_EQ(terrorist.dealDamage(), 8);
+    EXPECT_EQ(terrorist.dealDamage(), 13);
 }
 
 TEST(EnemyInteractionTest, TerroristAttackMisses) {

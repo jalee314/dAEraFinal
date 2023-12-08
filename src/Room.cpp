@@ -1,15 +1,9 @@
 #include "../header/Room.h"
 
-Room::Room(const std::string& name, const std::string& description) : Environment(description) {
-    roomName = name;
-}
-
-const std::string& Room::getRoomName() const {
-    return roomName;
-}
-
-void Room::printRoomName() {
-    std::cout << roomName << '\n';
+Room::Room(const std::string& description, const std::string& name, Item* item, EnemyStatus* enemy, Page* page) : Environment(description, name) {
+    itemPointer = item;
+    enemyPointer = enemy;
+    pagePointer = page;
 }
 
 void Room::setItemInRoom(Item* item) {

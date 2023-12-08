@@ -24,6 +24,6 @@ bool Map::canMove(int from, int to) const {
     return adjacencyMatrix[from][to] != 0;
 }
 
-const Environment* Map::getRoom(int index) const {
+Environment* Map::getRoom(int index) {
    return rooms[index];
 }

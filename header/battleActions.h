@@ -10,5 +10,5 @@ class battleActions{ //friend to playerCharacter class
     public:
         virtual const int attack(EnemyStatus* attackedEnemy, PlayerCharacter* attacker);
         virtual void defend(PlayerCharacter* character, int damage);
-        virtual void useItem(HelpItem* item, PlayerCharacter* character);
+        virtual void useItem(Item* item, PlayerCharacter* character);
 };

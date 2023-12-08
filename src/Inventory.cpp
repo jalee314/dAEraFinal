@@ -5,10 +5,10 @@
 void InventoryManagement::addItem(Item* item) {
     if(backpack.size() < carryCap) {
         backpack.push_back(item);
-        std::cout << item->getName() << " has been added to your inventory.\n";
+        std::cout << item->getName() << " has been added to your inventory.\n\n";
     }
     else {
-        std::cout << "Your backpack is full. Throw something out and try again.\n";
+        std::cout << "Your backpack is full. Throw something out and try again.\n\n";
     }
 }
 
@@ -19,14 +19,14 @@ void InventoryManagement::removeItem(Item* itemRemove) {
         return itemRemove->getName() == itemToRemove->getName();
     });
     if(item !=backpack.end()) {
-        std::cout << (*item)->getName() << " has been removed from the inventory.\n";
+        std::cout << (*item)->getName() << " has been removed from the inventory.\n\n";
         backpack.erase(item);
         
     }
-    else std::cout << itemRemove->getName() << " was not found in the inventory.\n";
+    else std::cout << itemRemove->getName() << " was not found in the inventory.\n\n";
 }
 
-bool InventoryManagement::hasItem(const std::string& itemToFInd) {
+bool InventoryManagement::hasItem(const std::string& itemToFind) {
     std::vector<Item*>::iterator item;
     item = std::find_if(backpack.begin(), backpack.end(), 
     [&itemToFind](const Item* usedItem) {
@@ -35,11 +35,11 @@ bool InventoryManagement::hasItem(const std::string& itemToFInd) {
     return item != backpack.end();
 }
 
-bool InventoryManagement::getItem(const std::string& item) {
+Item* InventoryManagement::getItem(std::string& itemGet) {
     std::vector<Item*>::iterator item;
     item = std::find_if(backpack.begin(), backpack.end(), 
-    [&item](const Item* itemFind) {
-        return item == itemFind->getName();
+    [&itemGet](const Item* itemFind) {
+        return itemGet == itemFind->getName();
     });
     
     if(item != backpack.end()) {
@@ -60,9 +60,9 @@ void InventoryDisplay::displayInventory() {
                 std::cout << ", ";
             }
         }
-        std::cout << "\n";
+        std::cout << "\n\n";
     }
-    else std::cout << "Nothing here...\n";
+    else std::cout << "Nothing here...\n\n";
 }
 
 std::size_t InventoryDisplay::getNumItems() {

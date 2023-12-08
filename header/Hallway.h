@@ -5,7 +5,7 @@
 
 class Hallway : public Environment {
 public:
-   Hallway(const std::string& description);
+   Hallway(const std::string& name);
    virtual ~Hallway();
 };
 
