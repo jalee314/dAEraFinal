@@ -13,12 +13,10 @@ It is being developed via the language C++.
 | Input                                                                        | Output                                                                                      |
 | :--------------------------------------------------------------------------: |    :-----------------------------------------------------------------------------------:    |
 | Player chooses character class                                               | Player receives information regarding chosen class                                          |
-| Player saves game to preserve progress                                       | Player receives text file containing save info                                              |
-| Player loads save file from local files                                      | Player is loaded back to where they saved from                                              |
 | Player makes choice based on options given                                   | Terminal outputs pre-determined text for the given choice                                   |
-| Player inputs text to battle enemies                                         | Terminal prints either a victory or defeat screen depending on the situation                |
+| Player encounters enemies and engages in combat                              | Terminal prints either a victory or defeat screen depending on the situation                |
 | Player chooses to drop item from inventory                                   | Item is removed from player inventory and the result is outputted in the terminal           |
-| Player interacts with **Basar** to receive instructions through the terminal | **Basar** returns a message in the terminal                                                 |
+| Player interacts with **Basar** to receive messages through the terminal     | **Basar** returns a message in the terminal                                                 |
 | Player equips items found during the game                                    | Player stats are changed and shown to the player in the terminal                            |
 | Player looks inside journal item                                             | Terminal outputs hints on what needs to be done next, and expands on the lore of the story  |
 
@@ -405,20 +403,18 @@ Terrorist--|>Enemy
 Crewmate--|>Enemy
 Alien--|>Enemy
 
-class IAssistive {
-    +getAssistance()int
-}
-<<interface>> IAssistive
-
 class Item {
     #name : string
     +useItem()int
     +printItem()void
+    +getValue()int
+    +getType()string
 }
 
 <<abstract>> Item
 
 class HelpItem {
+    -type : string
     -assistance : int
 }
 
@@ -431,7 +427,6 @@ PlayerCharacter--|>Entity
 Enemy--|>Entity
 
 HelpItem--|>Item
-HelpItem--|>IAssistive
 Weapon--|>Item
 ```
 
@@ -500,7 +495,11 @@ To anticipate more types of rooms being added as we develop our story, I decided
  ## Screenshots
  > Screenshots of the input/output after running your application
  ## Installation/Usage
-In order to install this application, you must download all of the files located in the github repository. Once the files are downloaded, you can run the application by running the main.cpp file in a terminal.
+Steps to run dÆRA
+- Clone the online repository onto your local machine.
+- First, type ```$cmake .``` into your terminal.
+- Next, type ```$make``` into your terminal.
+- Finally, type ```$./dAEra``` into your terminal.
+- Enjoy your gaming experience!  
  ## Testing
-The majority of our project was tested utilizing the gtest feature given as a part of the googletest submodule. However, while testing the communication between multiple classes, we added the additional validation of communicating with the creator(s) of the opposite classes to fully understand how to integrate the two classes into a coherent and working interface.
- 
+All modules of our project were unit tested using google's Googletest submodules. In approaching this project, our group opted for a top-down testing approach, creating our large modules first and developing stubs for our smaller modules, and slowly worked our way down and ensured that our stubs and low level modules gave the same result in our unit tests. After finishing a lower module, we immediately integrated the related classes together and ensured that our test results were the same between stub and actual implemenation.
