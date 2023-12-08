@@ -21,4 +21,4 @@ ADD_EXECUTABLE(dAEra
     src/playerCharacter.cpp    
 )
 
-TARGET_COMPILE_OPTIONS(dAEra PRIVATE -O0) 
+TARGET_COMPILE_OPTIONS(dAEra PRIVATE -O0 -std=c++11) 
