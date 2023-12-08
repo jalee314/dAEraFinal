@@ -500,7 +500,7 @@ To anticipate more types of rooms being added as we develop our story, I decided
  ## Screenshots
  > Screenshots of the input/output after running your application
  ## Installation/Usage
- > In order to install this application, you must download all of the files located in the github repository. Once the files are downloaded, you can run the application by running the main.cpp file in a terminal.
+In order to install this application, you must download all of the files located in the github repository. Once the files are downloaded, you can run the application by running the main.cpp file in a terminal.
  ## Testing
- > The majority of our project was tested utilizing the gtest feature given as a part of the googletest submodule. However, while testing the communication between multiple classes, we added the additional validation of communicating with the creator(s) of the opposite classes to fully understand how to integrate the two classes into a coherent and working interface.
+The majority of our project was tested utilizing the gtest feature given as a part of the googletest submodule. However, while testing the communication between multiple classes, we added the additional validation of communicating with the creator(s) of the opposite classes to fully understand how to integrate the two classes into a coherent and working interface.
  
