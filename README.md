@@ -50,7 +50,7 @@ graph TD
     n7-->n3
     n8-- Back to Main Menu -->n1
 ```
-Our navigation diagram shows all the options the players have once in the game. All users will start at the home screen, from which they will have the option to load up a save file or start a new game. At that point, the user will have options to open an inventory menu or open a menu to interact with Basar. The user will also randomly encounter enemies, from which they can either win or lose the battle.
+Our navigation diagram shows all the options the players have once in the game. All users will start at the main menu, from which they will have the option to start a new game or exit. At that point, the user will have options to open an inventory menu or open a menu to interact with Basar. The user will also randomly encounter enemies, from which they can either win or lose the battle.
 
 ### Screen Layouts
 ![Picture of Screen Layouts](https://github.com/cs100/final-project-jlee1667-yadam003-shilt003-mmira069/blob/master/img/Screen_Layout.png) <br/>
