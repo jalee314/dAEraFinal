@@ -18,7 +18,7 @@ TEST(ItemsTestSuite, printHelpItem) {
     std::stringstream buffer;
     std::cout.rdbuf(buffer.rdbuf()); 
     vitamins.printItem();
-    EXPECT_EQ("Item: Vitamins, Assistance: 10\n", buffer.str());
+    EXPECT_EQ("Item: Vitamins\n Assistance Type: health\n Assistance Value: 10\n", buffer.str());
 }
 
 TEST(ItemsTestSuite, printWeapon) {
