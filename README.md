@@ -564,7 +564,7 @@ To anticipate more types of rooms being added as we develop our story, I decided
  > ## Final deliverable
  
  ## Screenshots
- <i>Numbers correlate to row number on the table on top of the readme file.<i></br></br>
+ <i>Numbers correlate to row number on the table on top of the readme file.</i></br></br>
  Input 1: </br>
  ![Picture of Input 1](https://github.com/cs100/final-project-jlee1667-yadam003-shilt003-mmira069/blob/master/img/input1.png) </br>
  Output 1: </br>
